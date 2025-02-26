@@ -3,6 +3,7 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
 import './Main.css'
+import { parseTextToSlides } from './utils/textParser'
 
 type EditorProps = {
   value: string
@@ -26,12 +27,20 @@ function Editor({ value, onChange }: EditorProps) {
 }
 
 function SlidesPreview({ content }: SlidesPreviewProps) {
+  const slides = parseTextToSlides(content)
+
   return (
     <div className="previewContainer">
-      <div className="slidesList">
-        {['new', 'wave', 'neon'].map((theme) => (
-          <Slide content={content} theme={theme} />
-        ))}
+      <div className="slidesRow">
+        {slides.map((slide: any) => {
+          return (
+            <div className="slidesVariants">
+              {['new', 'wave', 'neon'].map((theme) => (
+                <Slide content={slide} theme={theme} />
+              ))}
+            </div>
+          )
+        })}
       </div>
     </div>
   )

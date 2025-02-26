@@ -18,13 +18,24 @@
   background-color: #f4f4f4;
 }
 
-.slidesList {
+.slidesRow {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 24px;
+  gap: 12px;
+}
+
+.slidesVariants {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  padding: 24px 0;
   gap: 20px;
-  padding: 24px;
+}
+
+.slidesVariants:last-child {
+  padding-right: 24px;
 }
 
 .slide {

@@ -1,9 +1,10 @@
-function extractH1Section(doc: Document): string | null {
-  const h1 = doc.querySelector('h1')
-  if (!h1) return null
+function extractH1Section(doc: Document): any | null {
+  const titleElement = doc.querySelector('h1')
+  const subtitleElement = doc.querySelector('h3')
+  if (!titleElement) return null
 
   let content = ''
-  let node: ChildNode | null = h1
+  let node: ChildNode | null = titleElement
 
   while (node && node.nodeName !== 'H2') {
     if (node.nodeType === Node.ELEMENT_NODE) {
@@ -14,16 +15,25 @@ function extractH1Section(doc: Document): string | null {
     node = node.nextSibling
   }
 
-  return content.trim()
+  return {
+    type: 'title',
+    title: titleElement.textContent || '',
+    subtitle: subtitleElement?.textContent || '',
+    raw: content.trim(),
+  }
 }
 
-function extractH2Sections(doc: Document): string[] {
+function extractH2Sections(doc: Document): any[] {
   const h2Elements = Array.from(doc.querySelectorAll('h2'))
-  const slides: string[] = []
+  const slides: any[] = []
 
   h2Elements.forEach((h2, index) => {
     let content = h2.outerHTML
     let node: ChildNode | null = h2.nextSibling
+
+    const paragraphs = []
+    const lists = []
+    const images = []
 
     while (
       node &&
@@ -35,10 +45,19 @@ function extractH2Sections(doc: Document): string[] {
       } else {
         content += node.textContent || ''
       }
+      if (node.nodeName === 'P') paragraphs.push(node)
+      if (node.nodeName === 'UL') lists.push(node)
+      if (node.nodeName === 'IMG') images.push(node)
       node = node.nextSibling
     }
 
-    slides.push(content.trim())
+    slides.push({
+      title: h2.textContent || '',
+      paragraphs,
+      lists,
+      images,
+      raw: content.trim(),
+    })
   })
 
   return slides

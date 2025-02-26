@@ -36,7 +36,7 @@ function SlidesPreview({ content }: SlidesPreviewProps) {
           return (
             <div className="slidesVariants">
               {['new', 'wave', 'neon'].map((theme) => (
-                <Slide content={slide} theme={theme} />
+                <Slide content={slide.raw} theme={theme} />
               ))}
             </div>
           )

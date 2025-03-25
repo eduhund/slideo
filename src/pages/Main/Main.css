@@ -5,15 +5,32 @@
 .container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
   height: 100%;
-  box-sizing: border-box;
-  padding: 20px;
   overflow: hidden;
 }
 
+.quill {
+  height: 100%;
+  overflow: hidden;
+}
+
+.ql-toolbar {
+  position: sticky;
+  x: 0;
+}
+
 .ql-container {
-  height: auto;
+  overflow: auto;
+  padding-bottom: 48px;
+}
+
+.ql-toolbar.ql-snow {
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.ql-container.ql-snow {
+  border: none;
 }
 
 .previewContainer {

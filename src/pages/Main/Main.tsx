@@ -4,7 +4,6 @@ import 'react-quill/dist/quill.snow.css'
 
 import './Main.css'
 import { parseTextToSlides } from './utils/textParser'
-import SlidesVariants from '../../slides'
 import SlidesPreview from '../../components/SlidesPreview/SlidesPreview'
 
 type EditorProps = {

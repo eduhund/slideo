@@ -1,22 +1,30 @@
+import { useState } from 'react'
 import SlidesVariants from '../../slides'
 
 import './SlidesPreview.css'
 
+function SlideVariants({ slide }: any) {
+  const [selectedVariant, setSelectedVariant] = useState<number | null>(null)
+  const matchVariants = SlidesVariants[0]
+  return (
+    <div className="slidesVariants">
+      {[1, 1, 1, 1, 1].map((item, i) => (
+        <matchVariants.component
+          content={slide}
+          isSelected={selectedVariant === i}
+          onClick={() => setSelectedVariant(i)}
+        />
+      ))}
+    </div>
+  )
+}
+
 export default function SlidesPreview({ slides }: any) {
   return (
     <div className="previewContainer">
-      {slides.map((slide: any) => {
-        const matchVariants = SlidesVariants[0]
-        return (
-          <div className="slidesVariants">
-            <matchVariants.component content={slide} />
-            <matchVariants.component content={slide} />
-            <matchVariants.component content={slide} />
-            <matchVariants.component content={slide} />
-            <matchVariants.component content={slide} />
-          </div>
-        )
-      })}
+      {slides.map((slide: any) => (
+        <SlideVariants slide={slide} />
+      ))}
     </div>
   )
 }

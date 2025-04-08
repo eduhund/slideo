@@ -1,8 +1,8 @@
 import Slide from '../../components/Slide/Slide'
 
-function TitleV1({ content }: any) {
+function TitleV1({ content, isSelected, onClick }: any) {
   return (
-    <Slide>
+    <Slide isSelected={isSelected} onClick={onClick}>
       <div dangerouslySetInnerHTML={{ __html: content.raw }} />
     </Slide>
   )

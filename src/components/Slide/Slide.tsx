@@ -1,13 +1,10 @@
-import { ReactNode, useState } from 'react'
-
 import './Slide.css'
 
-export default function Slide({ children }: { children: ReactNode }) {
-  const [selected, setSelected] = useState(false)
+export default function Slide({ children, isSelected, onClick }: any) {
   return (
     <section
-      className={`slide` + (selected ? ' _selected' : '')}
-      onClick={() => setSelected(!selected)}
+      className={`slide` + (isSelected ? ' _selected' : '')}
+      onClick={onClick}
     >
       {children}
     </section>

@@ -1,5 +1,5 @@
 function TitleV1({ content }: any) {
-  return <div>{content.title}</div>
+  return <section className={`slide`}>{content.title}</section>
 }
 
 export default {

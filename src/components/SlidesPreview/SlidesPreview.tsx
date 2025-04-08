@@ -12,7 +12,7 @@ function SlideVariants({ slide }: any) {
         <matchVariants.component
           content={slide}
           isSelected={selectedVariant === i}
-          onClick={() => setSelectedVariant(i)}
+          onClick={() => setSelectedVariant(i !== selectedVariant ? i : null)}
         />
       ))}
     </div>

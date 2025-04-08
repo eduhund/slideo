@@ -1,8 +1,10 @@
+import Slide from '../../components/Slide/Slide'
+
 function TitleV1({ content }: any) {
   return (
-    <section className={`slide`}>
+    <Slide>
       <div dangerouslySetInnerHTML={{ __html: content.raw }} />
-    </section>
+    </Slide>
   )
 }
 

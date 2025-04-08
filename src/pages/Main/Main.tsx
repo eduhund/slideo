@@ -11,12 +11,6 @@ type EditorProps = {
   onChange: (value: string) => void
 }
 
-/*
-function HtmlRenderer({ html }: { html: string }) {
-  return <div dangerouslySetInnerHTML={{ __html: html }} />
-}
-*/
-
 function Editor({ value, onChange }: EditorProps) {
   const quillRef = useRef<ReactQuill>(null)
 

@@ -1,5 +1,9 @@
 function TitleV1({ content }: any) {
-  return <section className={`slide`}>{content.title}</section>
+  return (
+    <section className={`slide`}>
+      <div dangerouslySetInnerHTML={{ __html: content.raw }} />
+    </section>
+  )
 }
 
 export default {

@@ -2,6 +2,7 @@
   height: 100%;
   overflow-x: auto;
   overflow-y: hidden;
+  scroll-snap-type: x mandatory;
   background-color: #f4f4f4;
 
   display: flex;
@@ -19,13 +20,13 @@
 
   padding: 24px 0;
 
+  scroll-snap-align: start;
+
   overflow-y: auto;
   overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-margin: 16px;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
-}
-
-.slidesVariants:last-child {
-  padding-right: 24px;
 }
 
 .slide {
@@ -35,6 +36,8 @@
   padding: 12px 16px;
   border-radius: 12px;
   overflow: hidden;
+  scroll-snap-align: start;
+  scroll-margin: 20px;
 
   font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
   font-size: 12px;

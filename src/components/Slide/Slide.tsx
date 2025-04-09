@@ -1,9 +1,14 @@
 import './Slide.css'
 
-export default function Slide({ children, isSelected, onClick }: any) {
+export default function Slide({
+  children,
+  className,
+  isSelected,
+  onClick,
+}: any) {
   return (
     <section
-      className={`slide` + (isSelected ? ' _selected' : '')}
+      className={`slide ` + className + (isSelected ? ' _selected' : '')}
       onClick={onClick}
     >
       {children}

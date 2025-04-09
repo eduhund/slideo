@@ -4,7 +4,7 @@ import './PlanV1.css'
 
 function PlanV1({ content, isSelected, onClick }: any) {
   return (
-    <Slide className={'title_1'} isSelected={isSelected} onClick={onClick}>
+    <Slide className={'plan_1'} isSelected={isSelected} onClick={onClick}>
       <div dangerouslySetInnerHTML={{ __html: content.raw }} />
     </Slide>
   )

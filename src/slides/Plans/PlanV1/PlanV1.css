@@ -1,0 +1,12 @@
+.plan_1 ul,
+.plan_1 ol {
+  display: flex;
+  justify-content: space-around;
+  gap: 12px;
+  flex-wrap: nowrap;
+  list-style: none;
+}
+
+.plan_1 li {
+  max-width: 24%;
+}

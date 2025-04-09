@@ -11,10 +11,11 @@
 }
 
 .title_1 p {
+  text-align: center;
   font-size: 1.2em;
   line-height: 1.6;
   color: #666;
-  max-width: 80%;
+  max-width: 100%;
 }
 
 .title_1 img:first-child {

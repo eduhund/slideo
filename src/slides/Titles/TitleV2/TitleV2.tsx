@@ -4,7 +4,7 @@ import './TitleV2.css'
 
 function TitleV2({ content, isSelected, onClick }: any) {
   return (
-    <Slide className={'title_1'} isSelected={isSelected} onClick={onClick}>
+    <Slide className={'title_2'} isSelected={isSelected} onClick={onClick}>
       <div dangerouslySetInnerHTML={{ __html: content.raw }} />
     </Slide>
   )

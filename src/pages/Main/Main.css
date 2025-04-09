@@ -18,6 +18,7 @@
 .ql-toolbar {
   position: sticky;
   x: 0;
+  z-index: 100;
 }
 
 .ql-container {

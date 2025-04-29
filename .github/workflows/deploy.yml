@@ -30,5 +30,6 @@ jobs:
           host: ${{ secrets.HOSTING }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: "dist/**"
+          source: "./dist/*"
           target: ${{ secrets.TARGET_DIR }}
+          strip_components: 1

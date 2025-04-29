@@ -16,12 +16,14 @@ type EditorProps = {
 function Editor({ value, onChange }: EditorProps) {
   const quillRef = useRef<ReactQuill>(null)
 
+  /*
   useEffect(() => {
     const quill = quillRef.current?.getEditor()
     if (!quill) return
 
     quill.formatLine(0, 1, 'header', 1)
   }, [])
+  */
 
   const handleTextChange = (value: any) => {
     onChange(value)

@@ -89,6 +89,7 @@ function Editor({ value, onChange }: EditorProps) {
       quill.format('strike', !quill.getFormat().strike);
     });
   }, [])
+  /*
   const handleTextChange = (value: any) => {
     onChange(value)
 
@@ -96,9 +97,11 @@ function Editor({ value, onChange }: EditorProps) {
     if (!quill) return
 
     const text = quill.getText()
-    const lines = text.split('\n')
+    const lines = quill.getLines()
     let offset = 0
     let emptyLines = 0
+    console.log(text)
+    console.log(lines)
 
     lines.forEach((line, index) => {
       if (index === 0) {
@@ -115,13 +118,14 @@ function Editor({ value, onChange }: EditorProps) {
       offset += line.length + 1
     })
   }
+  */
   return (
     <div><CustomToolbar />
       <ReactQuill
         ref={quillRef}
       theme="snow"
       value={value}
-      onChange={handleTextChange}
+      onChange={onChange}
       modules={{
         toolbar: {
           container: "#toolbar",

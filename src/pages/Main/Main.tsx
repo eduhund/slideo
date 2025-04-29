@@ -56,7 +56,7 @@ function Editor({ value, onChange }: EditorProps) {
       ref={quillRef}
       theme="snow"
       value={value}
-      onChange={handleTextChange}
+      onChange={onChange}
     />
   )
 }

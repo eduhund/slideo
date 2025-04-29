@@ -6,6 +6,8 @@ import './Main.css'
 import { parseTextToSlides } from './utils/textParser'
 import SlidesPreview from '../../components/SlidesPreview/SlidesPreview'
 
+const STORAGE_KEY = 'quill-editor-content'
+
 type EditorProps = {
   value: string
   onChange: (value: string) => void
@@ -60,9 +62,16 @@ function Editor({ value, onChange }: EditorProps) {
 }
 
 export default function Main() {
-  const [value, setValue] = useState('')
+  const [value, setValue] = useState(() => {
+    const savedContent = localStorage.getItem(STORAGE_KEY)
+    return savedContent || ''
+  })
 
   const slides = parseTextToSlides(value)
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, value)
+  }, [value])
 
   return (
     <main id="home">

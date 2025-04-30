@@ -74,8 +74,6 @@ function extractH2Sections(doc: Document): any[] {
     })
   })
 
-  console.log(slides)
-
   return slides
 }
 

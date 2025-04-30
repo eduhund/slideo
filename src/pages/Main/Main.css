@@ -9,6 +9,11 @@
   overflow: hidden;
 }
 
+.container > div {
+  height: 100%;
+  overflow: hidden;
+}
+
 .quill {
   height: 100%;
   overflow: hidden;

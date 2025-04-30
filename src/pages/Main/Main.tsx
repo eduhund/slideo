@@ -120,7 +120,8 @@ function Editor({ value, onChange }: EditorProps) {
   }
   */
   return (
-    <div><CustomToolbar />
+    <div>
+      <CustomToolbar />
       <ReactQuill
         ref={quillRef}
       theme="snow"

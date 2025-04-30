@@ -9,7 +9,7 @@
   overflow: hidden;
 }
 
-.container > div {
+.container > div:first-child {
   height: 100%;
   overflow: hidden;
 }

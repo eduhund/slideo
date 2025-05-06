@@ -53,8 +53,6 @@ function extractHeaderSections(doc: Document): any[] {
     })
   })
 
-  console.log(slides)
-
   return slides
 }
 

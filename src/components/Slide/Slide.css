@@ -19,6 +19,14 @@
   flex-shrink: 0;
 }
 
+.slide::after {
+  content: attr(data-title);
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  opacity: 0.2;
+}
+
 .slide:hover {
   cursor: pointer;
 }

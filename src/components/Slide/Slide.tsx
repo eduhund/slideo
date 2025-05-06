@@ -5,11 +5,13 @@ export default function Slide({
   className,
   isSelected,
   onClick,
+  ...props
 }: any) {
   return (
     <section
       className={`slide ` + className + (isSelected ? ' _selected' : '')}
       onClick={onClick}
+      {...props}
     >
       {children}
     </section>

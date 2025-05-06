@@ -1,17 +1,11 @@
 import { useState } from 'react'
 
 import './SlidesPreview.css'
-import Default, { contents, titles } from '../../slides'
+import * as slides from '../../slides'
 
 function SlideVariants({ slide }: any) {
   const [selectedVariant, setSelectedVariant] = useState<number | null>(null)
-  const matchVariants = []
-  if (slide.raw.includes('<h1>')) {
-    matchVariants.push(...titles)
-  } else {
-    matchVariants.push(...contents)
-  }
-  matchVariants.push(Default)
+  const matchVariants = Object.values(slides)
   return (
     <div className="slidesVariants">
       {matchVariants.map((variant, i) => (

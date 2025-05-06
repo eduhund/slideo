@@ -1,7 +1,6 @@
-import Default from './Default/Default'
-import plansTemplates from './Plans'
-import titlesTemplates from './Titles'
+//import Default from './Default/Default'
+//import plansTemplates from './Plans'
+export * from './Titles'
 
-export const titles = titlesTemplates
-export const contents = [...plansTemplates]
-export default Default
+//export const contents = [...plansTemplates]
+//export default Default

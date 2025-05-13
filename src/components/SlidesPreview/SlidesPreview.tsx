@@ -32,6 +32,7 @@ function SlideVariants({ slide }: any) {
     <div className="slidesVariants">
       {matchVariants.map((variant: any, i: number) => (
         <variant.component
+          key={i}
           content={slide}
           isSelected={selectedVariant === i || matchVariants.length === 1}
           onClick={() => setSelectedVariant(i !== selectedVariant ? i : null)}
@@ -44,8 +45,8 @@ function SlideVariants({ slide }: any) {
 export default function SlidesPreview({ slides }: any) {
   return (
     <div className="previewContainer">
-      {slides.map((slide: any) => (
-        <SlideVariants slide={slide} />
+      {slides.map((slide: any, i: number) => (
+        <SlideVariants key={i} slide={slide} />
       ))}
     </div>
   )

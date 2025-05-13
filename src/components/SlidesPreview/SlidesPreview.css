@@ -12,6 +12,16 @@
   gap: 16px;
 }
 
+.previewContainer._empty {
+  align-items: center;
+}
+
+.previewContainer._empty span {
+  font-size: 18px;
+  line-height: 24px;
+  opacity: 0.6;
+}
+
 .slidesVariants {
   display: flex;
   flex-direction: column;

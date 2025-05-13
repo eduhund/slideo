@@ -43,11 +43,20 @@ function SlideVariants({ slide }: any) {
 }
 
 export default function SlidesPreview({ slides }: any) {
+  const slidesQt = slides.length
   return (
-    <div className="previewContainer">
-      {slides.map((slide: any, i: number) => (
-        <SlideVariants key={i} slide={slide} />
-      ))}
+    <div className={`previewContainer${slidesQt ? '' : ' _empty'}`}>
+      {slidesQt ? (
+        slides.map((slide: any, i: number) => (
+          <SlideVariants key={i} slide={slide} />
+        ))
+      ) : (
+        <span>
+          We can't find any slides in the content.
+          <br></br>
+          Please, use headers or double linebreak to structure the text.
+        </span>
+      )}
     </div>
   )
 }

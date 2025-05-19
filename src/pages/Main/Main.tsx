@@ -5,6 +5,8 @@ import 'react-quill/dist/quill.snow.css'
 import './Main.css'
 import { parseTextToSlides } from './utils/textParser'
 import SlidesPreview from '../../components/SlidesPreview/SlidesPreview'
+import Editor from '../../components/Editor/Editor'
+import { Op } from 'quill'
 
 const STORAGE_KEY = 'quill-editor-content'
 
@@ -13,51 +15,7 @@ type EditorProps = {
   onChange: (value: string) => void
 }
 
-const CustomToolbar = ({ hasMainTitle = true }) => (
-  <div id="toolbar">
-    <span className="ql-formats">
-      <select
-        className="ql-header"
-        defaultValue={''}
-        onChange={(e) => e.persist()}
-      >
-        {!hasMainTitle && <option value="1">Main Title</option>}
-        <option value="2">Slide Title</option>
-        <option value="3">Text Title</option>
-        <option value="">Normal text</option>
-      </select>
-    </span>
-
-    <span className="ql-formats">
-      <button className="ql-bold" />
-      <button className="ql-italic" />
-      <button className="ql-underline" />
-      <button className="ql-strike" />
-    </span>
-
-    <span className="ql-formats">
-      <button className="ql-list" value="ordered" />
-      <button className="ql-list" value="bullet" />
-    </span>
-
-    <span className="ql-formats">
-      <select className="ql-color" />
-      <select className="ql-background" />
-    </span>
-
-    <span className="ql-formats">
-      <button className="ql-link" />
-      <button className="ql-image" />
-      <button className="ql-video" />
-    </span>
-
-    <span className="ql-formats">
-      <button className="ql-clean" />
-    </span>
-  </div>
-)
-
-function Editor({ value, onChange }: EditorProps) {
+function Editor2({ value, onChange }: EditorProps) {
   const quillRef = useRef<ReactQuill>(null)
 
   useEffect(() => {
@@ -144,10 +102,8 @@ function Editor({ value, onChange }: EditorProps) {
     })
   }
   */
-  console.log(value.includes('<h1>'))
   return (
     <div>
-      <CustomToolbar hasMainTitle={value.includes('<h1>')} />
       <ReactQuill
         ref={quillRef}
         theme="snow"
@@ -179,22 +135,22 @@ function Editor({ value, onChange }: EditorProps) {
 }
 
 export default function Main() {
-  const [value, setValue] = useState(() => {
-    const savedContent = localStorage.getItem(STORAGE_KEY)
-    return savedContent || ''
+  const [value, setValue] = useState<Op[]>(() => {
+    const savedContent = localStorage.getItem(STORAGE_KEY) || '{}'
+    return JSON.parse(savedContent) as Op[]
   })
 
-  const slides = parseTextToSlides(value)
+  //const slides = parseTextToSlides(value)
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, value)
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
   }, [value])
 
   return (
     <main id="home">
       <div className="container">
         <Editor value={value} onChange={setValue} />
-        <SlidesPreview slides={slides} />
+        <SlidesPreview slides={[]} />
       </div>
     </main>
   )

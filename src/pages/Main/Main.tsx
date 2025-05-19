@@ -13,11 +13,15 @@ type EditorProps = {
   onChange: (value: string) => void
 }
 
-const CustomToolbar = () => (
+const CustomToolbar = ({ hasMainTitle = true }) => (
   <div id="toolbar">
-      <span className="ql-formats">
-        <select className="ql-header" defaultValue={''} onChange={(e) => e.persist()}>
-        <option value="1">Main Title</option>
+    <span className="ql-formats">
+      <select
+        className="ql-header"
+        defaultValue={''}
+        onChange={(e) => e.persist()}
+      >
+        {!hasMainTitle && <option value="1">Main Title</option>}
         <option value="2">Slide Title</option>
         <option value="3">Text Title</option>
         <option value="">Normal text</option>
@@ -51,43 +55,64 @@ const CustomToolbar = () => (
       <button className="ql-clean" />
     </span>
   </div>
-);
+)
 
 function Editor({ value, onChange }: EditorProps) {
   const quillRef = useRef<ReactQuill>(null)
 
   useEffect(() => {
-    if (!quillRef.current) return;
+    if (!quillRef.current) return
 
-    const quill = quillRef.current.getEditor();
+    const quill = quillRef.current.getEditor()
 
-    quill.keyboard.addBinding({ key: '1', shortKey: true, altKey: true }, () => {
-      quill.format('header', 1);
-    });
+    quill.keyboard.addBinding(
+      { key: '1', shortKey: true, altKey: true },
+      () => {
+        quill.format('header', 1)
+      }
+    )
 
-    quill.keyboard.addBinding({ key: '2', shortKey: true, altKey: true }, () => {
-      quill.format('header', 2);
-    });
+    quill.keyboard.addBinding(
+      { key: '2', shortKey: true, altKey: true },
+      () => {
+        quill.format('header', 2)
+      }
+    )
 
-    quill.keyboard.addBinding({ key: '3', shortKey: true, altKey: true }, () => {
-      quill.format('header', 3);
-    });
+    quill.keyboard.addBinding(
+      { key: '3', shortKey: true, altKey: true },
+      () => {
+        quill.format('header', 3)
+      }
+    )
 
-    quill.keyboard.addBinding({ key: '0', shortKey: true, altKey: true }, () => {
-      quill.format('header', 0);
-    });
+    quill.keyboard.addBinding(
+      { key: '0', shortKey: true, altKey: true },
+      () => {
+        quill.format('header', 0)
+      }
+    )
 
-    quill.keyboard.addBinding({ key: '7', shortKey: true, shiftKey: true }, () => {
-      quill.format('list', 'ordered');
-    });
+    quill.keyboard.addBinding(
+      { key: '7', shortKey: true, shiftKey: true },
+      () => {
+        quill.format('list', 'ordered')
+      }
+    )
 
-    quill.keyboard.addBinding({ key: '8', shortKey: true, shiftKey: true }, () => {
-      quill.format('list', 'bullet');
-    });
+    quill.keyboard.addBinding(
+      { key: '8', shortKey: true, shiftKey: true },
+      () => {
+        quill.format('list', 'bullet')
+      }
+    )
 
-    quill.keyboard.addBinding({ key: 'X', shortKey: true, shiftKey: true }, () => {
-      quill.format('strike', !quill.getFormat().strike);
-    });
+    quill.keyboard.addBinding(
+      { key: 'X', shortKey: true, shiftKey: true },
+      () => {
+        quill.format('strike', !quill.getFormat().strike)
+      }
+    )
   }, [])
   /*
   const handleTextChange = (value: any) => {
@@ -119,29 +144,37 @@ function Editor({ value, onChange }: EditorProps) {
     })
   }
   */
+  console.log(value.includes('<h1>'))
   return (
     <div>
-      <CustomToolbar />
+      <CustomToolbar hasMainTitle={value.includes('<h1>')} />
       <ReactQuill
         ref={quillRef}
-      theme="snow"
-      value={value}
-      onChange={onChange}
-      modules={{
-        toolbar: {
-          container: "#toolbar",
-        },
-      }}
-      formats={[
-        'header',
-        'bold', 'italic', 'underline', 'strike',
-        'list', 'bullet',
-        'color', 'background',
-        'link', 'image', 'video',
-        'clean',
-      ]}
-    /></div>
-      
+        theme="snow"
+        value={value}
+        onChange={onChange}
+        modules={{
+          toolbar: {
+            container: '#toolbar',
+          },
+        }}
+        formats={[
+          'header',
+          'bold',
+          'italic',
+          'underline',
+          'strike',
+          'list',
+          'bullet',
+          'color',
+          'background',
+          'link',
+          'image',
+          'video',
+          'clean',
+        ]}
+      />
+    </div>
   )
 }
 

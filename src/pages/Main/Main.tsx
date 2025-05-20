@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
+//@ts-ignore
 import QuillMarkdown from 'quill-markdown-shortcuts'
 
 import './Main.css'

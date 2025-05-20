@@ -69,7 +69,7 @@ export default function Main() {
     () => localStorage.getItem(STORAGE_KEY) || ''
   )
 
-  //const slides = parseTextToSlides(value)
+  const slides = parseTextToSlides(value)
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
@@ -79,7 +79,7 @@ export default function Main() {
     <main id="home">
       <div className="container">
         <Editor value={value} onChange={setValue} />
-        <SlidesPreview slides={[]} />
+        <SlidesPreview slides={slides} />
       </div>
     </main>
   )

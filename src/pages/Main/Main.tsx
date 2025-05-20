@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from 'react'
 import Quill from 'quill'
 import 'quill/dist/quill.snow.css'
+import QuillMarkdown from 'quill-markdown-shortcuts'
 
 import './Main.css'
 import { parseTextToSlides } from './utils/textParser'
 import SlidesPreview from '../../components/SlidesPreview/SlidesPreview'
 
 const STORAGE_KEY = 'quill-editor-content'
+
+Quill.register('modules/markdownShortcuts', QuillMarkdown) // Register the markdown module
 
 type EditorProps = {
   value: string
@@ -22,6 +25,9 @@ function Editor({ value, onChange }: EditorProps) {
 
     const quill = new Quill(editorRef.current, {
       theme: 'snow',
+      modules: {
+        markdownShortcuts: {}, // Enable markdown shortcuts
+      },
       formats: [
         'header',
         'bold',

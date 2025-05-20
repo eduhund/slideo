@@ -12,6 +12,7 @@
 .container > div:first-child {
   height: 100%;
   overflow: hidden;
+  border-right: 1px solid #ddd;
 }
 
 .quill {

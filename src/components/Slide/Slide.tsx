@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react'
 import './Slide.css'
 
 export default function Slide({
@@ -7,9 +8,23 @@ export default function Slide({
   onClick,
   ...props
 }: any) {
+  const slideRef = useRef<HTMLElement | null>(null)
+  const [isOverflowing, setIsOverflowing] = useState(false)
+
+  useEffect(() => {
+    if (slideRef.current) {
+      const isContentOverflowing =
+        slideRef.current.scrollHeight > slideRef.current.clientHeight
+      setIsOverflowing(isContentOverflowing)
+    }
+  }, [children])
+
   return (
     <section
-      className={`slide ` + className + (isSelected ? ' _selected' : '')}
+      ref={slideRef}
+      className={`slide ${className} ${
+        isSelected ? '_selected' : ''
+      } ${isOverflowing ? '_overflowing' : ''}`}
       onClick={onClick}
       {...props}
     >

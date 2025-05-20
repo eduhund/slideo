@@ -13,6 +13,7 @@ function extractHeaderSections(doc: Document): any[] {
 
     let content = header.outerHTML
     let node: ChildNode | null = header.nextSibling
+    let slideIndex = 0
 
     const paragraphs = []
     const lists = []
@@ -43,8 +44,11 @@ function extractHeaderSections(doc: Document): any[] {
       node = node.nextSibling
     }
 
+    slideIndex++
+
     slides.push({
       type: header.nodeName === 'H1' ? 'title' : 'content',
+      index: slideIndex,
       title: header.textContent || '',
       paragraphs,
       lists,

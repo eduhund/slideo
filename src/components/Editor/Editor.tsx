@@ -6,9 +6,12 @@ import React, {
   useEffect,
 } from 'react'
 import Quill, { Op } from 'quill'
+import MarkdownShortcuts from 'quill-markdown-shortcuts'
 
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.bubble.css'
+
+Quill.register('modules/markdownShortcuts', MarkdownShortcuts)
 
 let Delta = Quill.import('delta')
 let Keyboard = Quill.import('modules/keyboard')
@@ -84,6 +87,7 @@ function Editor({
         toolbar: {
           container: '#toolbar',
         },
+        markdownShortcuts: {}, // Enable Markdown shortcuts
       },
       formats: [
         'header',

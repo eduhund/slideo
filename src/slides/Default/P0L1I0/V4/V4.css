@@ -1,0 +1,14 @@
+.p0l1i0_v4 h1 {
+  text-align: center;
+  color: #555;
+  font-weight: bold;
+}
+
+.p0l1i0_v4 ul {
+  list-style-type: square;
+  margin: 0 auto;
+  padding: 0;
+  text-align: left;
+  max-width: 70%;
+  color: #777;
+}

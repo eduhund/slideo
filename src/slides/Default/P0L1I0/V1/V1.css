@@ -1,0 +1,13 @@
+.p0l1i0_v1 h1 {
+  text-align: center;
+  color: #333;
+}
+
+.p0l1i0_v1 ul {
+  list-style-type: disc;
+  margin: 0 auto;
+  padding: 0;
+  text-align: left;
+  max-width: 80%;
+  color: #666;
+}

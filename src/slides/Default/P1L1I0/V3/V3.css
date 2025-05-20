@@ -1,0 +1,20 @@
+.p1l1i0_v3 h1 {
+  text-align: right;
+  color: #222;
+}
+
+.p1l1i0_v3 p {
+  text-align: center;
+  font-size: 1.3em;
+  line-height: 1.7;
+  color: #444;
+}
+
+.p1l1i0_v3 ul {
+  list-style-type: circle;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  max-width: 60%;
+  color: #444;
+}

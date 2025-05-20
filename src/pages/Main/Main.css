@@ -12,6 +12,7 @@
 .container > div:first-child {
   height: 100%;
   overflow: hidden;
+  border-right: 1px solid #ddd;
 }
 
 .quill {
@@ -34,6 +35,10 @@
 .ql-toolbar.ql-snow {
   border: none;
   border-bottom: 1px solid #ccc;
+}
+
+.ql-toolbar.ql-snow:first-child {
+  display: none;
 }
 
 .ql-container.ql-snow {

@@ -7,7 +7,6 @@ import QuillMarkdown from 'quill-markdown-shortcuts'
 import './Main.css'
 import { parseTextToSlides } from './utils/textParser'
 import SlidesPreview from '../../components/SlidesPreview/SlidesPreview'
-import { Op } from 'quill'
 
 const STORAGE_KEY = 'quill-editor-content'
 

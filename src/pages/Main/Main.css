@@ -36,6 +36,10 @@
   border-bottom: 1px solid #ccc;
 }
 
+.ql-toolbar.ql-snow:first-child {
+  display: none;
+}
+
 .ql-container.ql-snow {
   border: none;
 }

@@ -72,7 +72,7 @@ export default function Main() {
   const slides = parseTextToSlides(value)
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(value))
+    localStorage.setItem(STORAGE_KEY, value)
   }, [value])
 
   return (

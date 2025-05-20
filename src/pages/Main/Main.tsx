@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import ReactQuill from 'react-quill'
-import 'react-quill/dist/quill.snow.css'
+import Quill from 'quill'
+import 'quill/dist/quill.snow.css'
 
 import './Main.css'
 import { parseTextToSlides } from './utils/textParser'
@@ -54,94 +54,53 @@ const CustomToolbar = () => (
 );
 
 function Editor({ value, onChange }: EditorProps) {
-  const quillRef = useRef<ReactQuill>(null)
+  const editorRef = useRef<HTMLDivElement | null>(null)
+  const quillRef = useRef<Quill | null>(null)
 
   useEffect(() => {
-    if (!quillRef.current) return;
+    if (!editorRef.current || quillRef.current) return
 
-    const quill = quillRef.current.getEditor();
-
-    quill.keyboard.addBinding({ key: '1', shortKey: true, altKey: true }, () => {
-      quill.format('header', 1);
-    });
-
-    quill.keyboard.addBinding({ key: '2', shortKey: true, altKey: true }, () => {
-      quill.format('header', 2);
-    });
-
-    quill.keyboard.addBinding({ key: '3', shortKey: true, altKey: true }, () => {
-      quill.format('header', 3);
-    });
-
-    quill.keyboard.addBinding({ key: '0', shortKey: true, altKey: true }, () => {
-      quill.format('header', 0);
-    });
-
-    quill.keyboard.addBinding({ key: '7', shortKey: true, shiftKey: true }, () => {
-      quill.format('list', 'ordered');
-    });
-
-    quill.keyboard.addBinding({ key: '8', shortKey: true, shiftKey: true }, () => {
-      quill.format('list', 'bullet');
-    });
-
-    quill.keyboard.addBinding({ key: 'X', shortKey: true, shiftKey: true }, () => {
-      quill.format('strike', !quill.getFormat().strike);
-    });
-  }, [])
-  /*
-  const handleTextChange = (value: any) => {
-    onChange(value)
-
-    const quill = quillRef.current?.getEditor()
-    if (!quill) return
-
-    const text = quill.getText()
-    const lines = quill.getLines()
-    let offset = 0
-    let emptyLines = 0
-    console.log(text)
-    console.log(lines)
-
-    lines.forEach((line, index) => {
-      if (index === 0) {
-        quill.formatLine(offset, 1, 'header', 1)
-      } else if (line === '') {
-        emptyLines++
-        quill.formatLine(offset, 1, 'header', false)
-      } else {
-        if (emptyLines >= 2) {
-          quill.formatLine(offset, 1, 'header', 2)
-        }
-        emptyLines = 0
-      }
-      offset += line.length + 1
+    const quill = new Quill(editorRef.current, {
+      theme: 'snow',
+      modules: {
+        toolbar: {
+          container: '#toolbar',
+        },
+      },
+      formats: [
+        'header',
+        'bold',
+        'italic',
+        'underline',
+        'strike',
+        'list',
+        'bullet',
+        'color',
+        'background',
+        'link',
+        'image',
+        'video',
+        'clean',
+      ],
     })
-  }
-  */
+
+    quill.on('text-change', () => {
+      onChange(quill.root.innerHTML)
+    })
+
+    quill.root.innerHTML = value
+    quillRef.current = quill
+
+    return () => {
+      quillRef.current = null
+    }
+  }, [value, onChange])
+
   return (
     <div>
       <CustomToolbar />
-      <ReactQuill
-        ref={quillRef}
-      theme="snow"
-      value={value}
-      onChange={onChange}
-      modules={{
-        toolbar: {
-          container: "#toolbar",
-        },
-      }}
-      formats={[
-        'header',
-        'bold', 'italic', 'underline', 'strike',
-        'list', 'bullet',
-        'color', 'background',
-        'link', 'image', 'video',
-        'clean',
-      ]}
-    /></div>
-      
+      <div ref={editorRef} />
+    </div>
   )
 }
 

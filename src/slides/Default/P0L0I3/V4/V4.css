@@ -1,0 +1,17 @@
+.p0l0i3_v4 h1 {
+  text-align: center;
+  color: #555;
+  font-style: italic;
+}
+
+.p0l0i3_v4 .images {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.p0l0i3_v4 img {
+  max-width: 30%;
+  height: auto;
+  border: 2px solid #ccc;
+}

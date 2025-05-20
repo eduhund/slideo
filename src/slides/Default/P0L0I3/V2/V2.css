@@ -1,0 +1,15 @@
+.p0l0i3_v2 h1 {
+  text-align: left;
+  color: #444;
+}
+
+.p0l0i3_v2 .images {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.p0l0i3_v2 img {
+  max-width: 100%;
+  height: auto;
+}

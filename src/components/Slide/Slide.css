@@ -57,6 +57,75 @@
   pointer-events: none;
 }
 
+.slide._selected::after {
+  content: '✔ ' attr(data-title);
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  opacity: 0.8;
+  color: green;
+  font-weight: bold;
+}
+
+.slide._overflowing::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px solid orange;
+  border-radius: 12px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.slide._selected:not(._overflowing)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px solid rgb(34, 128, 0); /* Green stroke */
+  border-radius: 12px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.slide._selected._overflowing::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border: 3px solid rgb(34, 128, 0); /* Green stroke for selected overflowing */
+  border-radius: 12px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.slide._selected:not(._overflowing)::after {
+  content: '✔ ' attr(data-title);
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  opacity: 0.8;
+  color: green; /* Green checkmark */
+  font-weight: bold;
+}
+
+.slide._selected._overflowing::after {
+  content: '⚠ ' attr(data-title);
+  position: absolute;
+  right: 12px;
+  bottom: 8px;
+  opacity: 0.8;
+  color: orange; /* Orange warning */
+  font-weight: bold;
+}
+
 .slide h1 {
   font-size: 2.5em;
   line-height: 1.5;

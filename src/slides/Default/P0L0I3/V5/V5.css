@@ -1,0 +1,18 @@
+.p0l0i3_v5 h1 {
+  text-align: center;
+  color: #111;
+  text-transform: uppercase;
+}
+
+.p0l0i3_v5 .images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.p0l0i3_v5 img {
+  max-width: 30%;
+  height: auto;
+  border-radius: 10px;
+}

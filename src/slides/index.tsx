@@ -1,5 +1,5 @@
 import Default from './Default/Default'
-import * as titles from './Titles'
+import * as templates from './Default'
 
 export { Default }
-export default { ...titles }
+export default { ...templates }

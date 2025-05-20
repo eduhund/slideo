@@ -13,46 +13,6 @@ type EditorProps = {
   onChange: (value: string) => void
 }
 
-const CustomToolbar = () => (
-  <div id="toolbar">
-      <span className="ql-formats">
-        <select className="ql-header" defaultValue={''} onChange={(e) => e.persist()}>
-        <option value="1">Main Title</option>
-        <option value="2">Slide Title</option>
-        <option value="3">Text Title</option>
-        <option value="">Normal text</option>
-      </select>
-    </span>
-
-    <span className="ql-formats">
-      <button className="ql-bold" />
-      <button className="ql-italic" />
-      <button className="ql-underline" />
-      <button className="ql-strike" />
-    </span>
-
-    <span className="ql-formats">
-      <button className="ql-list" value="ordered" />
-      <button className="ql-list" value="bullet" />
-    </span>
-
-    <span className="ql-formats">
-      <select className="ql-color" />
-      <select className="ql-background" />
-    </span>
-
-    <span className="ql-formats">
-      <button className="ql-link" />
-      <button className="ql-image" />
-      <button className="ql-video" />
-    </span>
-
-    <span className="ql-formats">
-      <button className="ql-clean" />
-    </span>
-  </div>
-);
-
 function Editor({ value, onChange }: EditorProps) {
   const editorRef = useRef<HTMLDivElement | null>(null)
   const quillRef = useRef<Quill | null>(null)
@@ -62,11 +22,6 @@ function Editor({ value, onChange }: EditorProps) {
 
     const quill = new Quill(editorRef.current, {
       theme: 'snow',
-      modules: {
-        toolbar: {
-          container: '#toolbar',
-        },
-      },
       formats: [
         'header',
         'bold',
@@ -74,18 +29,17 @@ function Editor({ value, onChange }: EditorProps) {
         'underline',
         'strike',
         'list',
-        'bullet',
-        'color',
-        'background',
         'link',
         'image',
         'video',
-        'clean',
       ],
     })
 
     quill.on('text-change', () => {
-      onChange(quill.root.innerHTML)
+      const currentContent = quill.root.innerHTML
+      if (currentContent !== value) {
+        onChange(currentContent)
+      }
     })
 
     quill.root.innerHTML = value
@@ -94,11 +48,10 @@ function Editor({ value, onChange }: EditorProps) {
     return () => {
       quillRef.current = null
     }
-  }, [value, onChange])
+  }, [])
 
   return (
     <div>
-      <CustomToolbar />
       <div ref={editorRef} />
     </div>
   )

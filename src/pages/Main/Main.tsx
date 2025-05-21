@@ -29,17 +29,20 @@ export default function Main() {
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault()
     const startX = e.clientX
-    const container = e.currentTarget.parentElement
+    const container = e.currentTarget.parentElement?.parentElement
     const containerWidth = container?.offsetWidth || 0
+
+    document.body.style.cursor = 'col-resize' // Change cursor to resize
 
     const onMouseMove = (event: MouseEvent) => {
       const deltaX = event.clientX - startX
-      const newWidth =
-        (((editorWidth / 100) * containerWidth + deltaX) / containerWidth) * 100
+      const deltaPercentage = (deltaX / containerWidth) * 100 // Scale deltaX to percentage
+      const newWidth = editorWidth + deltaPercentage
       setEditorWidth(Math.min(80, Math.max(20, newWidth))) // Clamp width between 20% and 80%
     }
 
     const onMouseUp = () => {
+      document.body.style.cursor = '' // Reset cursor to default
       document.removeEventListener('mousemove', onMouseMove)
       document.removeEventListener('mouseup', onMouseUp)
     }

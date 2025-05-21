@@ -29,7 +29,7 @@ export default function Main() {
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault()
     const startX = e.clientX
-    const container = e.currentTarget.parentElement?.parentElement
+    const container = containerRef.current
     const containerWidth = container?.offsetWidth || 0
 
     document.body.style.cursor = 'col-resize' // Change cursor to resize

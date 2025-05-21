@@ -43,7 +43,7 @@
 
 .ql-toolbar {
   position: sticky;
-  x: 0;
+  top: 0;
   z-index: 9;
 }
 

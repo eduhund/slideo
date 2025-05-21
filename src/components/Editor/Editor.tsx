@@ -52,7 +52,7 @@ export default function Editor({ value, onChange }: EditorProps) {
   }, [])
 
   return (
-    <div>
+    <div className="editor">
       <div ref={editorRef} />
     </div>
   )

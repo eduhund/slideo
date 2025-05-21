@@ -3,28 +3,48 @@
 }
 
 .container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   height: 100%;
+  width: 100%; /* Ensure the container takes the full width */
   overflow: hidden;
+  box-sizing: border-box; /* Ensure consistent width calculations */
 }
 
-.container > div:first-child {
+.editorContainer {
+  position: relative;
+  flex: 0 0 auto; /* Prevent flex-grow and flex-shrink */
+  width: 50%; /* Initial width as a percentage */
   height: 100%;
   overflow: hidden;
+  box-sizing: border-box; /* Include border in width calculations */
+}
+
+.separator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 5px;
+  height: 100%; /* Fixed width for the separator */
+  cursor: col-resize;
   border-right: 1px solid #ddd;
+  z-index: 10;
+  transition: border-right-width 0.2s ease;
+  box-sizing: border-box; /* Include border in width calculations */
+}
+
+.separator:hover {
+  border-right-width: 5px;
 }
 
 .quill {
   height: 100%;
   overflow: hidden;
-  border-right: 1px solid #ccc;
 }
 
 .ql-toolbar {
   position: sticky;
   x: 0;
-  z-index: 100;
+  z-index: 9;
 }
 
 .ql-container {
@@ -32,9 +52,14 @@
   padding-bottom: 48px;
 }
 
+.editor {
+  height: 100%;
+  overflow: hidden;
+}
+
 .ql-toolbar.ql-snow {
-  border: none;
-  border-bottom: 1px solid #ccc;
+  border: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important;
 }
 
 .ql-toolbar.ql-snow:first-child {
@@ -42,7 +67,7 @@
 }
 
 .ql-container.ql-snow {
-  border: none;
+  border: none !important;
 }
 
 .ql-editor h2 {
@@ -59,4 +84,10 @@
   font-size: 12px;
   font-weight: 500;
   opacity: 0.3;
+}
+
+.slidesPreviewContainer {
+  flex: 1; /* Take up the remaining space */
+  height: 100%;
+  overflow: hidden;
 }

@@ -62,10 +62,6 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important;
 }
 
-.ql-toolbar.ql-snow:first-child {
-  display: none;
-}
-
 .ql-container.ql-snow {
   border: none !important;
 }

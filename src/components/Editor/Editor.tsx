@@ -1,13 +1,8 @@
 import { useEditorWidth } from './hooks'
 import useQuillEditor from './useQuillEditor'
 
-type EditorProps = {
-  value: string
-  onChange: (value: string) => void
-}
-
-export default function Editor({ value, onChange }: EditorProps) {
-  const editorRef = useQuillEditor(value, onChange)
+export default function Editor() {
+  const editorRef = useQuillEditor()
   const { editorWidth, resize } = useEditorWidth()
 
   return (

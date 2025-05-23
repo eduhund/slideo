@@ -1,7 +1,9 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import './SlidesPreview.css'
 import slides, { Default } from '../../slides'
+import { SlidesContext } from '../../providers'
+import { parseTextToSlides } from '../../utils/textParser'
 
 function SlideVariants({ slide }: any) {
   const [selectedVariant, setSelectedVariant] = useState<number | null>(null)
@@ -42,7 +44,11 @@ function SlideVariants({ slide }: any) {
   )
 }
 
-export default function SlidesPreview({ slides }: any) {
+export default function SlidesPreview() {
+  const { state } = useContext(SlidesContext)
+
+  const slides = parseTextToSlides(state.content)
+
   const slidesQt = slides.length
   return (
     <div className={`previewContainer${slidesQt ? '' : ' _empty'}`}>

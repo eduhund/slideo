@@ -22,8 +22,8 @@
 }
 
 .previewSlide {
-  width: 80px;
-  height: 56px;
+  width: 88px;
+  height: 64px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,8 +34,9 @@
 }
 
 .previewSlide span {
-  font-size: 13px;
+  font-size: 12px;
   line-height: 14px;
+  text-align: center;
 }
 
 .previewSlide:hover {
@@ -54,6 +55,11 @@
 .previewSlide._active:hover {
   background-color: #333333;
   border: 1px solid #000000;
+}
+
+.previewSlide._warning,
+.previewSlide._warning:hover {
+  border-color: #ff6633;
 }
 
 .slidesVariants {

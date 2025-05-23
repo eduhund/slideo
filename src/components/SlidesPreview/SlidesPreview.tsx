@@ -8,15 +8,15 @@ export function SlideVariants() {
   const { state, dispatch } = useContext(SlidesContext)
   const { slides, activeSlide } = state
 
-  if (activeSlide === null) {
+  const slide = activeSlide ? slides[activeSlide - 1] : null
+
+  if (!slide) {
     return (
       <div className="slidesVariants">
         <span>Please select a slide to preview it variants.</span>
       </div>
     )
   }
-
-  const slide = slides[activeSlide - 1]
 
   const allVariants = Object.values(slideTemplates)
 
@@ -73,13 +73,16 @@ export function SlideVariants() {
   )
 }
 
-function SlidePreview({ i, slide, isSelected, onSelect }: any) {
+function SlidePreview({ i, slide, isActive, onSelect }: any) {
   return (
     <div
-      className={`previewSlide${isSelected ? ' _active' : ''}`}
+      className={`previewSlide${isActive ? ' _active' : ''}${slide.selectedTemplate ? '' : ' _warning'}`}
       onClick={onSelect}
     >
-      <span>Slide #{i}</span>
+      <span>
+        Slide #{i} <br></br>
+        {slide.selectedTemplate || 'not selected'}
+      </span>
     </div>
   )
 }
@@ -101,7 +104,7 @@ export function SlidesPreview() {
             key={i}
             i={i + 1}
             slide={slide}
-            isSelected={activeSlide === i + 1}
+            isActive={activeSlide === i + 1}
             onSelect={() => handleSlideSelect(i + 1)}
           />
         ))

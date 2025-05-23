@@ -55,6 +55,17 @@ export function SlideVariants() {
   )
 }
 
+function SlidePreview({ i, slide, isSelected, onSelect }: any) {
+  return (
+    <div
+      className={`previewSlide${isSelected ? ' _active' : ''}`}
+      onClick={onSelect}
+    >
+      <span>Slide #{i}</span>
+    </div>
+  )
+}
+
 export function SlidesPreview() {
   const { state, dispatch } = useContext(SlidesContext)
   const { slides, activeSlide } = state
@@ -63,25 +74,19 @@ export function SlidesPreview() {
   function handleSlideSelect(index: number) {
     dispatch({ type: 'CHANGE_ACTIVE_SLIDE', payload: index })
   }
+
   return (
     <div className={`previewContainer${slidesQt ? '' : ' _empty'}`}>
       {slidesQt ? (
-        slides.map((slide, i) => {
-          return (
-            <div
-              key={i}
-              className={`previewSlide${i + 1 === activeSlide ? ' _active' : ''}`}
-              style={{
-                width: 64,
-                height: 48,
-                backgroundColor: '#999999',
-                border: '1px solid #000000',
-                borderRadius: 4,
-              }}
-              onClick={() => handleSlideSelect(i + 1)}
-            ></div>
-          )
-        })
+        slides.map((slide, i) => (
+          <SlidePreview
+            key={i}
+            i={i + 1}
+            slide={slide}
+            isSelected={activeSlide === i + 1}
+            onSelect={() => handleSlideSelect(i + 1)}
+          />
+        ))
       ) : (
         <span>
           We can't find any slides in the content. Please, use headers to

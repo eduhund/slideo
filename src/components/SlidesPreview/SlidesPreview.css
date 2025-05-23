@@ -1,6 +1,5 @@
 .previewContainer {
   width: 100%;
-  min-height: 64px;
 
   scroll-snap-type: x mandatory;
   background-color: #f4f4f4;
@@ -8,8 +7,8 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: nowrap;
-  padding: 16px 24px;
-  gap: 16px;
+  padding: 12px 16px;
+  gap: 12px;
 }
 
 .previewContainer._empty {
@@ -20,6 +19,41 @@
   font-size: 18px;
   line-height: 24px;
   opacity: 0.6;
+}
+
+.previewSlide {
+  width: 80px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  background-color: #cccccc;
+  border: 1px solid #666666;
+  border-radius: 4px;
+}
+
+.previewSlide span {
+  font-size: 13px;
+  line-height: 14px;
+}
+
+.previewSlide:hover {
+  background-color: #999999;
+  border: 1px solid #333333;
+
+  cursor: pointer;
+}
+
+.previewSlide._active {
+  color: #ffffff;
+  background-color: #000000;
+  border: 1px solid #000000;
+}
+
+.previewSlide._active:hover {
+  background-color: #333333;
+  border: 1px solid #000000;
 }
 
 .slidesVariants {

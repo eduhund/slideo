@@ -1,9 +1,10 @@
 import React, { createContext, useReducer } from 'react'
+import { parseTextToSlides } from '../../utils/textParser'
 
 type SlidesContextType = {
   content: string
   slides: any[]
-  activeSlide: number
+  activeSlide: number | null
 }
 
 type slidesReducerAction = {
@@ -13,10 +14,12 @@ type slidesReducerAction = {
 
 const STORAGE_KEY = 'quill-editor-content'
 
+const content = localStorage.getItem(STORAGE_KEY) || ''
+
 const initialState = {
-  content: localStorage.getItem(STORAGE_KEY) || '',
-  slides: [],
-  activeSlide: 0,
+  content: content,
+  slides: parseTextToSlides(content),
+  activeSlide: null,
 }
 
 export const SlidesContext = createContext<{
@@ -33,10 +36,11 @@ function slidesReducer(
 ) {
   switch (type) {
     case 'UPDATE_CONTENT':
-      return { ...state, content: payload }
+      const parsedSlides = parseTextToSlides(payload)
+      return { ...state, content: payload, slides: parsedSlides }
     case 'CHANGE_ACTIVE_SLIDE':
       return { ...state, activeSlide: payload }
-    case 'CHANGE_SELECTED_SLIDES':
+    case 'CHANGE_SLIDES':
       const { slides, activeSlide } = state
       const updatedSlides = slides.map((slide, i) =>
         i === activeSlide ? { ...slide, ...payload } : slide

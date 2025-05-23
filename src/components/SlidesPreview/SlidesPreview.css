@@ -1,19 +1,19 @@
 .previewContainer {
-  height: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
+  width: 100%;
+  min-height: 64px;
+
   scroll-snap-type: x mandatory;
   background-color: #f4f4f4;
 
   display: flex;
   justify-content: flex-start;
   flex-wrap: nowrap;
-  padding: 0 24px;
+  padding: 16px 24px;
   gap: 16px;
 }
 
 .previewContainer._empty {
-  align-items: center;
+  display: none;
 }
 
 .previewContainer._empty span {
@@ -28,7 +28,7 @@
   gap: 20px;
   flex-shrink: 0;
 
-  padding: 24px 0;
+  padding: 24px 20px;
 
   scroll-snap-align: start;
 

@@ -1,13 +1,24 @@
 import { useContext, useState } from 'react'
 
 import './SlidesPreview.css'
-import slides, { Default } from '../../slides'
+import slideTemplates, { Default } from '../../slides'
 import { SlidesContext } from '../../providers'
-import { parseTextToSlides } from '../../utils/textParser'
 
-function SlideVariants({ slide }: any) {
-  const [selectedVariant, setSelectedVariant] = useState<number | null>(null)
-  const allVariants = Object.values(slides)
+export function SlideVariants() {
+  const { state } = useContext(SlidesContext)
+  const { slides, activeSlide } = state
+
+  if (activeSlide === null) {
+    return (
+      <div className="slidesVariants">
+        <span>Please select a slide to preview its variants.</span>
+      </div>
+    )
+  }
+
+  const slide = slides[activeSlide - 1]
+
+  const allVariants = Object.values(slideTemplates)
 
   const matchVariants = allVariants.filter((variant) => {
     if (slide.type === 'title') {
@@ -36,31 +47,45 @@ function SlideVariants({ slide }: any) {
         <variant.component
           key={i}
           content={slide}
-          isSelected={selectedVariant === i || matchVariants.length === 1}
-          onClick={() => setSelectedVariant(i !== selectedVariant ? i : null)}
+          isSelected={activeSlide === i + 1 || matchVariants.length === 1}
+          //onClick={() => setSelectedVariant(i !== selectedVariant ? i : null)}
         />
       ))}
     </div>
   )
 }
 
-export default function SlidesPreview() {
-  const { state } = useContext(SlidesContext)
-
-  const slides = parseTextToSlides(state.content)
-
+export function SlidesPreview() {
+  const { state, dispatch } = useContext(SlidesContext)
+  const { slides, activeSlide } = state
   const slidesQt = slides.length
+
+  function handleSlideSelect(index: number) {
+    dispatch({ type: 'CHANGE_ACTIVE_SLIDE', payload: index })
+  }
   return (
     <div className={`previewContainer${slidesQt ? '' : ' _empty'}`}>
       {slidesQt ? (
-        slides.map((slide: any, i: number) => (
-          <SlideVariants key={i} slide={slide} />
-        ))
+        slides.map((slide, i) => {
+          return (
+            <div
+              key={i}
+              className={`previewSlide${i + 1 === activeSlide ? ' _active' : ''}`}
+              style={{
+                width: 64,
+                height: 48,
+                backgroundColor: '#999999',
+                border: '1px solid #000000',
+                borderRadius: 4,
+              }}
+              onClick={() => handleSlideSelect(i + 1)}
+            ></div>
+          )
+        })
       ) : (
         <span>
-          We can't find any slides in the content.
-          <br></br>
-          Please, use headers or double linebreak to structure the text.
+          We can't find any slides in the content. Please, use headers to
+          structure the text.
         </span>
       )}
     </div>

@@ -1,5 +1,8 @@
 import Editor from '../../components/Editor/Editor'
-import SlidesPreview from '../../components/SlidesPreview/SlidesPreview'
+import {
+  SlidesPreview,
+  SlideVariants,
+} from '../../components/SlidesPreview/SlidesPreview'
 
 import './Main.css'
 
@@ -8,10 +11,9 @@ export default function Main() {
     <main id="home">
       <div className="container">
         <Editor />
-        <div className="slidesPreviewContainer">
-          <SlidesPreview />
-        </div>
+        <SlideVariants />
       </div>
+      <SlidesPreview />
     </main>
   )
 }

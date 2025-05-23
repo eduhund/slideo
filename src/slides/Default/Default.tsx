@@ -14,6 +14,6 @@ function Default({ content, isSelected, onClick }: any) {
 }
 
 export default {
-  templateName: 'Default',
+  name: 'default',
   component: Default,
 }

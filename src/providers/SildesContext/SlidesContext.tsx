@@ -13,13 +13,14 @@ type slidesReducerAction = {
 }
 
 const STORAGE_KEY = 'quill-editor-content'
+const ACTIVE_SLIDE_KEY = 'active-slide'
 
 const content = localStorage.getItem(STORAGE_KEY) || ''
 
 const initialState = {
   content: content,
   slides: parseTextToSlides(content),
-  activeSlide: null,
+  activeSlide: Number(localStorage.getItem(ACTIVE_SLIDE_KEY)) || 1,
 }
 
 export const SlidesContext = createContext<{
@@ -39,11 +40,12 @@ function slidesReducer(
       const parsedSlides = parseTextToSlides(payload)
       return { ...state, content: payload, slides: parsedSlides }
     case 'CHANGE_ACTIVE_SLIDE':
+      localStorage.setItem(ACTIVE_SLIDE_KEY, payload)
       return { ...state, activeSlide: payload }
-    case 'CHANGE_SLIDES':
+    case 'UPDATE_SLIDE':
       const { slides, activeSlide } = state
       const updatedSlides = slides.map((slide, i) =>
-        i === activeSlide ? { ...slide, ...payload } : slide
+        i + 1 === activeSlide ? { ...slide, ...payload } : slide
       )
       return { ...state, slides: updatedSlides }
     default:

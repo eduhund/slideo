@@ -5,13 +5,13 @@ import slideTemplates, { Default } from '../../slides'
 import { SlidesContext } from '../../providers'
 
 export function SlideVariants() {
-  const { state } = useContext(SlidesContext)
+  const { state, dispatch } = useContext(SlidesContext)
   const { slides, activeSlide } = state
 
   if (activeSlide === null) {
     return (
       <div className="slidesVariants">
-        <span>Please select a slide to preview its variants.</span>
+        <span>Please select a slide to preview it variants.</span>
       </div>
     )
   }
@@ -31,15 +31,28 @@ export function SlideVariants() {
   })
 
   if (matchVariants.length === 0) {
+    dispatch({
+      type: 'UPDATE_SLIDE',
+      payload: { selectedTemplate: 'default' },
+    })
     return (
       <div className="slidesVariants">
         <Default.component
           content={slide}
-          isSelected={true}
-          onClick={() => {}}
+          isSelected={Default.name === slide.selectedTemplate}
         />
       </div>
     )
+  }
+
+  const selectedVariant = matchVariants.find(
+    (variant) => variant.meta.name === slide.selectedTemplate
+  )
+  if (!selectedVariant) {
+    dispatch({
+      type: 'UPDATE_SLIDE',
+      payload: { selectedTemplate: matchVariants[0].meta.name },
+    })
   }
   return (
     <div className="slidesVariants">
@@ -47,8 +60,13 @@ export function SlideVariants() {
         <variant.component
           key={i}
           content={slide}
-          isSelected={activeSlide === i + 1 || matchVariants.length === 1}
-          //onClick={() => setSelectedVariant(i !== selectedVariant ? i : null)}
+          isSelected={variant.meta.name === slide.selectedTemplate}
+          onClick={() => {
+            dispatch({
+              type: 'UPDATE_SLIDE',
+              payload: { selectedTemplate: variant.meta.name },
+            })
+          }}
         />
       ))}
     </div>

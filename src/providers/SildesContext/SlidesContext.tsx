@@ -4,7 +4,6 @@ type SlidesContextType = {
   content: string
   slides: any[]
   activeSlide: number
-  selectedSlides: any[]
 }
 
 type slidesReducerAction = {
@@ -18,7 +17,6 @@ const initialState = {
   content: localStorage.getItem(STORAGE_KEY) || '',
   slides: [],
   activeSlide: 0,
-  selectedSlides: [],
 }
 
 export const SlidesContext = createContext<{
@@ -39,10 +37,11 @@ function slidesReducer(
     case 'CHANGE_ACTIVE_SLIDE':
       return { ...state, activeSlide: payload }
     case 'CHANGE_SELECTED_SLIDES':
-      const { activeSlide, selectedSlides } = state
-      const updatedSelectedSlides = selectedSlides.map((slide, i) =>
+      const { slides, activeSlide } = state
+      const updatedSlides = slides.map((slide, i) =>
         i === activeSlide ? { ...slide, ...payload } : slide
       )
+      return { ...state, slides: updatedSlides }
     default:
       return state
   }

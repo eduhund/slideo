@@ -1,5 +1,6 @@
 .previewContainer {
   width: 100%;
+  min-height: 80px;
 
   scroll-snap-type: x mandatory;
   background-color: #f4f4f4;
@@ -22,18 +23,21 @@
 }
 
 .previewSlide {
-  width: 88px;
-  height: 64px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #000000;
-  background-color: #cccccc;
   border: 1px solid #666666;
   border-radius: 4px;
 }
 
-.previewSlide span {
+.previewSlide:not(._empty) {
+  width: 90px;
+  height: 64px;
+}
+
+.previewSlide:not(._empty) section {
+  transform: scale(0.15);
+  transform-origin: top left;
+}
+
+.previewSlide._empty span {
   font-size: 12px;
   line-height: 14px;
   text-align: center;
@@ -57,8 +61,15 @@
   border: 1px solid #000000;
 }
 
-.previewSlide._warning,
-.previewSlide._warning:hover {
+.previewSlide._empty,
+.previewSlide._empty:hover {
+  width: 88px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  background-color: #cccccc;
   border-color: #ff6633;
 }
 

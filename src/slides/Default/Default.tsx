@@ -14,6 +14,6 @@ function Default({ content, isSelected, onClick }: any) {
 }
 
 export default {
-  name: 'default',
+  meta: { name: 'default' },
   component: Default,
 }

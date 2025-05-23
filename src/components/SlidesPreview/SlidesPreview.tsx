@@ -39,7 +39,7 @@ export function SlideVariants() {
       <div className="slidesVariants">
         <Default.component
           content={slide}
-          isSelected={Default.name === slide.selectedTemplate}
+          isSelected={Default.meta.name === slide.selectedTemplate}
         />
       </div>
     )
@@ -74,15 +74,31 @@ export function SlideVariants() {
 }
 
 function SlidePreview({ i, slide, isActive, onSelect }: any) {
+  if (!slide.selectedTemplate) {
+    return (
+      <div className={`previewSlide _empty`} onClick={onSelect}>
+        <span>
+          Slide #{i} <br></br>
+          not selected
+        </span>
+      </div>
+    )
+  }
+
+  const allVariants = Object.values(slideTemplates)
+  const selectedVariant = allVariants.find(
+    (variant) => variant.meta.name === slide.selectedTemplate
+  )
+  const SlideComponent = selectedVariant
+    ? selectedVariant.component
+    : Default.component
+
   return (
     <div
-      className={`previewSlide${isActive ? ' _active' : ''}${slide.selectedTemplate ? '' : ' _warning'}`}
+      className={`previewSlide${isActive ? ' _active' : ''}`}
       onClick={onSelect}
     >
-      <span>
-        Slide #{i} <br></br>
-        {slide.selectedTemplate || 'not selected'}
-      </span>
+      <SlideComponent key={i} content={slide} onClick={onSelect} />
     </div>
   )
 }

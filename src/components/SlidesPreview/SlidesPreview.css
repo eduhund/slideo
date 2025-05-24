@@ -1,19 +1,18 @@
 .previewContainer {
-  height: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-snap-type: x mandatory;
+  width: 100%;
+  min-height: 88px;
+
   background-color: #f4f4f4;
+  box-sizing: border-box;
 
   display: flex;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
-  padding: 0 24px;
+  justify-content: space-between;
+  padding: 12px 16px;
   gap: 16px;
 }
 
 .previewContainer._empty {
-  align-items: center;
+  display: none;
 }
 
 .previewContainer._empty span {
@@ -22,13 +21,73 @@
   opacity: 0.6;
 }
 
+.slidesPreview {
+  scroll-snap-type: x mandatory;
+
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  gap: 12px;
+}
+
+.previewSlide {
+  border: 1px solid #666666;
+  border-radius: 4px;
+}
+
+.previewSlide:not(._empty) {
+  width: 90px;
+  height: 64px;
+}
+
+.previewSlide:not(._empty) section {
+  transform: scale(0.15);
+  transform-origin: top left;
+}
+
+.previewSlide._empty span {
+  font-size: 12px;
+  line-height: 14px;
+  text-align: center;
+}
+
+.previewSlide:hover {
+  background-color: #999999;
+  border: 1px solid #333333;
+
+  cursor: pointer;
+}
+
+.previewSlide._active {
+  color: #ffffff;
+  background-color: #000000;
+  border: 1px solid #000000;
+}
+
+.previewSlide._active:hover {
+  background-color: #333333;
+  border: 1px solid #000000;
+}
+
+.previewSlide._empty,
+.previewSlide._empty:hover {
+  width: 88px;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000000;
+  background-color: #cccccc;
+  border-color: #ff6633;
+}
+
 .slidesVariants {
   display: flex;
   flex-direction: column;
   gap: 20px;
   flex-shrink: 0;
 
-  padding: 24px 0;
+  padding: 24px 20px;
 
   scroll-snap-align: start;
 
@@ -37,4 +96,44 @@
   scroll-snap-type: y mandatory;
   scroll-margin: 16px;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.previewActions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.previewActions ._export {
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.previewActions ._export:hover {
+  background-color: #40a9ff;
+  box-shadow: 0 4px 8px rgba(24, 144, 255, 0.2);
+}
+
+.previewActions ._export:active {
+  background-color: #096dd9;
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.previewActions ._export._disabled {
+  background-color: #f5f5f5;
+  color: #d9d9d9;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.no-pseudo-elements::before,
+.no-pseudo-elements::after {
+  content: none !important;
 }

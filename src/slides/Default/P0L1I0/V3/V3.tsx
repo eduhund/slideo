@@ -3,6 +3,7 @@ import Slide from '../../../../components/Slide/Slide'
 import './V3.css'
 
 const meta = {
+  name: 'p0l1i0_v3',
   title: {
     level: 1,
     minLength: 1,
@@ -16,8 +17,8 @@ const meta = {
 export function Component({ content, isSelected, onClick }: any) {
   return (
     <Slide
-      className={'slide titleSlide p0l1i0_v3'}
-      data-title={'Title p0l1i0_v3'}
+      className={'slide titleSlide ' + meta.name}
+      data-title={meta.name}
       isSelected={isSelected}
       onClick={onClick}
     >

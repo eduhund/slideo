@@ -1,4 +1,6 @@
 import { useContext, useState } from 'react'
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas'
 
 import './SlidesPreview.css'
 import slideTemplates, { Default } from '../../slides'
@@ -103,6 +105,55 @@ function SlidePreview({ i, slide, isActive, onSelect }: any) {
   )
 }
 
+async function exportSlidesAsPDF(slides: any[]) {
+  const pdf = new jsPDF({
+    orientation: 'landscape',
+    unit: 'px',
+    format: [297 * 2, 210 * 2], // Match slide dimensions
+  })
+
+  // Create a hidden container for rendering full-size slides
+  const hiddenContainer = document.createElement('div')
+  hiddenContainer.style.position = 'absolute'
+  hiddenContainer.style.top = '-9999px'
+  hiddenContainer.style.left = '-9999px'
+  hiddenContainer.style.width = '594px' // Full slide width
+  hiddenContainer.style.height = '420px' // Full slide height
+  hiddenContainer.style.overflow = 'hidden'
+  document.body.appendChild(hiddenContainer)
+
+  for (let i = 0; i < slides.length; i++) {
+    const slideElement = document.querySelector(
+      `.previewSlide:nth-child(${i + 1}) .slide`
+    )
+    if (slideElement) {
+      // Clone the slide element into the hidden container
+      const clonedSlide = slideElement.cloneNode(true) as HTMLElement
+      clonedSlide.style.transform = 'none' // Remove scaling
+      clonedSlide.style.transformOrigin = 'unset'
+
+      // Add a class to hide pseudo-elements
+      clonedSlide.classList.add('no-pseudo-elements')
+
+      hiddenContainer.appendChild(clonedSlide)
+
+      // Render the cloned slide to a canvas
+      const canvas = await html2canvas(clonedSlide, { scale: 2 })
+      const imgData = canvas.toDataURL('image/png')
+      if (i > 0) pdf.addPage()
+      pdf.addImage(imgData, 'PNG', 0, 0, 297 * 2, 210 * 2)
+
+      // Remove the cloned slide after rendering
+      hiddenContainer.removeChild(clonedSlide)
+    }
+  }
+
+  // Clean up the hidden container
+  document.body.removeChild(hiddenContainer)
+
+  pdf.save('slides.pdf')
+}
+
 export function SlidesPreview() {
   const { state, dispatch } = useContext(SlidesContext)
   const { slides, activeSlide, selectedTemplates } = state
@@ -141,7 +192,7 @@ export function SlidesPreview() {
         <button
           className={`_export ${disableExport ? '_disabled' : ''}`}
           disabled={disableExport}
-          onClick={() => {}}
+          onClick={() => exportSlidesAsPDF(slides)}
         >
           Export slides
         </button>

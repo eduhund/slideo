@@ -132,3 +132,8 @@
   cursor: not-allowed;
   box-shadow: none;
 }
+
+.no-pseudo-elements::before,
+.no-pseudo-elements::after {
+  content: none !important;
+}

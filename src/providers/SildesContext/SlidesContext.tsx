@@ -4,6 +4,7 @@ import { parseTextToSlides } from '../../utils/textParser'
 type SlidesContextType = {
   content: string
   slides: any[]
+  selectedTemplates: any[]
   activeSlide: number | null
 }
 
@@ -13,13 +14,27 @@ type slidesReducerAction = {
 }
 
 const STORAGE_KEY = 'quill-editor-content'
+const SELECTED_TEMPLATES_KEY = 'selected-templates'
 const ACTIVE_SLIDE_KEY = 'active-slide'
 
 const content = localStorage.getItem(STORAGE_KEY) || ''
 
+const slides = parseTextToSlides(content)
+const selectedTemplates = JSON.parse(
+  localStorage.getItem(SELECTED_TEMPLATES_KEY) || '[]'
+)
+const richedSlides = slides.map((slide: any, i: number) => {
+  const selectedTemplate = selectedTemplates[i] || null
+  return {
+    ...slide,
+    selectedTemplate,
+  }
+})
+
 const initialState = {
   content: content,
-  slides: parseTextToSlides(content),
+  slides: richedSlides,
+  selectedTemplates: selectedTemplates,
   activeSlide: Number(localStorage.getItem(ACTIVE_SLIDE_KEY)) || 1,
 }
 
@@ -38,7 +53,16 @@ function slidesReducer(
   switch (type) {
     case 'UPDATE_CONTENT':
       const parsedSlides = parseTextToSlides(payload)
-      return { ...state, content: payload, slides: parsedSlides }
+
+      const selectedTemplates = state.selectedTemplates
+      const richedSlides = parsedSlides.map((slide: any, i: number) => {
+        const selectedTemplate = selectedTemplates[i] || null
+        return {
+          ...slide,
+          selectedTemplate,
+        }
+      })
+      return { ...state, content: payload, slides: richedSlides }
     case 'CHANGE_ACTIVE_SLIDE':
       localStorage.setItem(ACTIVE_SLIDE_KEY, payload)
       return { ...state, activeSlide: payload }
@@ -47,7 +71,27 @@ function slidesReducer(
       const updatedSlides = slides.map((slide, i) =>
         i + 1 === activeSlide ? { ...slide, ...payload } : slide
       )
-      return { ...state, slides: updatedSlides }
+      const newSelectedTemplates = new Array(slides.length).fill(null)
+      newSelectedTemplates.splice(
+        0,
+        state.selectedTemplates.length,
+        ...state.selectedTemplates
+      )
+      if (
+        state.activeSlide !== null &&
+        state.activeSlide - 1 < newSelectedTemplates.length
+      ) {
+        newSelectedTemplates[state.activeSlide - 1] = payload.selectedTemplate
+      }
+      localStorage.setItem(
+        SELECTED_TEMPLATES_KEY,
+        JSON.stringify(newSelectedTemplates)
+      )
+      return {
+        ...state,
+        slides: updatedSlides,
+        selectedTemplates: newSelectedTemplates,
+      }
     default:
       return state
   }

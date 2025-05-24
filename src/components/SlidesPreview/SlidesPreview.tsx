@@ -105,31 +105,47 @@ function SlidePreview({ i, slide, isActive, onSelect }: any) {
 
 export function SlidesPreview() {
   const { state, dispatch } = useContext(SlidesContext)
-  const { slides, activeSlide } = state
+  const { slides, activeSlide, selectedTemplates } = state
   const slidesQt = slides.length
 
   function handleSlideSelect(index: number) {
     dispatch({ type: 'CHANGE_ACTIVE_SLIDE', payload: index })
   }
 
+  const disableExport =
+    !slidesQt ||
+    slidesQt > selectedTemplates.length ||
+    selectedTemplates.includes(null)
+
   return (
     <div className={`previewContainer${slidesQt ? '' : ' _empty'}`}>
-      {slidesQt ? (
-        slides.map((slide, i) => (
-          <SlidePreview
-            key={i}
-            i={i + 1}
-            slide={slide}
-            isActive={activeSlide === i + 1}
-            onSelect={() => handleSlideSelect(i + 1)}
-          />
-        ))
-      ) : (
-        <span>
-          We can't find any slides in the content. Please, use headers to
-          structure the text.
-        </span>
-      )}
+      <div className="slidesPreview">
+        {slidesQt ? (
+          slides.map((slide, i) => (
+            <SlidePreview
+              key={i}
+              i={i + 1}
+              slide={slide}
+              isActive={activeSlide === i + 1}
+              onSelect={() => handleSlideSelect(i + 1)}
+            />
+          ))
+        ) : (
+          <span>
+            We can't find any slides in the content. Please, use headers to
+            structure the text.
+          </span>
+        )}
+      </div>
+      <div className="previewActions">
+        <button
+          className={`_export ${disableExport ? '_disabled' : ''}`}
+          disabled={disableExport}
+          onClick={() => {}}
+        >
+          Export slides
+        </button>
+      </div>
     </div>
   )
 }

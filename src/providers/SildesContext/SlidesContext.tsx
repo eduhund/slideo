@@ -38,7 +38,7 @@ const initialState = {
   slides: richedSlides,
   selectedTemplates: selectedTemplates,
   activeSlide: Number(localStorage.getItem(ACTIVE_SLIDE_KEY)) || 1,
-  activeTheme: localStorage.getItem(ACTIVE_THEME_KEY) || 'default',
+  activeTheme: localStorage.getItem(ACTIVE_THEME_KEY) || 'sobakapav/dark',
 }
 
 export const SlidesContext = createContext<{

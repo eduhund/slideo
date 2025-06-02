@@ -7,7 +7,7 @@ const meta = {
   title: {
     level: 1,
     minLength: 1,
-    maxLength: 10,
+    maxLength: 100,
   },
 }
 
@@ -19,7 +19,7 @@ export function Component({ content, isSelected, onClick }: any) {
       isSelected={isSelected}
       onClick={onClick}
     >
-      <div dangerouslySetInnerHTML={{ __html: content.raw }} />
+      <h1>{content.title}</h1>
     </Slide>
   )
 }

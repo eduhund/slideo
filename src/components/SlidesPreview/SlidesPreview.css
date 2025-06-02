@@ -41,7 +41,7 @@
 }
 
 .previewSlide:not(._empty) section {
-  transform: scale(0.15);
+  transform: scale(0.075);
   transform-origin: top left;
 }
 

@@ -6,6 +6,7 @@ type SlidesContextType = {
   slides: any[]
   selectedTemplates: any[]
   activeSlide: number | null
+  activeTheme?: string
 }
 
 type slidesReducerAction = {
@@ -16,6 +17,7 @@ type slidesReducerAction = {
 const STORAGE_KEY = 'quill-editor-content'
 const SELECTED_TEMPLATES_KEY = 'selected-templates'
 const ACTIVE_SLIDE_KEY = 'active-slide'
+const ACTIVE_THEME_KEY = 'active-theme'
 
 const content = localStorage.getItem(STORAGE_KEY) || ''
 
@@ -36,6 +38,7 @@ const initialState = {
   slides: richedSlides,
   selectedTemplates: selectedTemplates,
   activeSlide: Number(localStorage.getItem(ACTIVE_SLIDE_KEY)) || 1,
+  activeTheme: localStorage.getItem(ACTIVE_THEME_KEY) || 'default',
 }
 
 export const SlidesContext = createContext<{

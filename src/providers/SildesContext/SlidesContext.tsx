@@ -38,7 +38,7 @@ const initialState = {
   slides: richedSlides,
   selectedTemplates: selectedTemplates,
   activeSlide: Number(localStorage.getItem(ACTIVE_SLIDE_KEY)) || 1,
-  activeTheme: localStorage.getItem(ACTIVE_THEME_KEY) || 'sobakapav/dark',
+  activeTheme: localStorage.getItem(ACTIVE_THEME_KEY) || 'sobakapav/light',
 }
 
 export const SlidesContext = createContext<{
@@ -95,6 +95,9 @@ function slidesReducer(
         slides: updatedSlides,
         selectedTemplates: newSelectedTemplates,
       }
+    case 'SET_THEME':
+      localStorage.setItem(ACTIVE_THEME_KEY, payload)
+      return { ...state, activeTheme: payload }
     default:
       return state
   }

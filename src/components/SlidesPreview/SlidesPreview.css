@@ -101,6 +101,7 @@
 .previewActions {
   display: flex;
   justify-content: flex-end;
+  gap: 24px;
 }
 
 .previewActions ._export {
@@ -136,4 +137,23 @@
 .no-pseudo-elements::before,
 .no-pseudo-elements::after {
   content: none !important;
+}
+
+.themeSelector {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.themeSelector label {
+  font-size: 14px;
+  color: #333;
+}
+
+.themeSelector select {
+  font-size: 14px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }

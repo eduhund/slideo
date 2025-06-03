@@ -16,7 +16,7 @@ export default function Main() {
 
   const [themeName, themeType] = activeTheme
     ? activeTheme.split('/')
-    : ['default', 'light']
+    : ['sobakapav', 'light']
 
   return (
     <main id="home" className={`${themeName} _${themeType}`}>

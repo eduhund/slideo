@@ -20,15 +20,16 @@ export default function Slide({
   }, [children])
 
   return (
-    <section
-      ref={slideRef}
-      className={`slide ${className} ${
+    <div
+      className={`slideVariant ${
         isSelected ? '_selected' : ''
       } ${isOverflowing ? '_overflowing' : ''}`}
       onClick={onClick}
       {...props}
     >
-      {children}
-    </section>
+      <section ref={slideRef} className={className}>
+        {children}
+      </section>
+    </div>
   )
 }

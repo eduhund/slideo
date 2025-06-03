@@ -78,7 +78,7 @@ export function SlideVariants() {
 function SlidePreview({ i, slide, isActive, onSelect }: any) {
   if (!slide.selectedTemplate) {
     return (
-      <div className={`previewSlide _empty`} onClick={onSelect}>
+      <div className={`slidesPreview-item _empty`} onClick={onSelect}>
         <span>
           Slide #{i} <br></br>
           not selected
@@ -97,7 +97,7 @@ function SlidePreview({ i, slide, isActive, onSelect }: any) {
 
   return (
     <div
-      className={`previewSlide${isActive ? ' _active' : ''}`}
+      className={`slidesPreview-item${isActive ? ' _active' : ''}`}
       onClick={onSelect}
     >
       <SlideComponent key={i} content={slide} onClick={onSelect} />
@@ -132,7 +132,7 @@ async function exportSlidesAsPDF(
 
   for (let i = 0; i < slides.length; i++) {
     const slideElement = document.querySelector(
-      `.previewSlide:nth-child(${i + 1}) .slide`
+      `.slidesPreview-item:nth-child(${i + 1}) .slide`
     )
     if (slideElement) {
       // Clone the slide element into the hidden container
@@ -206,7 +206,7 @@ export function SlidesPreview() {
     selectedTemplates.includes(null)
 
   return (
-    <div className={`previewContainer${slidesQt ? '' : ' _empty'}`}>
+    <div className={`bottomBar${slidesQt ? '' : ' _empty'}`}>
       <div className="slidesPreview">
         {slidesQt ? (
           slides.map((slide, i) => (

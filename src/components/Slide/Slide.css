@@ -1,11 +1,10 @@
-.slide {
+.slideVariant {
   position: relative;
   width: calc(297px * 4);
   height: calc(210px * 4);
   transform: scale(0.5);
   transform-origin: top left;
   box-sizing: border-box;
-  padding: 12px 16px;
   border-radius: 12px;
   overflow: hidden;
   scroll-snap-align: start;
@@ -16,12 +15,11 @@
   line-height: 1.5em;
   color: #333;
   background-color: white;
-  padding: 1.5em 3em;
 
   flex-shrink: 0;
 }
 
-.slide::after {
+.slideVariant::after {
   content: attr(data-title);
   position: absolute;
   right: 12px;
@@ -29,11 +27,11 @@
   opacity: 0.2;
 }
 
-.slide:hover {
+.slideVariant:hover {
   cursor: pointer;
 }
 
-.slide:hover::before {
+.slideVariant:hover::before {
   content: '';
   position: absolute;
   top: 0;
@@ -46,7 +44,7 @@
   pointer-events: none;
 }
 
-.slide._selected::before {
+.slideVariant._selected::before {
   content: '';
   position: absolute;
   top: 0;
@@ -59,7 +57,7 @@
   pointer-events: none;
 }
 
-.slide._selected::after {
+.slideVariant._selected::after {
   content: '✔ ' attr(data-title);
   position: absolute;
   right: 12px;
@@ -69,7 +67,7 @@
   font-weight: bold;
 }
 
-.slide._overflowing::before {
+.slideVariant._overflowing::before {
   content: '';
   position: absolute;
   top: 0;
@@ -82,7 +80,7 @@
   pointer-events: none;
 }
 
-.slide._selected:not(._overflowing)::before {
+.slideVariant._selected:not(._overflowing)::before {
   content: '';
   position: absolute;
   top: 0;
@@ -95,7 +93,7 @@
   pointer-events: none;
 }
 
-.slide._selected._overflowing::before {
+.slideVariant._selected._overflowing::before {
   content: '';
   position: absolute;
   top: 0;
@@ -108,7 +106,7 @@
   pointer-events: none;
 }
 
-.slide._selected:not(._overflowing)::after {
+.slideVariant._selected:not(._overflowing)::after {
   content: '✔ ' attr(data-title);
   position: absolute;
   right: 12px;
@@ -118,7 +116,7 @@
   font-weight: bold;
 }
 
-.slide._selected._overflowing::after {
+.slideVariant._selected._overflowing::after {
   content: '⚠ ' attr(data-title);
   position: absolute;
   right: 12px;
@@ -126,4 +124,9 @@
   opacity: 0.8;
   color: orange; /* Orange warning */
   font-weight: bold;
+}
+
+.slide {
+  width: 100%;
+  height: 100%;
 }

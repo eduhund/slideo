@@ -1,4 +1,4 @@
-.previewContainer {
+.bottomBar {
   width: 100%;
   min-height: 88px;
 
@@ -11,11 +11,11 @@
   gap: 16px;
 }
 
-.previewContainer._empty {
+.bottomBar._empty {
   display: none;
 }
 
-.previewContainer._empty span {
+.bottomBar._empty span {
   font-size: 18px;
   line-height: 24px;
   opacity: 0.6;
@@ -30,47 +30,48 @@
   gap: 12px;
 }
 
-.previewSlide {
+.slidesPreview-item {
   border: 1px solid #666666;
   border-radius: 4px;
+
+  transform: scale(0.15);
+  transform-origin: top left;
 }
 
-.previewSlide:not(._empty) {
+.slidesPreview-item:not(._empty) {
   width: 90px;
   height: 64px;
 }
 
-.previewSlide:not(._empty) section {
-  transform: scale(0.075);
-  transform-origin: top left;
-}
-
-.previewSlide._empty span {
+.slidesPreview-item._empty span {
   font-size: 12px;
   line-height: 14px;
   text-align: center;
 }
 
-.previewSlide:hover {
+.slidesPreview-item:hover {
   background-color: #999999;
   border: 1px solid #333333;
 
   cursor: pointer;
 }
 
-.previewSlide._active {
+.slidesPreview-item._active {
   color: #ffffff;
   background-color: #000000;
   border: 1px solid #000000;
+  outline: 2px solid #ff6633;
+
+  filter: contrast(0.6);
 }
 
-.previewSlide._active:hover {
+.slidesPreview-item._active:hover {
   background-color: #333333;
   border: 1px solid #000000;
 }
 
-.previewSlide._empty,
-.previewSlide._empty:hover {
+.slidesPreview-item._empty,
+.slidesPreview-item._empty:hover {
   width: 88px;
   height: 64px;
   display: flex;

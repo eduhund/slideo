@@ -78,7 +78,7 @@ export function SlideVariants() {
 function SlidePreview({ i, slide, isActive, onSelect }: any) {
   if (!slide.selectedTemplate) {
     return (
-      <div className={`previewSlide _empty`} onClick={onSelect}>
+      <div className={`slidesPreview-item _empty`} onClick={onSelect}>
         <span>
           Slide #{i} <br></br>
           not selected
@@ -97,7 +97,7 @@ function SlidePreview({ i, slide, isActive, onSelect }: any) {
 
   return (
     <div
-      className={`previewSlide${isActive ? ' _active' : ''}`}
+      className={`slidesPreview-item${isActive ? ' _active' : ''}`}
       onClick={onSelect}
     >
       <SlideComponent key={i} content={slide} onClick={onSelect} />
@@ -105,15 +105,23 @@ function SlidePreview({ i, slide, isActive, onSelect }: any) {
   )
 }
 
-async function exportSlidesAsPDF(slides: any[]) {
+async function exportSlidesAsPDF(
+  slides: any[],
+  theme: string = 'sobakapav/light'
+) {
   const pdf = new jsPDF({
     orientation: 'landscape',
     unit: 'px',
     format: [297 * 2, 210 * 2], // Match slide dimensions
   })
 
+  const [themeName, themeType] = theme
+    ? theme.split('/')
+    : ['sobakapav', 'light']
+
   // Create a hidden container for rendering full-size slides
   const hiddenContainer = document.createElement('div')
+  hiddenContainer.className = `${themeName} _${themeType}`
   hiddenContainer.style.position = 'absolute'
   hiddenContainer.style.top = '-9999px'
   hiddenContainer.style.left = '-9999px'
@@ -124,7 +132,7 @@ async function exportSlidesAsPDF(slides: any[]) {
 
   for (let i = 0; i < slides.length; i++) {
     const slideElement = document.querySelector(
-      `.previewSlide:nth-child(${i + 1}) .slide`
+      `.slidesPreview-item:nth-child(${i + 1}) .slide`
     )
     if (slideElement) {
       // Clone the slide element into the hidden container
@@ -154,9 +162,38 @@ async function exportSlidesAsPDF(slides: any[]) {
   pdf.save('slides.pdf')
 }
 
+export function ThemeSelector() {
+  const { state, dispatch } = useContext(SlidesContext)
+  const themes = [
+    { label: 'Sobakapav / Light', value: 'sobakapav/light' },
+    { label: 'Sobakapav / Dark', value: 'sobakapav/dark' },
+  ]
+  const { activeTheme } = state
+  const handleThemeChange = (newTheme: string) => {
+    dispatch({ type: 'SET_THEME', payload: newTheme })
+  }
+
+  return (
+    <div className="themeSelector">
+      <label htmlFor="themeSelector">Theme:</label>
+      <select
+        id="themeSelector"
+        value={activeTheme}
+        onChange={(e) => handleThemeChange(e.target.value)}
+      >
+        {themes.map((theme) => (
+          <option key={theme.value} value={theme.value}>
+            {theme.label}
+          </option>
+        ))}
+      </select>
+    </div>
+  )
+}
+
 export function SlidesPreview() {
   const { state, dispatch } = useContext(SlidesContext)
-  const { slides, activeSlide, selectedTemplates } = state
+  const { slides, activeSlide, selectedTemplates, activeTheme } = state
   const slidesQt = slides.length
 
   function handleSlideSelect(index: number) {
@@ -169,7 +206,7 @@ export function SlidesPreview() {
     selectedTemplates.includes(null)
 
   return (
-    <div className={`previewContainer${slidesQt ? '' : ' _empty'}`}>
+    <div className={`bottomBar${slidesQt ? '' : ' _empty'}`}>
       <div className="slidesPreview">
         {slidesQt ? (
           slides.map((slide, i) => (
@@ -189,10 +226,11 @@ export function SlidesPreview() {
         )}
       </div>
       <div className="previewActions">
+        <ThemeSelector />
         <button
           className={`_export ${disableExport ? '_disabled' : ''}`}
           disabled={disableExport}
-          onClick={() => exportSlidesAsPDF(slides)}
+          onClick={() => exportSlidesAsPDF(slides, activeTheme)}
         >
           Export slides
         </button>

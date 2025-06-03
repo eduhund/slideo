@@ -105,15 +105,23 @@ function SlidePreview({ i, slide, isActive, onSelect }: any) {
   )
 }
 
-async function exportSlidesAsPDF(slides: any[]) {
+async function exportSlidesAsPDF(
+  slides: any[],
+  theme: string = 'sobakapav/light'
+) {
   const pdf = new jsPDF({
     orientation: 'landscape',
     unit: 'px',
     format: [297 * 2, 210 * 2], // Match slide dimensions
   })
 
+  const [themeName, themeType] = theme
+    ? theme.split('/')
+    : ['sobakapav', 'light']
+
   // Create a hidden container for rendering full-size slides
   const hiddenContainer = document.createElement('div')
+  hiddenContainer.className = `${themeName} _${themeType}`
   hiddenContainer.style.position = 'absolute'
   hiddenContainer.style.top = '-9999px'
   hiddenContainer.style.left = '-9999px'
@@ -185,7 +193,7 @@ export function ThemeSelector() {
 
 export function SlidesPreview() {
   const { state, dispatch } = useContext(SlidesContext)
-  const { slides, activeSlide, selectedTemplates } = state
+  const { slides, activeSlide, selectedTemplates, activeTheme } = state
   const slidesQt = slides.length
 
   function handleSlideSelect(index: number) {
@@ -222,7 +230,7 @@ export function SlidesPreview() {
         <button
           className={`_export ${disableExport ? '_disabled' : ''}`}
           disabled={disableExport}
-          onClick={() => exportSlidesAsPDF(slides)}
+          onClick={() => exportSlidesAsPDF(slides, activeTheme)}
         >
           Export slides
         </button>

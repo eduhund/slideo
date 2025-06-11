@@ -68,13 +68,13 @@
   border: none !important;
 }
 
-.ql-editor h2 {
+.ql-editor *[data-slide-id] {
   position: relative;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
-.ql-editor h2::after {
-  content: 'Slide #';
+.ql-editor *[data-slide-id]::after {
+  content: 'Slide #' attr(data-slide-id);
   position: absolute;
   top: 2px;
   right: 0;

@@ -9,10 +9,13 @@ import './Main.css'
 import '../../themes/sobakapav.scss'
 import { useContext } from 'react'
 import { SlidesContext } from '../../providers'
+import { useEditorWidth } from '../../components/Editor/hooks'
 
 export default function Main() {
   const { state } = useContext(SlidesContext)
   const { activeTheme } = state
+
+  const { editorWidth, resize } = useEditorWidth()
 
   const [themeName, themeType] = activeTheme
     ? activeTheme.split('/')
@@ -21,7 +24,10 @@ export default function Main() {
   return (
     <main id="home" className={`${themeName} _${themeType}`}>
       <div className="container">
-        <Editor />
+        <div className="editorContainer" style={{ width: `${editorWidth}%` }}>
+          <Editor />
+          <div className="separator" onMouseDown={resize} />
+        </div>
         <SlideVariants />
       </div>
       <SlidesPreview />

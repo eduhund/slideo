@@ -1,14 +1,14 @@
-import Editor from '../../components/Editor/Editor'
+import Editor from '../../../../components/Editor/Editor'
 import {
   SlidesPreview,
   SlideVariants,
-} from '../../components/SlidesPreview/SlidesPreview'
+} from '../../../../components/SlidesPreview/SlidesPreview'
 
 import './Concept1.scss'
 
 import '../../themes/sobakapav.scss'
 import { useContext } from 'react'
-import { SlidesContext } from '../../providers'
+import { SlidesContext } from '../../../../providers'
 
 export default function Concept1() {
   const { state } = useContext(SlidesContext)

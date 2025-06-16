@@ -53,7 +53,6 @@ export default function useQuillEditor() {
         (node as Element).nodeName === 'H2' ||
         (isEmpty(prev1) && isEmpty(prev2))
       ) {
-        console.log('all fires', node, index)
         ;(node as Element).setAttribute('data-slide-id', String(slideId))
         slideId++
       }

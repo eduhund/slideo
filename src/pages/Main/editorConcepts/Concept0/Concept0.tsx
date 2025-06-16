@@ -1,8 +1,6 @@
 import Editor from '../../../../components/Editor/Editor'
-import {
-  SlidesPreview,
-  SlideVariants,
-} from '../../../../components/SlidesPreview/SlidesPreview'
+import SlidesPreview from '../../../../components/SlidesPreview/SlidesPreview'
+import SlideVariants from '../../../../components/SlideVariants/SlideVariants'
 
 import './Concept0.css'
 

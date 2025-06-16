@@ -6,6 +6,8 @@ import Concept1 from './editorConcepts/Concept1/Concept1'
 import '../../themes/sobakapav.scss'
 import useSlidesTheme from './hooks/useSlidesTheme'
 
+import './Main.scss'
+
 export default function Main() {
   const [activeConcept, setActiveConcept] = useState(0)
   const { themeName, themeType } = useSlidesTheme()
@@ -19,7 +21,7 @@ export default function Main() {
 
   return (
     <main id="home" className={`${themeName} _${themeType}`}>
-      <div className="concepts">
+      <div className="concepts-selector">
         <Segmented
           options={concepts.map((c) => c.name)}
           onChange={(conceptName) =>

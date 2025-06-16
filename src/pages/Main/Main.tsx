@@ -20,7 +20,10 @@ export default function Main() {
   const ConceptComponent = concepts[activeConcept]?.component || Concept0
 
   return (
-    <main id="home" className={`${themeName} _${themeType}`}>
+    <main
+      id="home"
+      className={`${themeName} _${themeType} _concept-${activeConcept}`}
+    >
       <header className="editor-header">
         <h1>Slideo</h1>
         <div className="concepts-selector">

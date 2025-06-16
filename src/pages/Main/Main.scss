@@ -1,23 +1,30 @@
-.editor-header {
-  padding: 12px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+#home {
+  height: 100%;
+
   display: flex;
-  justify-content: space-between;
-}
+  flex-direction: column;
 
-.editor-header h1 {
-  font-size: 24px;
-  font-weight: 600;
-  margin: 0;
-  padding: 0;
-}
+  .editor-header {
+    padding: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+  }
 
-.concepts-selector {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  .editor-header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+  }
 
-  span {
-    opacity: 0.6;
+  .concepts-selector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    span {
+      opacity: 0.6;
+    }
   }
 }

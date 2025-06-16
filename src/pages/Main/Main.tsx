@@ -4,17 +4,11 @@ import Concept0 from './editorConcepts/Concept0/Concept0'
 import Concept1 from './editorConcepts/Concept1/Concept1'
 
 import '../../themes/sobakapav.scss'
-import { useContext } from 'react'
-import { SlidesContext } from '../../providers'
+import useSlidesTheme from './hooks/useSlidesTheme'
 
 export default function Main() {
   const [activeContept, setActiveConcept] = React.useState(0)
-  const { state } = useContext(SlidesContext)
-  const { activeTheme } = state
-
-  const [themeName, themeType] = activeTheme
-    ? activeTheme.split('/')
-    : ['sobakapav', 'light']
+  const { themeName, themeType } = useSlidesTheme()
 
   const concepts = [
     { id: 0, name: 'Concept 0', component: Concept0 },

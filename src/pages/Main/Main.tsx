@@ -21,14 +21,20 @@ export default function Main() {
 
   return (
     <main id="home" className={`${themeName} _${themeType}`}>
-      <div className="concepts-selector">
-        <Segmented
-          options={concepts.map((c) => c.name)}
-          onChange={(conceptName) =>
-            setActiveConcept(concepts.findIndex((c) => c.name === conceptName))
-          }
-        />
-      </div>
+      <header className="editor-header">
+        <h1>Slideo</h1>
+        <div className="concepts-selector">
+          <span>Switch UI concepts →</span>
+          <Segmented
+            options={concepts.map((c) => c.name)}
+            onChange={(conceptName) =>
+              setActiveConcept(
+                concepts.findIndex((c) => c.name === conceptName)
+              )
+            }
+          />
+        </div>
+      </header>
       <ConceptComponent />
     </main>
   )

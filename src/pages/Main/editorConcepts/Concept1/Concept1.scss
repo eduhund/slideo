@@ -1,8 +1,10 @@
 ._concept-1 {
   .container {
+    position: relative;
     width: 100%; /* Ensure the container takes the full width */
     display: flex;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     box-sizing: border-box; /* Ensure consistent width calculations */
   }
 
@@ -11,7 +13,7 @@
     flex: 0 0 auto; /* Prevent flex-grow and flex-shrink */
     width: 50%; /* Initial width as a percentage */
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
     box-sizing: border-box; /* Include border in width calculations */
   }
 
@@ -44,13 +46,7 @@
   }
 
   .ql-container {
-    overflow: auto;
     padding-bottom: 48px;
-  }
-
-  .editor {
-    height: 100%;
-    overflow: hidden;
   }
 
   .ql-toolbar.ql-snow {
@@ -76,6 +72,22 @@
     font-size: 12px;
     font-weight: 500;
     opacity: 0.3;
+  }
+
+  .slidesVariantsContainer {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+
+    .slidesVariants {
+      position: absolute;
+      flex-direction: row;
+      overflow-x: auto;
+
+      .slideVariant {
+        transform: scale(0.2);
+      }
+    }
   }
 
   .slidesPreviewContainer {

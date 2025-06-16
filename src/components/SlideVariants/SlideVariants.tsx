@@ -1,13 +1,6 @@
-import { useContext } from 'react'
 import slideTemplates, { Default } from '../../slides'
-import { SlidesContext } from '../../providers'
 
-export default function SlideVariants() {
-  const { state, dispatch } = useContext(SlidesContext)
-  const { slides, activeSlide } = state
-
-  const slide = activeSlide ? slides[activeSlide - 1] : null
-
+export default function SlideVariants({ slide, onSelect }: any) {
   if (!slide) {
     return (
       <div className="slidesVariants">
@@ -29,7 +22,7 @@ export default function SlideVariants() {
   })
 
   if (matchVariants.length === 0) {
-    dispatch({
+    onSelect({
       type: 'UPDATE_SLIDE',
       payload: { selectedTemplate: 'default' },
     })
@@ -47,7 +40,7 @@ export default function SlideVariants() {
     (variant) => variant.meta.name === slide.selectedTemplate
   )
   if (!selectedVariant) {
-    dispatch({
+    onSelect({
       type: 'UPDATE_SLIDE',
       payload: { selectedTemplate: matchVariants[0].meta.name },
     })
@@ -60,7 +53,7 @@ export default function SlideVariants() {
           content={slide}
           isSelected={variant.meta.name === slide.selectedTemplate}
           onClick={() => {
-            dispatch({
+            onSelect({
               type: 'UPDATE_SLIDE',
               payload: { selectedTemplate: variant.meta.name },
             })

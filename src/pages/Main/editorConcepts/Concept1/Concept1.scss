@@ -12,8 +12,6 @@
     position: relative;
     flex: 0 0 auto; /* Prevent flex-grow and flex-shrink */
     width: 50%; /* Initial width as a percentage */
-    height: 100%;
-    overflow-x: hidden;
     box-sizing: border-box; /* Include border in width calculations */
   }
 
@@ -34,11 +32,6 @@
     border-right-width: 5px;
   }
 
-  .quill {
-    height: 100%;
-    overflow: hidden;
-  }
-
   .ql-toolbar {
     position: sticky;
     top: 0;
@@ -47,6 +40,7 @@
 
   .ql-container {
     padding-bottom: 48px;
+    height: auto;
   }
 
   .ql-toolbar.ql-snow {
@@ -77,22 +71,14 @@
   .slidesVariantsContainer {
     display: flex;
     flex-direction: column;
-    overflow-y: auto;
 
     .slidesVariants {
       position: absolute;
       flex-direction: row;
-      overflow-x: auto;
 
       .slideVariant {
         transform: scale(0.2);
       }
     }
-  }
-
-  .slidesPreviewContainer {
-    flex: 1; /* Take up the remaining space */
-    height: 100%;
-    overflow: hidden;
   }
 }

@@ -3,25 +3,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
-$brand-color: #95001b;
 $primary-color: #101010;
-$secondary-color: #434343;
 $background-color: #ffffff;
 
-$brand-color: #c66d65;
-$primary-color-dark: #fff;
-$secondary-color-dark: #f6f6f6;
-$background-color-dark: #212121;
-
-.sobakapav {
+.eduhund {
   .slide {
     padding: 10px;
-    h1,
-    h2 {
-      font-family: 'Bebas Neue', sans-serif;
-    }
 
     h1 {
+      font-family: 'Inter', sans-serif;
       font-size: 68px;
       line-height: 100%;
       font-weight: 700;
@@ -32,6 +22,7 @@ $background-color-dark: #212121;
     h2,
     h3,
     h4 {
+      font-family: 'Inter', sans-serif;
       margin-bottom: 1em;
     }
 
@@ -82,28 +73,25 @@ $background-color-dark: #212121;
   }
 
   &._light {
-
     .slide {
-      color: $primary-color;
-      background-color: $background-color;
+      color: #101010;
+      background-color: #ffffff;
 
-      h1,
       h2,
       h3,
       h4 {
-        color: $primary-color;
+        color: #434343;
       }
 
       p {
-        color: $primary-color;
+        color: #666666;
       }
 
       li {
-        color: $primary-color;
+        color: #555555;
       }
 
       blockquote {
-        background-color: #eff0f0;
         color: #777;
         border-left-color: #cccccc;
       }
@@ -116,26 +104,25 @@ $background-color-dark: #212121;
 
       td,
       th {
-        border-color: #e8e8e8;
+        border-color: #cccccc;
       }
 
       th {
-        background-color: #eff0f0;
+        background-color: #eeeeee;
       }
     }
   }
 
   &._dark {
     .slide {
-      color: $primary-color-dark;
-      background-color: $background-color-dark;
+      color: #e0e0e0;
+      background-color: #212121;
 
       h2,
       h3,
       h4 {
-        color: $secondary-color-dark;
+        color: #b0b0b0;
       }
     }
   }
 }
-

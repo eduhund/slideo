@@ -7,7 +7,7 @@ import '../../themes/sobakapav.scss'
 import useSlidesTheme from './hooks/useSlidesTheme'
 
 export default function Main() {
-  const [activeContept, setActiveConcept] = useState(0)
+  const [activeConcept, setActiveConcept] = useState(0)
   const { themeName, themeType } = useSlidesTheme()
 
   const concepts = [
@@ -15,22 +15,16 @@ export default function Main() {
     { id: 1, name: 'Concept 1', component: Concept1 },
   ]
 
-  const ConceptComponent =
-    concepts.find((c) => c.id === activeContept)?.component || Concept0
-
-  const handleConceptChange = (conceptName: string) => {
-    const conceptIndex = concepts.findIndex((c) => c.name === conceptName)
-    if (conceptIndex !== -1) {
-      setActiveConcept(concepts[conceptIndex].id)
-    }
-  }
+  const ConceptComponent = concepts[activeConcept]?.component || Concept0
 
   return (
     <main id="home" className={`${themeName} _${themeType}`}>
       <div className="concepts">
-        <Segmented<string>
+        <Segmented
           options={concepts.map((c) => c.name)}
-          onChange={handleConceptChange}
+          onChange={(conceptName) =>
+            setActiveConcept(concepts.findIndex((c) => c.name === conceptName))
+          }
         />
       </div>
       <ConceptComponent />

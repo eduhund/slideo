@@ -6,25 +6,14 @@ import {
 
 import './Concept0.css'
 
-import '../../themes/sobakapav.scss'
-import { useContext } from 'react'
-import { SlidesContext } from '../../../../providers'
-
-export default function Main() {
-  const { state } = useContext(SlidesContext)
-  const { activeTheme } = state
-
-  const [themeName, themeType] = activeTheme
-    ? activeTheme.split('/')
-    : ['sobakapav', 'light']
-
+export default function Concept0() {
   return (
-    <main id="home" className={`${themeName} _${themeType}`}>
+    <>
       <div className="container">
         <Editor />
         <SlideVariants />
       </div>
       <SlidesPreview />
-    </main>
+    </>
   )
 }

@@ -9,7 +9,6 @@ import './Main.css'
 import '../../themes/sobakapav.scss'
 import { useContext } from 'react'
 import { SlidesContext } from '../../providers'
-import { useEditorWidth } from '../../components/Editor/hooks'
 
 export default function Main() {
   const { state } = useContext(SlidesContext)

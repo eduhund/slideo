@@ -15,8 +15,6 @@ export default function Main() {
   const { state } = useContext(SlidesContext)
   const { activeTheme } = state
 
-  const { editorWidth, resize } = useEditorWidth()
-
   const [themeName, themeType] = activeTheme
     ? activeTheme.split('/')
     : ['sobakapav', 'light']
@@ -24,10 +22,7 @@ export default function Main() {
   return (
     <main id="home" className={`${themeName} _${themeType}`}>
       <div className="container">
-        <div className="editorContainer" style={{ width: `${editorWidth}%` }}>
-          <Editor />
-          <div className="separator" onMouseDown={resize} />
-        </div>
+        <Editor />
         <SlideVariants />
       </div>
       <SlidesPreview />

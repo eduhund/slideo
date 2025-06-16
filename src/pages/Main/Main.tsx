@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Segmented } from 'antd'
 import Concept0 from './editorConcepts/Concept0/Concept0'
 import Concept1 from './editorConcepts/Concept1/Concept1'
@@ -7,7 +7,7 @@ import '../../themes/sobakapav.scss'
 import useSlidesTheme from './hooks/useSlidesTheme'
 
 export default function Main() {
-  const [activeContept, setActiveConcept] = React.useState(0)
+  const [activeContept, setActiveConcept] = useState(0)
   const { themeName, themeType } = useSlidesTheme()
 
   const concepts = [

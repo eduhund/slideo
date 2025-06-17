@@ -15,7 +15,6 @@ function extractSlides(doc: Document): any[] {
   doc.body.childNodes.forEach((node) => {
     if (node.nodeType === Node.ELEMENT_NODE) {
       const element = node as HTMLElement
-      console.log('Processing element:', element)
       let isLineBreak = false
 
       const previousSibling = element.previousElementSibling

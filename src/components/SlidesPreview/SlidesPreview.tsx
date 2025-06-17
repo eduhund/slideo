@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 
-import './SlidesPreview.css'
+import './SlidesPreview.scss'
 import slideTemplates, { Default } from '../../slides'
 import { SlidesContext } from '../../providers'
 import { ThemeSelector } from '..'

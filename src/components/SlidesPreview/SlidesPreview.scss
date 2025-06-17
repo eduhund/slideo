@@ -27,20 +27,30 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: nowrap;
-  gap: 12px;
+  gap: 8px;
 }
 
 .slidesPreview-item {
   border: 1px solid #666666;
   border-radius: 4px;
 
-  transform: scale(0.15);
-  transform-origin: top left;
-}
+  width: 59px;
+  height: 42px;
 
-.slidesPreview-item:not(._empty) {
-  width: 90px;
-  height: 64px;
+  .slideVariant {
+    width: 59px;
+    height: 42px;
+    border-radius: 4px;
+
+    &::after {
+      display: none;
+    }
+
+    .slide {
+      transform: scale(0.05);
+      transform-origin: top left;
+    }
+  }
 }
 
 .slidesPreview-item._empty span {
@@ -72,8 +82,6 @@
 
 .slidesPreview-item._empty,
 .slidesPreview-item._empty:hover {
-  width: 88px;
-  height: 64px;
   display: flex;
   justify-content: center;
   align-items: center;

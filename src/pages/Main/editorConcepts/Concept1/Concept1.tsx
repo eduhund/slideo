@@ -27,7 +27,6 @@ function getAdjustSlidePosition(index: number) {
 export default function Concept1() {
   const { state, dispatch } = useContext(SlidesContext)
   const { slides } = state
-  console.log('Concept1', slides)
   return (
     <div className="container">
       <Editor />

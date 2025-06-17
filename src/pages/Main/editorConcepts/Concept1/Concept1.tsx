@@ -28,6 +28,13 @@ function getAdjustSlidePosition(index: number) {
 export default function Concept1() {
   const { state, dispatch } = useContext(SlidesContext)
   const { slides } = state
+
+  const editor = document.querySelector('.ql-editor')
+  editor?.childNodes.forEach((node) => {
+    if (node instanceof HTMLElement) {
+      node.style = ''
+    }
+  })
   return (
     <>
       <div className="container">

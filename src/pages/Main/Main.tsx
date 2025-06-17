@@ -9,7 +9,9 @@ import useSlidesTheme from './hooks/useSlidesTheme'
 import './Main.scss'
 
 export default function Main() {
-  const [activeConcept, setActiveConcept] = useState(0)
+  const [activeConcept, setActiveConcept] = useState(
+    Number(localStorage.getItem('active-concept') || '0')
+  )
   const { themeName, themeType } = useSlidesTheme()
 
   const concepts = [
@@ -30,11 +32,14 @@ export default function Main() {
           <span>Switch UI concepts →</span>
           <Segmented
             options={concepts.map((c) => c.name)}
-            onChange={(conceptName) =>
-              setActiveConcept(
-                concepts.findIndex((c) => c.name === conceptName)
+            value={concepts[activeConcept]?.name}
+            onChange={(conceptName) => {
+              const conceptIndex = concepts.findIndex(
+                (c) => c.name === conceptName
               )
-            }
+              setActiveConcept(conceptIndex)
+              localStorage.setItem('active-concept', String(conceptIndex))
+            }}
           />
         </div>
       </header>

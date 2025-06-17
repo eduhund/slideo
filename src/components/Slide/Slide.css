@@ -1,17 +1,12 @@
 .slideVariant {
   position: relative;
-  width: calc(297px * 4);
-  height: calc(210px * 4);
-  transform: scale(0.5);
-  transform-origin: top left;
   box-sizing: border-box;
-  border-radius: 12px;
   overflow: hidden;
   scroll-snap-align: start;
   scroll-margin: 20px;
 
   font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-  font-size: 24px;
+  font-size: 12px;
   line-height: 1.5em;
   color: #333;
   background-color: white;
@@ -39,7 +34,6 @@
   right: 0;
   bottom: 0;
   border: 2px solid rgba(0, 43, 128, 0.4);
-  border-radius: 12px;
   z-index: 1;
   pointer-events: none;
 }
@@ -52,7 +46,6 @@
   right: 0;
   bottom: 0;
   border: 3px solid rgb(34, 128, 0);
-  border-radius: 12px;
   z-index: 1;
   pointer-events: none;
 }
@@ -75,7 +68,6 @@
   right: 0;
   bottom: 0;
   border: 3px solid orange;
-  border-radius: 12px;
   z-index: 1;
   pointer-events: none;
 }
@@ -88,7 +80,6 @@
   right: 0;
   bottom: 0;
   border: 3px solid rgb(34, 128, 0); /* Green stroke */
-  border-radius: 12px;
   z-index: 1;
   pointer-events: none;
 }
@@ -127,6 +118,6 @@
 }
 
 .slide {
-  width: 100%;
-  height: 100%;
+  width: calc(297px * 4);
+  height: calc(210px * 4);
 }

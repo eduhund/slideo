@@ -1,36 +1,49 @@
-import Editor from '../../components/Editor/Editor'
-import {
-  SlidesPreview,
-  SlideVariants,
-} from '../../components/SlidesPreview/SlidesPreview'
-
-import './Main.css'
+import React, { useState } from 'react'
+import { Segmented } from 'antd'
+import Concept0 from './editorConcepts/Concept0/Concept0'
+import Concept1 from './editorConcepts/Concept1/Concept1'
 
 import '../../themes/sobakapav.scss'
-import { useContext } from 'react'
-import { SlidesContext } from '../../providers'
-import { useEditorWidth } from '../../components/Editor/hooks'
+import useSlidesTheme from './hooks/useSlidesTheme'
+
+import './Main.scss'
 
 export default function Main() {
-  const { state } = useContext(SlidesContext)
-  const { activeTheme } = state
+  const [activeConcept, setActiveConcept] = useState(
+    Number(localStorage.getItem('active-concept') || '0')
+  )
+  const { themeName, themeType } = useSlidesTheme()
 
-  const { editorWidth, resize } = useEditorWidth()
+  const concepts = [
+    { id: 0, name: 'Concept 0', component: Concept0 },
+    { id: 1, name: 'Concept 1', component: Concept1 },
+  ]
 
-  const [themeName, themeType] = activeTheme
-    ? activeTheme.split('/')
-    : ['sobakapav', 'light']
+  const ConceptComponent = concepts[activeConcept]?.component || Concept0
 
   return (
-    <main id="home" className={`${themeName} _${themeType}`}>
-      <div className="container">
-        <div className="editorContainer" style={{ width: `${editorWidth}%` }}>
-          <Editor />
-          <div className="separator" onMouseDown={resize} />
+    <main
+      id="home"
+      className={`${themeName} _${themeType} _concept-${activeConcept}`}
+    >
+      <header className="editor-header">
+        <h1>Slideo</h1>
+        <div className="concepts-selector">
+          <span>Switch UI concepts →</span>
+          <Segmented
+            options={concepts.map((c) => c.name)}
+            value={concepts[activeConcept]?.name}
+            onChange={(conceptName) => {
+              const conceptIndex = concepts.findIndex(
+                (c) => c.name === conceptName
+              )
+              setActiveConcept(conceptIndex)
+              localStorage.setItem('active-concept', String(conceptIndex))
+            }}
+          />
         </div>
-        <SlideVariants />
-      </div>
-      <SlidesPreview />
+      </header>
+      <ConceptComponent />
     </main>
   )
 }

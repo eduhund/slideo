@@ -1,6 +1,6 @@
 import slideTemplates, { Default } from '../../slides'
 
-export default function SlideVariants({ slide, onSelect }: any) {
+export default function SlideVariants({ slide, onSelect, ...props }: any) {
   if (!slide) {
     return (
       <div className="slidesVariants">
@@ -27,7 +27,7 @@ export default function SlideVariants({ slide, onSelect }: any) {
       payload: { selectedTemplate: 'default' },
     })
     return (
-      <div className="slidesVariants">
+      <div className="slidesVariants" {...props}>
         <Default.component
           content={slide}
           isSelected={Default.meta.name === slide.selectedTemplate}
@@ -46,7 +46,7 @@ export default function SlideVariants({ slide, onSelect }: any) {
     })
   }
   return (
-    <div className="slidesVariants">
+    <div className="slidesVariants" {...props}>
       {matchVariants.map((variant: any, i: number) => (
         <variant.component
           key={i}

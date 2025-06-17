@@ -23,6 +23,7 @@ export default function Concept1() {
                 })
               }
             }}
+            style={{ top: `${index * 180}px` }}
           />
         ))}
       </div>

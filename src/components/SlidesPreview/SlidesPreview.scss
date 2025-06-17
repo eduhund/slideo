@@ -1,6 +1,6 @@
 .bottomBar {
   width: 100%;
-  min-height: 88px;
+  min-height: 68px;
 
   background-color: #f4f4f4;
   box-sizing: border-box;
@@ -152,17 +152,18 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 4px;
 }
 
 .themeSelector label {
   font-size: 14px;
   color: #333;
+  opacity: 0.6;
 }
 
 .themeSelector select {
   font-size: 14px;
-  padding: 8px;
+  padding: 4px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }

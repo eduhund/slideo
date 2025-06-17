@@ -19,7 +19,7 @@ function getAdjustSlidePosition(index: number) {
 
   if (editorSlideEnd && editorSlideHeight !== 0 && editorSlideHeight < 180) {
     ;(editorSlideEnd as HTMLElement).style.marginBottom =
-      `${172 - editorSlideHeight}px`
+      `${188 - editorSlideHeight}px`
   }
   return editorSlideTop - containerTop
 }

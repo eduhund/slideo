@@ -15,9 +15,11 @@ function extractSlides(doc: Document): any[] {
   doc.body.childNodes.forEach((node) => {
     if (node.nodeType === Node.ELEMENT_NODE) {
       const element = node as HTMLElement
+      console.log('Processing element:', element)
       let isLineBreak = false
 
       const previousSibling = element.previousElementSibling
+      const nextSibling = element.nextElementSibling
 
       if (previousSibling !== null) {
         const prevPrevSibling = previousSibling?.previousElementSibling || null
@@ -28,8 +30,11 @@ function extractSlides(doc: Document): any[] {
 
       const isHeader = element.tagName === 'H1' || element.tagName === 'H2'
 
-      if (isHeader || isLineBreak) {
+      if ((isHeader || isLineBreak) && previousSibling) {
         addSlide()
+      }
+
+      if (isHeader) {
         currentSlide = {
           ...currentSlide,
           type: isHeader
@@ -59,16 +64,12 @@ function extractSlides(doc: Document): any[] {
       } else {
         currentSlide.raw += element.outerHTML
       }
-    } else if (node.nodeType === Node.TEXT_NODE) {
-      // Handle text nodes
-      const text = node.textContent || ''
-      if (text.trim()) {
-        currentSlide.raw += text
+
+      if (!nextSibling) {
+        addSlide()
       }
     }
   })
-
-  addSlide()
 
   return slides
 }

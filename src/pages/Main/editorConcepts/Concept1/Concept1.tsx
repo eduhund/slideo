@@ -3,6 +3,7 @@ import { SlidesContext } from '../../../../providers'
 import Editor from '../../../../components/Editor/Editor'
 import SlideVariants from '../../../../components/SlideVariants/SlideVariants'
 import './Concept1.scss'
+import SlidesPreview from '../../../../components/SlidesPreview/SlidesPreview'
 
 function getAdjustSlidePosition(index: number) {
   const container = document.querySelector('.container')
@@ -28,28 +29,31 @@ export default function Concept1() {
   const { state, dispatch } = useContext(SlidesContext)
   const { slides } = state
   return (
-    <div className="container">
-      <Editor />
-      <div className="slidesVariantsContainer">
-        {slides.map((slide, index) => {
-          const slideAdjust = getAdjustSlidePosition(index)
-          return (
-            <SlideVariants
-              key={index}
-              slide={slide}
-              onSelect={(action: any) => {
-                if (action.type === 'UPDATE_SLIDE') {
-                  dispatch({
-                    type: 'UPDATE_SLIDE',
-                    payload: { ...action.payload, index: index + 1 },
-                  })
-                }
-              }}
-              style={{ top: `${slideAdjust}px` }}
-            />
-          )
-        })}
+    <>
+      <div className="container">
+        <Editor />
+        <div className="slidesVariantsContainer">
+          {slides.map((slide, index) => {
+            const slideAdjust = getAdjustSlidePosition(index)
+            return (
+              <SlideVariants
+                key={index}
+                slide={slide}
+                onSelect={(action: any) => {
+                  if (action.type === 'UPDATE_SLIDE') {
+                    dispatch({
+                      type: 'UPDATE_SLIDE',
+                      payload: { ...action.payload, index: index + 1 },
+                    })
+                  }
+                }}
+                style={{ top: `${slideAdjust}px` }}
+              />
+            )
+          })}
+        </div>
       </div>
-    </div>
+      <SlidesPreview />
+    </>
   )
 }

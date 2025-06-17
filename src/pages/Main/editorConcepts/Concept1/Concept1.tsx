@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { SlidesContext } from '../../../../providers'
 import Editor from '../../../../components/Editor/Editor'
 import SlideVariants from '../../../../components/SlideVariants/SlideVariants'
@@ -25,39 +25,47 @@ function getAdjustSlidePosition(index: number) {
   return editorSlideTop - containerTop
 }
 
+function SlideVariantsItem({ slide, index, dispatch }: any) {
+  const [slideAdjust, setSlideAdjust] = useState(0)
+  useEffect(() => {
+    setSlideAdjust(getAdjustSlidePosition(index))
+  }, [index])
+  return (
+    <SlideVariants
+      key={index}
+      slide={slide}
+      onSelect={(action: any) => {
+        /*
+        if (action.type === 'UPDATE_SLIDE') {
+          dispatch({
+            type: 'UPDATE_SLIDE',
+            payload: { ...action.payload, activeSlide: index + 1 },
+          })
+        }
+          */
+      }}
+      style={{ top: `${slideAdjust}px` }}
+    />
+  )
+}
+
 export default function Concept1() {
   const { state, dispatch } = useContext(SlidesContext)
   const { slides } = state
 
-  const editor = document.querySelector('.ql-editor')
-  editor?.childNodes.forEach((node) => {
-    if (node instanceof HTMLElement) {
-      node.style = ''
-    }
-  })
   return (
     <>
       <div className="container">
         <Editor />
         <div className="slidesVariantsContainer">
-          {slides.map((slide, index) => {
-            const slideAdjust = getAdjustSlidePosition(index)
-            return (
-              <SlideVariants
-                key={index}
-                slide={slide}
-                onSelect={(action: any) => {
-                  if (action.type === 'UPDATE_SLIDE') {
-                    dispatch({
-                      type: 'UPDATE_SLIDE',
-                      payload: { ...action.payload, index: index + 1 },
-                    })
-                  }
-                }}
-                style={{ top: `${slideAdjust}px` }}
-              />
-            )
-          })}
+          {slides.map((slide, index) => (
+            <SlideVariantsItem
+              key={index}
+              slide={slide}
+              index={index}
+              dispatch={dispatch}
+            />
+          ))}
         </div>
       </div>
       <SlidesPreview />

@@ -71,7 +71,6 @@ export default function Concept2() {
         closable={{ 'aria-label': 'Custom Close Button' }}
         open={isModalOpen}
         onOk={handleOk}
-        onCancel={handleCancel}
       />
     </>
   )

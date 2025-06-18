@@ -6,10 +6,14 @@ import { SlidesContext } from '../../providers'
 import { ThemeSelector } from '..'
 import exportSlidesAsPDF from '../../utils/export'
 
-export function SlidePreview({ i, slide, isActive, onSelect }: any) {
+export function SlidePreview({ i, slide, isActive, onSelect, ...props }: any) {
   if (!slide.selectedTemplate) {
     return (
-      <div className={`slidesPreview-item _empty`} onClick={onSelect}>
+      <div
+        className={`slidesPreview-item _empty`}
+        onClick={onSelect}
+        {...props}
+      >
         <span>
           Slide #{i} <br></br>
           not selected
@@ -30,6 +34,7 @@ export function SlidePreview({ i, slide, isActive, onSelect }: any) {
     <div
       className={`slidesPreview-item${isActive ? ' _active' : ''}`}
       onClick={onSelect}
+      {...props}
     >
       <SlideComponent key={i} content={slide} onClick={onSelect} />
     </div>

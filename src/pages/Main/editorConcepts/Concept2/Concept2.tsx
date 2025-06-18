@@ -8,21 +8,13 @@ import SlidesPreview, {
 } from '../../../../components/SlidesPreview/SlidesPreview'
 import SlideVariantsModal from './components/SlideVariantsModal'
 
-function SlideVariantsItem({ slide, index, dispatch }: any) {
+function SlidePreviewItem({ slide, index, onSelect }: any) {
   return (
-    <SlideVariants
+    <SlidePreview
       key={index}
+      i={index + 1}
       slide={slide}
-      onSelect={(action: any) => {
-        /*
-        if (action.type === 'UPDATE_SLIDE') {
-          dispatch({
-            type: 'UPDATE_SLIDE',
-            payload: { ...action.payload, activeSlide: index + 1 },
-          })
-        }
-          */
-      }}
+      onSelect={() => onSelect(index + 1)}
     />
   )
 }
@@ -30,17 +22,13 @@ function SlideVariantsItem({ slide, index, dispatch }: any) {
 export default function Concept2() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { state, dispatch } = useContext(SlidesContext)
-  const { slides, activeSlide } = state
+  const { slides } = state
 
   const showModal = () => {
     setIsModalOpen(true)
   }
 
   const handleOk = () => {
-    setIsModalOpen(false)
-  }
-
-  const handleCancel = () => {
     setIsModalOpen(false)
   }
 
@@ -55,11 +43,10 @@ export default function Concept2() {
         <Editor />
         <div className="slidesVariantsContainer">
           {slides.map((slide, i) => (
-            <SlidePreview
+            <SlidePreviewItem
               key={i}
-              i={i + 1}
+              index={i}
               slide={slide}
-              isActive={activeSlide === i + 1}
               onSelect={() => handleSlideSelect(i + 1)}
             />
           ))}

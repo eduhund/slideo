@@ -6,7 +6,7 @@ import { SlidesContext } from '../../providers'
 import { ThemeSelector } from '..'
 import exportSlidesAsPDF from '../../utils/export'
 
-function SlidePreview({ i, slide, isActive, onSelect }: any) {
+export function SlidePreview({ i, slide, isActive, onSelect }: any) {
   if (!slide.selectedTemplate) {
     return (
       <div className={`slidesPreview-item _empty`} onClick={onSelect}>

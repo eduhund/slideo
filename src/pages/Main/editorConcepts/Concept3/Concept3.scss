@@ -1,16 +1,23 @@
 ._concept-3 {
   .container {
     width: 100%; /* Ensure the container takes the full width */
+    height: 100%;
     display: flex;
     overflow: hidden;
     box-sizing: border-box; /* Ensure consistent width calculations */
+  }
+
+  .containerWrapper {
+    display: flex;
+    width: auto;
+    height: 100%;
+    flex-wrap: nowrap;
   }
 
   .editorContainer {
     position: relative;
     flex: 0 0 auto; /* Prevent flex-grow and flex-shrink */
     width: 50%; /* Initial width as a percentage */
-    height: 100%;
     overflow: hidden;
     box-sizing: border-box; /* Include border in width calculations */
   }
@@ -49,7 +56,6 @@
   }
 
   .editor {
-    height: 100%;
     overflow: hidden;
   }
 
@@ -82,6 +88,37 @@
     flex: 1; /* Take up the remaining space */
     height: 100%;
     overflow: hidden;
+  }
+
+  .slidesVariantsContainer {
+    position: relative;
+
+    .slidesPreview-item {
+      position: absolute;
+      flex-direction: row;
+      gap: 8px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      width: auto;
+      height: auto;
+      right: 12px;
+
+      .slideVariant {
+        width: 297px;
+        height: 210px;
+        overflow: hidden;
+        border-radius: 8px;
+
+        &::before {
+          border-radius: 8px;
+        }
+
+        .slide {
+          transform: scale(0.25);
+          transform-origin: top left;
+        }
+      }
+    }
   }
 
   .slidesVariants {

@@ -46,13 +46,36 @@ $background-color-dark: #212121;
       text-align: left;
       margin: 1em 0;
       padding-left: 2em;
-      list-style-type: circle;
       color: $brand-color;
+    }
+
+    ul {
+      list-style-type: circle;
     }
 
     li {
       font-size: 1.1em;
       line-height: 1.5;
+    }
+
+    ol {
+      li {
+        position: relative;
+        z-index: 2;
+      }
+      li:before {
+        content: "";
+        position:absolute;
+        left:-35px;
+        top: 7px;
+        background-color:$brand-color;
+        color: #ffffff;
+        z-index: -1;
+        display:inline-block;
+        width:30px;
+        height:30px;
+        border-radius:15px;
+      }
     }
 
     img {

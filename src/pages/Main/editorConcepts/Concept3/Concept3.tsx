@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { act, useContext, useEffect, useState } from 'react'
 import { SlidesContext } from '../../../../providers'
 import Editor from '../../../../components/Editor/Editor'
 import SlidesPreview, {
@@ -28,7 +28,7 @@ function getAdjustSlidePosition(index: number) {
   return editorSlideTop - containerTop
 }
 
-function SlidePreviewItem({ slide, index, onSelect }: any) {
+function SlidePreviewItem({ slide, index, isActive, onSelect }: any) {
   const [slideAdjust, setSlideAdjust] = useState(0)
   useEffect(() => {
     setSlideAdjust(getAdjustSlidePosition(index))
@@ -38,6 +38,7 @@ function SlidePreviewItem({ slide, index, onSelect }: any) {
       key={index}
       i={index + 1}
       slide={slide}
+      isActive={isActive}
       onSelect={() => onSelect(index + 1)}
       style={{ top: `${slideAdjust + 24}px` }}
     />
@@ -64,6 +65,7 @@ export default function Concept3() {
                 key={i}
                 index={i}
                 slide={slide}
+                isActive={activeSlide === i + 1}
                 onSelect={() => handleSlideSelect(i + 1)}
               />
             ))}

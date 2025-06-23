@@ -91,10 +91,11 @@
       width: auto;
       height: auto;
       right: 12px;
+      border-radius: 8px;
 
       .slideVariant {
-        width: 297px;
-        height: 210px;
+        width: 119px;
+        height: 84px;
         overflow: hidden;
         border-radius: 8px;
 
@@ -103,7 +104,7 @@
         }
 
         .slide {
-          transform: scale(0.25);
+          transform: scale(0.1);
           transform-origin: top left;
         }
       }
@@ -122,10 +123,10 @@
       height: 420px;
 
       overflow: hidden;
-      border-radius: 12px;
+      border-radius: 8px;
 
       &::before {
-        border-radius: 12px;
+        border-radius: 8px;
       }
 
       .slide {

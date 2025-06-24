@@ -62,7 +62,7 @@ export default function useQuillEditor() {
     if (!editorRef.current || quillRef.current) return
 
     const quill = new Quill(editorRef.current, {
-      theme: 'snow',
+      theme: 'bubble',
       modules: {
         markdownShortcuts: {},
       },

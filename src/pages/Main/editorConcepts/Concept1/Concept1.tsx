@@ -6,30 +6,33 @@ import './Concept1.scss'
 import SlidesPreview from '../../../../components/SlidesPreview/SlidesPreview'
 
 function getAdjustSlidePosition(index: number) {
-  const container = document.querySelector('.container')
-  const containerTop = container?.getBoundingClientRect()?.top || 0
+  const editor = document.querySelector('.editor')
+  const editorTop = editor?.getBoundingClientRect().top || 0
+
   const editorSlideStart = document.querySelector(
     `[data-slide-id="${index + 1}"]`
   )
   const nextSlide = document.querySelector(`[data-slide-id="${index + 2}"]`)
   const editorSlideEnd = nextSlide ? nextSlide.previousElementSibling : null
 
-  const editorSlideTop = editorSlideStart?.getBoundingClientRect().top || 0
-  const editorSlideBottom = editorSlideEnd?.getBoundingClientRect().bottom || 0
+  const editorSlideTop =
+    (editorSlideStart?.getBoundingClientRect().top || 0) - editorTop + 4
+  const editorSlideBottom =
+    (editorSlideEnd?.getBoundingClientRect().bottom || 0) - editorTop + 4
   const editorSlideHeight = editorSlideBottom - editorSlideTop
 
   if (editorSlideEnd && editorSlideHeight !== 0 && editorSlideHeight < 180) {
     ;(editorSlideEnd as HTMLElement).style.marginBottom =
       `${188 - editorSlideHeight}px`
   }
-  return editorSlideTop - containerTop
+  return editorSlideTop
 }
 
-function SlideVariantsItem({ slide, index, dispatch }: any) {
+function SlideVariantsItem({ slide, index }: any) {
   const [slideAdjust, setSlideAdjust] = useState(0)
   useEffect(() => {
     setSlideAdjust(getAdjustSlidePosition(index))
-  }, [index])
+  }, [index, slide])
   return (
     <SlideVariants
       key={index}

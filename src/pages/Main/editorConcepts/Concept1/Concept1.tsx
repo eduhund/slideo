@@ -16,9 +16,9 @@ function getAdjustSlidePosition(index: number) {
   const editorSlideEnd = nextSlide ? nextSlide.previousElementSibling : null
 
   const editorSlideTop =
-    (editorSlideStart?.getBoundingClientRect().top || 0) - editorTop + 48
+    (editorSlideStart?.getBoundingClientRect().top || 0) - editorTop + 4
   const editorSlideBottom =
-    (editorSlideEnd?.getBoundingClientRect().bottom || 0) - editorTop + 48
+    (editorSlideEnd?.getBoundingClientRect().bottom || 0) - editorTop + 4
   const editorSlideHeight = editorSlideBottom - editorSlideTop
 
   if (editorSlideEnd && editorSlideHeight !== 0 && editorSlideHeight < 180) {

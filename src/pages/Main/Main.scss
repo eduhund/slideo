@@ -108,13 +108,17 @@
 
     ul,
     ol {
-      padding-left: 20px;
       margin: 0;
       list-style-position: outside;
       list-style-type: disc;
 
       li {
         margin-bottom: 8px;
+        padding-left: 24px;
+
+        .ql-ui::before {
+          margin-left: -1.8em;
+        }
       }
     }
   }

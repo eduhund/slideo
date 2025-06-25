@@ -63,7 +63,18 @@ export default function useQuillEditor() {
 
     const quill = new Quill(editorRef.current, {
       theme: 'bubble',
+      placeholder: 'Start your presentation here...',
       modules: {
+        toolbar: [
+          [{ header: [1, 2, 3, false] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          [{ list: 'ordered' }, { list: 'bullet' }],
+          ['blockquote', 'link', 'image', 'video'],
+          ['clean'], // remove formatting button
+        ],
+        clipboard: {
+          matchVisual: false,
+        },
         markdownShortcuts: {},
       },
       formats: [
@@ -73,6 +84,7 @@ export default function useQuillEditor() {
         'underline',
         'strike',
         'list',
+        'blockquote',
         'link',
         'image',
         'video',

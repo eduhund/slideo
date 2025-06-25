@@ -1,0 +1,146 @@
+._concept-3 {
+  .container {
+    width: 100%; /* Ensure the container takes the full width */
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+    box-sizing: border-box; /* Ensure consistent width calculations */
+  }
+
+  .containerWrapper {
+    display: flex;
+    width: 50%;
+    height: auto;
+    flex-wrap: nowrap;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+  }
+
+  .editorContainer {
+    position: relative;
+    flex: 0 0 auto; /* Prevent flex-grow and flex-shrink */
+    width: 100% !important; /* Initial width as a percentage */
+    box-sizing: border-box; /* Include border in width calculations */
+  }
+
+  .separator {
+    display: none;
+  }
+
+  .quill {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .ql-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 9;
+  }
+
+  .ql-container {
+    height: auto;
+    overflow: auto;
+    padding-bottom: 48px;
+  }
+
+  .editor {
+    overflow: hidden;
+  }
+
+  .ql-toolbar.ql-snow {
+    border: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .ql-container.ql-snow {
+    border: none !important;
+  }
+
+  .ql-editor *[data-slide-id] {
+    position: relative;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .ql-editor *[data-slide-id]::after {
+    content: 'Slide #' attr(data-slide-id);
+    position: absolute;
+    top: 2px;
+    right: 0;
+
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.3;
+  }
+
+  .slidesPreviewContainer {
+    flex: 1; /* Take up the remaining space */
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .slidesVariantsContainer {
+    position: relative;
+
+    .slidesPreview-item {
+      position: absolute;
+      flex-direction: row;
+      gap: 8px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      width: auto;
+      height: auto;
+      right: 16px;
+      border-radius: 10px;
+
+      .slideVariant {
+        width: 119px;
+        height: 84px;
+        overflow: hidden;
+        border-radius: 8px;
+
+        &::before {
+          border-radius: 8px;
+        }
+
+        .slide {
+          transform: scale(0.1);
+          transform-origin: top left;
+        }
+      }
+    }
+  }
+
+  .slidesVariants {
+    width: 50%;
+    flex-direction: column;
+    gap: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .slideVariant {
+      width: 594px;
+      height: 420px;
+
+      overflow: hidden;
+      border-radius: 8px;
+
+      &::before {
+        border-radius: 8px;
+      }
+
+      .slide {
+        transform: scale(0.5);
+        transform-origin: top left;
+      }
+    }
+  }
+
+  .bottomBar {
+    justify-content: flex-end;
+  }
+
+  .slidesPreview {
+    display: none;
+  }
+}

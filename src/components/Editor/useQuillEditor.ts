@@ -36,7 +36,6 @@ export default function useQuillEditor() {
 
     root.childNodes.forEach((node, index) => {
       if (index === 0) {
-        console.log('First fire', node, index)
         ;(node as Element).setAttribute('data-slide-id', String(slideId))
         slideId++
         return
@@ -53,7 +52,6 @@ export default function useQuillEditor() {
         (node as Element).nodeName === 'H2' ||
         (isEmpty(prev1) && isEmpty(prev2))
       ) {
-        console.log('all fires', node, index)
         ;(node as Element).setAttribute('data-slide-id', String(slideId))
         slideId++
       }
@@ -64,7 +62,7 @@ export default function useQuillEditor() {
     if (!editorRef.current || quillRef.current) return
 
     const quill = new Quill(editorRef.current, {
-      theme: 'snow',
+      theme: 'bubble',
       modules: {
         markdownShortcuts: {},
       },

@@ -1,84 +1,19 @@
-import { useContext, useState } from 'react'
-import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas'
+import { useContext } from 'react'
 
-import './SlidesPreview.css'
+import './SlidesPreview.scss'
 import slideTemplates, { Default } from '../../slides'
 import { SlidesContext } from '../../providers'
+import { ThemeSelector } from '..'
+import exportSlidesAsPDF from '../../utils/export'
 
-export function SlideVariants() {
-  const { state, dispatch } = useContext(SlidesContext)
-  const { slides, activeSlide } = state
-
-  const slide = activeSlide ? slides[activeSlide - 1] : null
-
-  if (!slide) {
-    return (
-      <div className="slidesVariants">
-        <span>Please select a slide to preview it variants.</span>
-      </div>
-    )
-  }
-
-  const allVariants = Object.values(slideTemplates)
-
-  const matchVariants = allVariants.filter((variant) => {
-    if (slide.type === 'title') {
-      const { title } = variant.meta as any
-      if (title.level !== 1) return false
-      if (title.minLength && title.minLength > slide.title.length) return false
-      if (title.maxLength && title.maxLength < slide.title.length) return false
-    }
-    return true
-  })
-
-  if (matchVariants.length === 0) {
-    dispatch({
-      type: 'UPDATE_SLIDE',
-      payload: { selectedTemplate: 'default' },
-    })
-    return (
-      <div className="slidesVariants">
-        <Default.component
-          content={slide}
-          isSelected={Default.meta.name === slide.selectedTemplate}
-        />
-      </div>
-    )
-  }
-
-  const selectedVariant = matchVariants.find(
-    (variant) => variant.meta.name === slide.selectedTemplate
-  )
-  if (!selectedVariant) {
-    dispatch({
-      type: 'UPDATE_SLIDE',
-      payload: { selectedTemplate: matchVariants[0].meta.name },
-    })
-  }
-  return (
-    <div className="slidesVariants">
-      {matchVariants.map((variant: any, i: number) => (
-        <variant.component
-          key={i}
-          content={slide}
-          isSelected={variant.meta.name === slide.selectedTemplate}
-          onClick={() => {
-            dispatch({
-              type: 'UPDATE_SLIDE',
-              payload: { selectedTemplate: variant.meta.name },
-            })
-          }}
-        />
-      ))}
-    </div>
-  )
-}
-
-function SlidePreview({ i, slide, isActive, onSelect }: any) {
+export function SlidePreview({ i, slide, isActive, onSelect, ...props }: any) {
   if (!slide.selectedTemplate) {
     return (
-      <div className={`slidesPreview-item _empty`} onClick={onSelect}>
+      <div
+        className={`slidesPreview-item _empty`}
+        onClick={onSelect}
+        {...props}
+      >
         <span>
           Slide #{i} <br></br>
           not selected
@@ -99,99 +34,14 @@ function SlidePreview({ i, slide, isActive, onSelect }: any) {
     <div
       className={`slidesPreview-item${isActive ? ' _active' : ''}`}
       onClick={onSelect}
+      {...props}
     >
       <SlideComponent key={i} content={slide} onClick={onSelect} />
     </div>
   )
 }
 
-async function exportSlidesAsPDF(
-  slides: any[],
-  theme: string = 'sobakapav/light'
-) {
-  const pdf = new jsPDF({
-    orientation: 'landscape',
-    unit: 'px',
-    format: [297 * 2, 210 * 2], // Match slide dimensions
-  })
-
-  const [themeName, themeType] = theme
-    ? theme.split('/')
-    : ['sobakapav', 'light']
-
-  // Create a hidden container for rendering full-size slides
-  const hiddenContainer = document.createElement('div')
-  hiddenContainer.className = `${themeName} _${themeType}`
-  hiddenContainer.style.position = 'absolute'
-  hiddenContainer.style.top = '-9999px'
-  hiddenContainer.style.left = '-9999px'
-  hiddenContainer.style.width = '594px' // Full slide width
-  hiddenContainer.style.height = '420px' // Full slide height
-  hiddenContainer.style.overflow = 'hidden'
-  document.body.appendChild(hiddenContainer)
-
-  for (let i = 0; i < slides.length; i++) {
-    const slideElement = document.querySelector(
-      `.slidesPreview-item:nth-child(${i + 1}) .slide`
-    )
-    if (slideElement) {
-      // Clone the slide element into the hidden container
-      const clonedSlide = slideElement.cloneNode(true) as HTMLElement
-      clonedSlide.style.transform = 'none' // Remove scaling
-      clonedSlide.style.transformOrigin = 'unset'
-
-      // Add a class to hide pseudo-elements
-      clonedSlide.classList.add('no-pseudo-elements')
-
-      hiddenContainer.appendChild(clonedSlide)
-
-      // Render the cloned slide to a canvas
-      const canvas = await html2canvas(clonedSlide, { scale: 2 })
-      const imgData = canvas.toDataURL('image/png')
-      if (i > 0) pdf.addPage()
-      pdf.addImage(imgData, 'PNG', 0, 0, 297 * 2, 210 * 2)
-
-      // Remove the cloned slide after rendering
-      hiddenContainer.removeChild(clonedSlide)
-    }
-  }
-
-  // Clean up the hidden container
-  document.body.removeChild(hiddenContainer)
-
-  pdf.save('slides.pdf')
-}
-
-export function ThemeSelector() {
-  const { state, dispatch } = useContext(SlidesContext)
-  const themes = [
-    { label: 'Sobakapav / Light', value: 'sobakapav/light' },
-    { label: 'Sobakapav / Dark', value: 'sobakapav/dark' },
-  ]
-  const { activeTheme } = state
-  const handleThemeChange = (newTheme: string) => {
-    dispatch({ type: 'SET_THEME', payload: newTheme })
-  }
-
-  return (
-    <div className="themeSelector">
-      <label htmlFor="themeSelector">Theme:</label>
-      <select
-        id="themeSelector"
-        value={activeTheme}
-        onChange={(e) => handleThemeChange(e.target.value)}
-      >
-        {themes.map((theme) => (
-          <option key={theme.value} value={theme.value}>
-            {theme.label}
-          </option>
-        ))}
-      </select>
-    </div>
-  )
-}
-
-export function SlidesPreview() {
+export default function SlidesPreview() {
   const { state, dispatch } = useContext(SlidesContext)
   const { slides, activeSlide, selectedTemplates, activeTheme } = state
   const slidesQt = slides.length

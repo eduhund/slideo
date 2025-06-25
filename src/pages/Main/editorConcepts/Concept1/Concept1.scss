@@ -1,0 +1,104 @@
+._concept-1 {
+  .container {
+    position: relative;
+    width: 100%; /* Ensure the container takes the full width */
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-start;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box; /* Ensure consistent width calculations */
+  }
+
+  .editorContainer {
+    position: relative;
+    flex: 0 0 auto; /* Prevent flex-grow and flex-shrink */
+    width: 50%; /* Initial width as a percentage */
+    box-sizing: border-box; /* Include border in width calculations */
+  }
+
+  .separator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 5px;
+    height: 100%; /* Fixed width for the separator */
+    cursor: col-resize;
+    border-right: 1px solid #ddd;
+    z-index: 10;
+    transition: border-right-width 0.2s ease;
+    box-sizing: border-box; /* Include border in width calculations */
+  }
+
+  .separator:hover {
+    border-right-width: 5px;
+  }
+
+  .ql-toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 9;
+  }
+
+  .ql-container {
+    padding-bottom: 48px;
+    height: auto;
+  }
+
+  .ql-toolbar.ql-snow {
+    border: none !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2) !important;
+  }
+
+  .ql-container.ql-snow {
+    border: none !important;
+  }
+
+  .ql-editor *[data-slide-id] {
+    position: relative;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .ql-editor *[data-slide-id]::after {
+    content: 'Slide #' attr(data-slide-id);
+    position: absolute;
+    top: 2px;
+    right: 0;
+
+    font-size: 12px;
+    font-weight: 500;
+    opacity: 0.3;
+  }
+
+  .slidesVariantsContainer {
+    position: relative;
+    flex-grow: 1;
+    padding: 24px 0;
+
+    .slidesVariants {
+      width: 100%;
+      padding: 0 16px;
+      position: absolute;
+      flex-direction: row;
+      gap: 8px;
+      overflow-x: auto;
+      overflow-y: hidden;
+
+      .slideVariant {
+        width: 237.5px;
+        height: 172px;
+        overflow: hidden;
+        border-radius: 8px;
+
+        &::before {
+          border-radius: 8px;
+        }
+
+        .slide {
+          transform: scale(0.2);
+          transform-origin: top left;
+        }
+      }
+    }
+  }
+}

@@ -1,13 +1,13 @@
 import Slide from '../../../../components/Slide/Slide'
 
-import './V4.css'
+import './V4.scss'
 
 const meta = {
-  name: 'p0l0i1_v4',
+  name: 'p0l0i0_v04',
   title: {
     level: 1,
     minLength: 1,
-    maxLength: 10,
+    maxLength: 100,
   },
   image: {
     count: 1,
@@ -17,13 +17,14 @@ const meta = {
 export function Component({ content, isSelected, onClick }: any) {
   return (
     <Slide
-      className={'slide titleSlide ' + meta.name}
-      data-title={meta.name}
-      isSelected={isSelected}
-      onClick={onClick}
+          className={'slide titleSlide ' + meta.name}
+          data-title={meta.name}
+          isSelected={isSelected}
+          onClick={onClick}
     >
-      <h1>{content.title}</h1>
-      <img src={content.images[0]} alt="Slide visual" />
+      <div class="slideContainer">
+        <div class="textContainer" dangerouslySetInnerHTML={{ __html: content.raw }} />
+      </div>
     </Slide>
   )
 }

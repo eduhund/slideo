@@ -1,23 +1,27 @@
 import Slide from '../../../../components/Slide/Slide'
 
+import './V3.scss'
+
 const meta = {
-  name: 'p0l0i0_v3',
+  name: 'p0l0i0_v03',
   title: {
     level: 1,
-    minLength: 10,
-    maxLength: 24,
+    minLength: 1,
+    maxLength: 100,
   },
 }
 
 export function Component({ content, isSelected, onClick }: any) {
   return (
     <Slide
-      className={'slide titleSlide ' + meta.name}
-      data-title={meta.name}
-      isSelected={isSelected}
-      onClick={onClick}
+          className={'slide titleSlide ' + meta.name}
+          data-title={meta.name}
+          isSelected={isSelected}
+          onClick={onClick}
     >
-      <div dangerouslySetInnerHTML={{ __html: content.raw }} />
+      <div class="slideContainer">
+        <div class="textContainer" dangerouslySetInnerHTML={{ __html: content.raw }} />
+      </div>
     </Slide>
   )
 }

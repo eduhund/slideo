@@ -63,22 +63,6 @@
     border: none !important;
   }
 
-  .ql-editor *[data-slide-id] {
-    position: relative;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .ql-editor *[data-slide-id]::after {
-    content: 'Slide #' attr(data-slide-id);
-    position: absolute;
-    top: 2px;
-    right: 0;
-
-    font-size: 12px;
-    font-weight: 500;
-    opacity: 0.3;
-  }
-
   .slidesPreviewContainer {
     flex: 1; /* Take up the remaining space */
     height: 100%;

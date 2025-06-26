@@ -1,9 +1,9 @@
 import Slide from '../../../../components/Slide/Slide'
 
-import './V14.scss'
+import './V18.scss'
 
 const meta = {
-  name: 'p0l0i1_v14',
+  name: 'p0l0i1_v18',
   title: {
     level: 1,
     minLength: 1,

@@ -1,4 +1,4 @@
-.p0l0i1_v02 {
+.sobakapav .slide.p0l0i1_v02 {
   .slideContainer {
     height: calc(100% - 68px);
     width: calc(100% - 68px);
@@ -32,10 +32,11 @@
   }
 
   img:first-child {
-    max-heigth: 70%;
+    max-height: 60%;
     position: absolute;
-    right: calc(50% - 80px);
     bottom: 12px;
+    left: 50%;
+    transform: translate(-50%, 0);
     width: auto;
     height: auto;
   }

@@ -32,12 +32,10 @@
   }
 
   img:first-child {
-    max-height: 60%;
     position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    top: 12px;
-    width: auto;
+    bottom: 30%;
+    left: 0px;
+    width: 100%;
     height: auto;
   }
 

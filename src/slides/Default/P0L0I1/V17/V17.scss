@@ -27,10 +27,10 @@
   }
 
   p {
-    text-align: center;
+    text-align: left;
     font-size: 1.2em;
     line-height: 1.6;
-    max-width: translate(-50%, 0);
+    max-width: calc(50% - 68px);
   }
 
   img:first-child {

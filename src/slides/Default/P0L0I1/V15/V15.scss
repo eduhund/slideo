@@ -25,19 +25,17 @@
   }
 
   p {
-    text-align: center;
+    text-align: left;
     font-size: 1.2em;
     line-height: 1.6;
     max-width: 100%;
   }
 
   img:first-child {
-    max-width: 30%;
     position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    bottom: 12px;
-    width: auto;
+    top: 70%;
+    left: 0px;
+    width: 100%;
     height: auto;
   }
 

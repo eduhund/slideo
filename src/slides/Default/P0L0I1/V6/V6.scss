@@ -1,4 +1,4 @@
-.p0l0i1_v06 {
+.sobakapav .slide.p0l0i1_v06 {
   .slideContainer {
     height: calc(100% - 68px);
     width: calc(100% - 68px);
@@ -15,7 +15,7 @@
   }
   h1 {
     text-align: left;
-    max-width: 50%;
+    max-width: calc(50% - 68px);
   }
 
   h2,
@@ -23,21 +23,22 @@
   h4 {
     text-align: left;
     margin-bottom: 1em;
-    max-width: 50%;
+    max-width: calc(50% - 68px);
   }
 
   p {
-    text-align: center;
+    text-align: left;
     font-size: 1.2em;
     line-height: 1.6;
-    max-width: 50%;
+    max-width: calc(50% - 68px);
   }
 
   img:first-child {
-    max-width: 50%;
+    max-width: calc(50% - 68px);
     position: absolute;
     left: 24px;
-    top: calc(50% - 160px);
+    top: 50%;
+    transform: translate(0, -50%);
     width: auto;
     height: auto;
   }

@@ -1,13 +1,13 @@
 import Slide from '../../../../components/Slide/Slide'
 
-import './V9.scss'
+import './V12.css'
 
 const meta = {
-  name: 'p0l0i1_v09',
+  name: 'p0l0i1_v12',
   title: {
     level: 1,
     minLength: 1,
-    maxLength: 100,
+    maxLength: 10,
   },
   image: {
     count: 1,
@@ -22,9 +22,8 @@ export function Component({ content, isSelected, onClick }: any) {
       isSelected={isSelected}
       onClick={onClick}
     >
-      <div class="slideContainer">
-        <div class="textContainer" dangerouslySetInnerHTML={{ __html: content.raw }} />
-      </div>
+      <h1>{content.title}</h1>
+      <img src={content.images[0]} alt="Slide visual" />
     </Slide>
   )
 }

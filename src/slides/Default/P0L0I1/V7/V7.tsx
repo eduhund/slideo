@@ -3,7 +3,7 @@ import Slide from '../../../../components/Slide/Slide'
 import './V7.scss'
 
 const meta = {
-  name: 'p0l0i0_v07',
+  name: 'p0l0i1_v07',
   title: {
     level: 1,
     minLength: 1,

@@ -42,6 +42,15 @@
     height: auto;
     overflow: auto;
     padding-bottom: 48px;
+
+    .ql-editor {
+      > *[data-slide-id] {
+        padding-right: 142px !important;
+        + * {
+          padding-right: 142px !important;
+        }
+      }
+    }
   }
 
   .editor {

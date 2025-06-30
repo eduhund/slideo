@@ -43,7 +43,7 @@ function SlidePreviewItem({ slide, index, isActive, onSelect }: any) {
       slide={slide}
       isActive={isActive}
       onSelect={() => onSelect(index + 1)}
-      style={{ top: `${slideAdjust + 22}px` }}
+      style={{ top: `${slideAdjust + 22 + 41}px` }}
     />
   )
 }

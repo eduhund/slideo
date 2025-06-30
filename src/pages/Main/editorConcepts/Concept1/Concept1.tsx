@@ -47,7 +47,7 @@ function SlideVariantsItem({ slide, index }: any) {
         }
           */
       }}
-      style={{ top: `${slideAdjust}px` }}
+      style={{ top: `${slideAdjust + 41}px` }}
     />
   )
 }

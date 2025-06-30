@@ -48,6 +48,9 @@
         padding-right: 142px !important;
         + * {
           padding-right: 142px !important;
+          + * {
+            padding-right: 142px !important;
+          }
         }
       }
     }

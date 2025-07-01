@@ -1,12 +1,13 @@
 import Slide from '../../../../components/Slide/Slide'
 
-import './V2.css'
+import './V2.scss'
 
 const meta = {
+  name: 'p0l0i2_v02',
   title: {
     level: 1,
     minLength: 1,
-    maxLength: 10,
+    maxLength: 100,
   },
   image: {
     count: 2,
@@ -16,16 +17,29 @@ const meta = {
 export function Component({ content, isSelected, onClick }: any) {
   return (
     <Slide
-      className={'slide titleSlide p0l0i2_v2'}
-      data-title={'Title p0l0i2_v2'}
-      isSelected={isSelected}
-      onClick={onClick}
+          className={'slide titleSlide ' + meta.name}
+          data-title={meta.name}
+          isSelected={isSelected}
+          onClick={onClick}
     >
-      <h1>{content.title}</h1>
-      <div className="images">
-        <img src={content.images[0]} alt="Slide visual 1" />
-        <img src={content.images[1]} alt="Slide visual 2" />
-      </div>
+      <div className="slideContainer">
+          <div className="textContainer">
+            <h1>{content.title}</h1>
+            {content.paragraphsRaw.map((p) => (<p dangerouslySetInnerHTML={{ __html: p }}/>))}
+            <div className="images">
+              <img
+                src={content.images[0]?.src}
+                alt={content.title}
+                className="slideImage1"
+              />
+              <img
+                src={content.images[1]?.src}
+                alt={content.title}
+                className="slideImage2"
+              />
+            </div>
+          </div>
+        </div>
     </Slide>
   )
 }

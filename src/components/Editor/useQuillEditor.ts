@@ -62,16 +62,27 @@ export default function useQuillEditor() {
     if (!editorRef.current || quillRef.current) return
 
     const quill = new Quill(editorRef.current, {
-      theme: 'bubble',
+      theme: 'snow',
       placeholder: 'Start your presentation here...',
       modules: {
-        toolbar: [
-          [{ header: [1, 2, 3, false] }],
-          ['bold', 'italic', 'underline', 'strike'],
-          [{ list: 'ordered' }, { list: 'bullet' }],
-          ['blockquote', 'link', 'image', 'video'],
-          ['clean'], // remove formatting button
-        ],
+        toolbar: {
+          container: '#toolbar',
+          handlers: {
+            slideHeader: function () {
+              const range = quill.getSelection()
+              if (range) {
+                const currentFormat = quill.getFormat(range)
+                const isHeader2 = currentFormat.header === 2
+                quill.formatLine(
+                  range.index,
+                  range.length,
+                  'header',
+                  isHeader2 ? false : 2
+                )
+              }
+            },
+          },
+        },
         clipboard: {
           matchVisual: false,
         },

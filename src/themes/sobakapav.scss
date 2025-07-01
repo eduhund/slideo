@@ -26,7 +26,7 @@ $background-color-dark: #212121;
       line-height: 100%;
       font-weight: 700;
       text-transform: uppercase;
-      margin-bottom: 1em;
+      margin: 0.6em 0;
     }
 
     h2,
@@ -54,7 +54,7 @@ $background-color-dark: #212121;
     }
 
     li {
-      font-size: 1.1em;
+      font-size: 1.2em;
       line-height: 1.5;
     }
 
@@ -66,15 +66,18 @@ $background-color-dark: #212121;
       li:before {
         content: "";
         position:absolute;
-        left:-35px;
-        top: 7px;
+        left:calc(-1.2em - 3px);
+        top: 3px;
         background-color:$brand-color;
-        color: #ffffff;
         z-index: -1;
         display:inline-block;
-        width:30px;
-        height:30px;
-        border-radius:15px;
+        width:1.2em;
+        height:1.2em;
+        border-radius:0.6em;
+      }
+
+      li::marker {
+        color: #ffffff;
       }
     }
 

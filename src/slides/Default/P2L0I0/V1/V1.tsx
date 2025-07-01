@@ -1,6 +1,6 @@
 import Slide from '../../../../components/Slide/Slide'
 
-import './V1.css'
+import './V1.scss'
 
 const meta = {
   name: 'p2l0i0_v1',
@@ -23,8 +23,10 @@ export function Component({ content, isSelected, onClick }: any) {
       onClick={onClick}
     >
       <h1>{content.title}</h1>
-      <p>{content.paragraphs[0]}</p>
-      <p>{content.paragraphs[1]}</p>
+      <div class="paragraphsContainer">
+        <p>{content.paragraphs[0]}</p>
+        <p>{content.paragraphs[1]}</p>
+      </div>
     </Slide>
   )
 }

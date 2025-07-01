@@ -8,18 +8,30 @@ export default function Editor() {
   return (
     <div className="editorContainer" style={{ width: `${editorWidth}%` }}>
       <div id="toolbar">
-        <button className="ql-slideHeader">H</button>
-        <button className="ql-bold" />
-        <button className="ql-italic" />
-        <button className="ql-underline" />
-        <button className="ql-strike" />
-        <button className="ql-list" value="ordered" />
-        <button className="ql-list" value="bullet" />
-        <button className="ql-blockquote" />
-        <button className="ql-link" />
-        <button className="ql-image" />
-        <button className="ql-video" />
-        <button className="ql-clean" />
+        <span className="ql-formats">
+          <button className="ql-slideHeader">H</button>
+        </span>
+        <span className="ql-formats">
+          <button className="ql-bold" />
+          <button className="ql-italic" />
+          <button className="ql-underline" />
+          <button className="ql-strike" />
+        </span>
+        <span className="ql-formats">
+          <button className="ql-list" value="ordered" />
+          <button className="ql-list" value="bullet" />
+        </span>
+        <span className="ql-formats">
+          <button className="ql-blockquote" />
+          <button className="ql-link" />
+        </span>
+        <span className="ql-formats">
+          <button className="ql-image" />
+          <button className="ql-video" />
+        </span>
+        <span className="ql-formats">
+          <button className="ql-clean" />
+        </span>
       </div>
       <div className="editor" ref={editorRef} />
       <div className="separator" onMouseDown={resize} />

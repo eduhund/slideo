@@ -33,6 +33,12 @@
     max-width: 100%;
   }
 
+  ol,
+  ul {
+    text-align: left;
+    font-size: 1.2em;
+  }
+
   img:first-child {
     max-height: 60%;
     position: absolute;

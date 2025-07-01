@@ -30,7 +30,14 @@
     text-align: left;
     font-size: 1.2em;
     line-height: 1.6;
-    max-width: translate(-50%, 0);
+    max-width: calc(50% - 68px);
+  }
+
+  ol,
+  ul {
+    text-align: left;
+    font-size: 1.2em;
+    max-width: calc(50% - 68px);
   }
 
   img:first-child {

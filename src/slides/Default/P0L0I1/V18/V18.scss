@@ -31,6 +31,12 @@
     max-width: 100%;
   }
 
+  ol,
+  ul {
+    text-align: left;
+    font-size: 1.2em;
+  }
+
   img:first-child {
     position: absolute;
     bottom: 30%;

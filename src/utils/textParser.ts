@@ -5,11 +5,11 @@ function isEmptyParagraph(element: Element | null): boolean {
 
 function extractSlides(doc: Document): any[] {
   const slides: any[] = []
-  let currentSlide: any = { paragraphs: [], lists: [], images: [], raw: '' }
+  let currentSlide: any = { paragraphs: [], paragraphsRaw: [], lists: [], images: [], raw: '' }
 
   const addSlide = () => {
     slides.push({ ...currentSlide })
-    currentSlide = { paragraphs: [], lists: [], images: [], raw: '' }
+    currentSlide = { paragraphs: [], paragraphsRaw: [], lists: [], images: [], raw: '' }
   }
 
   doc.body.childNodes.forEach((node) => {
@@ -50,6 +50,7 @@ function extractSlides(doc: Document): any[] {
           currentSlide.raw += element.outerHTML
         } else {
           currentSlide.paragraphs.push(element.textContent || '')
+          currentSlide.paragraphsRaw.push(element.innerHTML || '')
           currentSlide.raw += element.outerHTML
         }
       } else if (element.tagName === 'UL' || element.tagName === 'OL') {

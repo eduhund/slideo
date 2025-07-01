@@ -1,4 +1,4 @@
-.sobakapav .slide.p0l0i1_v13 {
+.sobakapav .slide.p0l0i2_v06 {
   .slideContainer {
     height: calc(100% - 68px);
     width: calc(100% - 68px);
@@ -11,7 +11,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     align-content: end;
-    justify-content: start;
+    justify-content: center;
   }
   h1 {
     text-align: left;
@@ -40,15 +40,25 @@
     max-width: calc(50% - 68px);
   }
 
-  img:first-child {
+  .images {
+    max-width: calc(50% - 68px);
     position: absolute;
-    right: 50%;
-    top: -24px;
+    left: 24px;
+    top: 12px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 24px;
+  }
+
+  img:first-child {
     width: auto;
-    height: 100%;
+    height: auto;
   }
 
   img:not(:first-child) {
-    display: none;
+    width: auto;
+    height: auto;
   }
 }

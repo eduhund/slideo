@@ -33,6 +33,13 @@
     max-width: calc(50% - 68px);
   }
 
+  ol,
+  ul {
+    text-align: left;
+    font-size: 1.2em;
+    max-width: calc(50% - 68px);
+  }
+
   img:first-child {
     max-width: calc(50% - 68px);
     position: absolute;

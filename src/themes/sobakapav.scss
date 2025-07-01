@@ -17,7 +17,8 @@ $background-color-dark: #212121;
   .slide {
     padding: 10px;
     h1,
-    h2 {
+    h2,
+    h3 {
       font-family: 'Bebas Neue', sans-serif;
     }
 
@@ -35,10 +36,10 @@ $background-color-dark: #212121;
       margin-bottom: 1em;
     }
 
-    .slide p {
-      font-size: 1.2em;
-      line-height: 1.6;
-      max-width: 80%;
+    p {
+      font-size: 32px;
+      line-height: 130%;
+      font-family: 'Inter', sans-serif;
     }
 
     ul,
@@ -54,8 +55,9 @@ $background-color-dark: #212121;
     }
 
     li {
-      font-size: 1.2em;
-      line-height: 1.5;
+      font-size: 32px;
+      line-height: 130%;
+      font-family: 'Inter', sans-serif;
     }
 
     ol {
@@ -89,6 +91,7 @@ $background-color-dark: #212121;
     }
 
     blockquote {
+      font-family: 'Inter', sans-serif;
       font-style: italic;
       border-left-width: 4px;
       border-left-style: solid;

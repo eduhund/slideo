@@ -13,20 +13,23 @@
     align-content: end;
     justify-content: end;
   }
+
   h1 {
-    text-align: left;
+    text-align: start;
     max-width: calc(50% - 68px);
+    font-size: 56px;
+    line-height: 100%;
   }
 
   h2,
-  h3,
-  h4 {
-    text-align: left;
-    max-width: calc(50% - 68px);
+  h3 {
+      text-align: start;
+      max-width: calc(50% - 68px);
+      font-size: 48px;
+      line-height: 100%;
   }
 
-  p {
-    text-align: left;
+  h4 {
     max-width: calc(50% - 68px);
   }
 

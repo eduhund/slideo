@@ -1,16 +1,17 @@
 import Slide from '../../../../components/Slide/Slide'
 
-import './V10.scss'
+import './V1.scss'
 
 const meta = {
-  name: 'p0l0i2_v10',
+  name: 'p1l0i1_v01',
+  priority: 104,
   title: {
     level: 1,
     minLength: 1,
     maxLength: 100,
   },
   image: {
-    count: 2,
+    count: 1,
   },
 }
 
@@ -38,11 +39,6 @@ export function Component({ content, isSelected, onClick }: any) {
               src={content.images[0]?.src}
               alt={content.title}
               className="slideImage1"
-            />
-            <img
-              src={content.images[1]?.src}
-              alt={content.title}
-              className="slideImage2"
             />
           </div>
         </div>

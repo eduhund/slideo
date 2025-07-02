@@ -23,15 +23,15 @@ $background-color-dark: #212121;
     }
 
     h1 {
-      font-size: 96px;
+      font-size: 80px;
       line-height: 100%;
       font-weight: 700;
       text-transform: uppercase;
-      margin: 0.5em 0;
+      margin: 0 0 0.5em 0;
     }
 
     h2 {
-      font-size: 72px;
+      font-size: 60px;
       line-height: 100%;
       font-weight: 700;
       text-transform: uppercase;
@@ -39,7 +39,7 @@ $background-color-dark: #212121;
     }
 
     h3 {
-      font-size: 48px;
+      font-size: 44px;
       line-height: 100%;
       font-weight: 700;
       text-transform: uppercase;
@@ -47,13 +47,14 @@ $background-color-dark: #212121;
     }
 
     h4 {
-      margin-bottom: 0.5em 0;
+      margin-bottom: 1em;
     }
 
     p {
-      font-size: 32px;
-      line-height: 130%;
+      font-size: 24px;
+      line-height: 150%;
       font-family: 'Inter', sans-serif;
+      margin: 0 0 0.5em 0;
     }
 
     ul,
@@ -65,8 +66,32 @@ $background-color-dark: #212121;
     }
 
     ul {
-      list-style-type: circle;
+      list-style-type: none;
+      li {
+        display: flex;
+      }
+      li:before {
+        flex: 0 0 30px;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        background-color: $brand-color;
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        margin-top: 5px;
+        margin-right: 20px;
+
+        content: "→";
+        font-family: monospace;
+        font-size: 30px;
+        line-height: 10px;
+        font-weight: 800;
+        color: white;
+      }
     }
+
 
     li {
       font-size: 32px;
@@ -75,21 +100,32 @@ $background-color-dark: #212121;
     }
 
     ol {
+      list-style-type: none;
+      counter-reset: item;
       li {
         position: relative;
         z-index: 2;
+        display: flex;
+        align-items: center;
       }
       li:before {
-        content: "";
-        position:absolute;
-        left:calc(-1.2em - 3px);
-        top: 3px;
-        background-color:$brand-color;
-        z-index: -1;
-        display:inline-block;
-        width:1.2em;
-        height:1.2em;
-        border-radius:0.6em;
+        content: counter(item);
+        counter-increment: item;
+        color: white;
+
+        flex: 0 0 30px;
+        display: flex;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        margin-top: 5px;
+        margin-right: 20px;
+
+        background-color: #4D5052;
+        font-size: 15px;
       }
 
       li::marker {

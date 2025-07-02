@@ -20,7 +20,11 @@
   }
 
   h2,
-  h3,
+  h3 {
+    text-align: start;
+    max-width: calc(50% - 68px);
+  }
+
   h4 {
     max-width: calc(50% - 68px);
   }

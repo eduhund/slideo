@@ -24,20 +24,21 @@ export function Component({ content, isSelected, onClick }: any) {
     >
       <div className="slideContainer">
         <div className="textContainer">
+           <div className="images">
+              <img
+                src={content.images[0]?.src}
+                alt={content.title}
+                className="slideImage1"
+              />
+              <img
+                src={content.images[1]?.src}
+                alt={content.title}
+                className="slideImage2"
+              />
+            </div>
           <h1>{content.title}</h1>
           {content.paragraphsRaw.map((p) => (<p dangerouslySetInnerHTML={{ __html: p }}/>))}
-          <div className="images">
-            <img
-              src={content.images[0]?.src}
-              alt={content.title}
-              className="slideImage1"
-            />
-            <img
-              src={content.images[1]?.src}
-              alt={content.title}
-              className="slideImage2"
-            />
-          </div>
+
         </div>
       </div>
     </Slide>

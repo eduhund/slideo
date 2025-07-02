@@ -15,61 +15,47 @@
   }
   h1 {
     text-align: center;
+
   }
 
   h2,
   h3,
   h4 {
     text-align: center;
-    margin-bottom: 1em;
+
   }
 
   p {
     text-align: center;
-    font-size: 1.2em;
-    line-height: 1.6;
-    max-width: 100%;
+
   }
 
   ol,
   ul {
     text-align: left;
-    font-size: 1.2em;
+
   }
 
   images {
     max-height: 60%;
+    max-widht: 100%;
     position: absolute;
     top: 12px;
     left: 50%;
     transform: translate(-50%, 0);
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: flex-center;
     gap: 24px;
   }
 
-  img:first-child {
+  .slideImage1 {
     width: auto;
     height: auto;
   }
 
-  img:not(:first-child) {
+  .slideImage2 {
     width: auto;
     height: auto;
-  }
-
-  img:first-child {
-    max-height: 60%;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0);
-    top: 12px;
-    width: auto;
-    height: auto;
-  }
-
-  img:not(:first-child) {
-    display: none;
   }
 }

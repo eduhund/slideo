@@ -23,17 +23,31 @@ $background-color-dark: #212121;
     }
 
     h1 {
-      font-size: 68px;
+      font-size: 96px;
       line-height: 100%;
       font-weight: 700;
       text-transform: uppercase;
-      margin: 0.6em 0;
+      margin: 0.5em 0;
     }
 
-    h2,
-    h3,
+    h2 {
+      font-size: 72px;
+      line-height: 100%;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin: 0.5em 0;
+    }
+
+    h3 {
+      font-size: 48px;
+      line-height: 100%;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin: 0.5em 0;
+    }
+
     h4 {
-      margin-bottom: 1em;
+      margin-bottom: 0.5em 0;
     }
 
     p {

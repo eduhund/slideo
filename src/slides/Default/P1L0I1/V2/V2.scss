@@ -16,6 +16,13 @@
     margin-left: 30px;
   }
 
+  .contentContainer {
+    max-width: 680px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+  }
+
   h1 {
     text-align: start;
     max-width: 700px;
@@ -33,19 +40,11 @@
 
   p {
     text-align: left;
-    max-width: 680px;
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
   }
 
   ol,
   ul {
     text-align: left;
-    max-width: 680px;
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
   }
 
   .images {

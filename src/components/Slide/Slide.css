@@ -118,6 +118,6 @@
 }
 
 .slide {
-  width: calc(297px * 4);
-  height: calc(210px * 4);
+  width: 1920px;
+  height: 1080px;
 }

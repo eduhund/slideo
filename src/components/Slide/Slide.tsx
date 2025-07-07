@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import './Slide.css'
+import './Slide.scss'
 
 export default function Slide({
   children,

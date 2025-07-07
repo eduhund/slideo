@@ -1,0 +1,18 @@
+.hstack {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  height: 100%;
+
+  &-left {
+    flex-grow: 1;
+  }
+
+  &-right {
+    width: 40%;
+    background-color: #eff0f0;
+  }
+}

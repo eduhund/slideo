@@ -19,7 +19,7 @@ export default function SlideVariants({ slide, onSelect, ...props }: any) {
       if (title.maxLength && title.maxLength < slide.title.length) return false
     }
     return true
-  })
+  }).sort((v1, v2) => ((v2.meta?.priority || 0) - (v1.meta?.priority || 0)))
 
   if (matchVariants.length === 0) {
     onSelect({

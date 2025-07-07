@@ -85,4 +85,12 @@
       }
     }
   }
+
+  .bottomBar {
+    justify-content: flex-end;
+
+    .slidesPreview {
+      display: none;
+    }
+  }
 }

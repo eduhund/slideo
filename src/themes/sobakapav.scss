@@ -15,7 +15,7 @@ $background-color-dark: #212121;
 
 .sobakapav {
   .slide {
-    padding: 10px;
+    padding: 20px;
     h1,
     h2,
     h3 {
@@ -83,7 +83,7 @@ $background-color-dark: #212121;
         margin-top: 5px;
         margin-right: 20px;
 
-        content: "→";
+        content: '→';
         font-family: monospace;
         font-size: 30px;
         line-height: 10px;
@@ -91,7 +91,6 @@ $background-color-dark: #212121;
         color: white;
       }
     }
-
 
     li {
       font-size: 32px;
@@ -124,7 +123,7 @@ $background-color-dark: #212121;
         margin-top: 5px;
         margin-right: 20px;
 
-        background-color: #4D5052;
+        background-color: #4d5052;
         font-size: 15px;
       }
 
@@ -163,7 +162,6 @@ $background-color-dark: #212121;
   }
 
   &._light {
-
     .slide {
       color: $primary-color;
       background-color: $background-color;
@@ -217,7 +215,7 @@ $background-color-dark: #212121;
         color: $secondary-color-dark;
       }
 
-     blockquote {
+      blockquote {
         background-color: #eff0f0;
         color: $brand-color-dark;
         border-left-color: #e8e8e8;
@@ -225,4 +223,3 @@ $background-color-dark: #212121;
     }
   }
 }
-

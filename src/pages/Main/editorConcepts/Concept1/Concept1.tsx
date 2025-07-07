@@ -21,9 +21,9 @@ function getAdjustSlidePosition(index: number) {
     (editorSlideEnd?.getBoundingClientRect().bottom || 0) - editorTop + 4
   const editorSlideHeight = editorSlideBottom - editorSlideTop
 
-  if (editorSlideEnd && editorSlideHeight !== 0 && editorSlideHeight < 180) {
+  if (editorSlideEnd && editorSlideHeight !== 0 && editorSlideHeight < 120) {
     ;(editorSlideEnd as HTMLElement).style.marginBottom =
-      `${188 - editorSlideHeight}px`
+      `${128 - editorSlideHeight}px`
   }
   return editorSlideTop
 }

@@ -87,20 +87,20 @@
       width: auto;
       height: auto;
       right: 16px;
-      border-radius: 10px;
+      border-radius: 3px;
 
       .slideVariant {
-        width: 119px;
-        height: 84px;
+        width: 96px;
+        height: 54px;
         overflow: hidden;
-        border-radius: 8px;
+        border-radius: 2px;
 
         &::before {
-          border-radius: 8px;
+          border-radius: 2px;
         }
 
         .slide {
-          transform: scale(0.1);
+          transform: scale(0.05);
           transform-origin: top left;
         }
       }
@@ -115,8 +115,8 @@
     overflow-y: auto;
 
     .slideVariant {
-      width: 594px;
-      height: 420px;
+      width: 576px;
+      height: 324px;
 
       overflow: hidden;
       border-radius: 8px;
@@ -126,7 +126,7 @@
       }
 
       .slide {
-        transform: scale(0.5);
+        transform: scale(0.3);
         transform-origin: top left;
       }
     }

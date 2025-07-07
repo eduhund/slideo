@@ -78,18 +78,18 @@
     overflow-y: auto;
 
     .slideVariant {
-      width: 594px;
-      height: 420px;
+      width: 576px;
+      height: 324px;
 
       overflow: hidden;
-      border-radius: 12px;
+      border-radius: 8px;
 
       &::before {
-        border-radius: 12px;
+        border-radius: 8px;
       }
 
       .slide {
-        transform: scale(0.5);
+        transform: scale(0.3);
         transform-origin: top left;
       }
     }

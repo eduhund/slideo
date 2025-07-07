@@ -52,20 +52,20 @@
       overflow-y: hidden;
       width: auto;
       height: auto;
-      border-radius: 10px;
+      border-radius: 5px;
 
       .slideVariant {
-        width: 297px;
-        height: 210px;
+        width: 288px;
+        height: 162px;
         overflow: hidden;
-        border-radius: 8px;
+        border-radius: 4px;
 
         &::before {
-          border-radius: 8px;
+          border-radius: 4px;
         }
 
         .slide {
-          transform: scale(0.25);
+          transform: scale(0.15);
           transform-origin: top left;
         }
       }

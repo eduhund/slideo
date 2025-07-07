@@ -1,6 +1,6 @@
 .bottomBar {
   width: 100%;
-  min-height: 68px;
+  min-height: 80px;
 
   background-color: #f4f4f4;
   box-sizing: border-box;
@@ -32,15 +32,15 @@
 
 .slidesPreview-item {
   border: 1px solid #666666;
-  border-radius: 4px;
+  border-radius: 2px;
 
-  width: 59px;
-  height: 42px;
+  width: 96px;
+  height: 54px;
 
   .slideVariant {
-    width: 59px;
-    height: 42px;
-    border-radius: 4px;
+    width: 96px;
+    height: 54px;
+    border-radius: 2px;
 
     &::after {
       display: none;
@@ -152,7 +152,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: 4px;
+  gap: 6px;
 }
 
 .themeSelector label {
@@ -163,7 +163,7 @@
 
 .themeSelector select {
   font-size: 14px;
-  padding: 4px;
+  padding: 6px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }

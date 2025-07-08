@@ -32,6 +32,9 @@ export default function Editor() {
         <span className="ql-formats">
           <button className="ql-clean" />
         </span>
+        <span className="ql-formats">
+          <button className="ql-insertAIContent">🤖</button>
+        </span>
       </div>
       <div className="editor" ref={editorRef} />
       <div className="separator" onMouseDown={resize} />

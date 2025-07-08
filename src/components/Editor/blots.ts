@@ -1,7 +1,7 @@
 import Quill from 'quill'
 const BlockEmbed = Quill.import('blots/block/embed') as any
 
-class AIContentBlot extends BlockEmbed {
+export class AIContentBlot extends BlockEmbed {
   static blotName = 'ai-content'
   static tagName = 'div'
   static className = 'ql-ai-content'
@@ -13,5 +13,3 @@ class AIContentBlot extends BlockEmbed {
     return node
   }
 }
-
-Quill.register(AIContentBlot)

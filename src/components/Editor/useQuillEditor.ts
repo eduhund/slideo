@@ -8,10 +8,12 @@ import { SlidesContext } from '../../providers'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.bubble.css'
 import 'quill/dist/quill.snow.css'
+import { AIContentBlot } from './blots'
 
 const STORAGE_KEY = 'quill-editor-content'
 
 Quill.register('modules/markdownShortcuts', QuillMarkdown)
+Quill.register(AIContentBlot)
 
 const icons = Quill.import('ui/icons') as any
 icons['insertAIContent'] = '🤖'

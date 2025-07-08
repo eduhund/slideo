@@ -13,27 +13,10 @@ const STORAGE_KEY = 'quill-editor-content'
 
 Quill.register('modules/markdownShortcuts', QuillMarkdown)
 
-const BlockEmbed = Quill.import('blots/block/embed') as any
-
-class AIContentBlot extends BlockEmbed {
-  static blotName = 'ai-content'
-  static tagName = 'div'
-  static className = 'ql-ai-content'
-  static allowedChildren = []
-
-  static create(value: any) {
-    const node = super.create(value)
-    node.setAttribute('contenteditable', false)
-    return node
-  }
-}
-
-Quill.register(AIContentBlot)
-
 const icons = Quill.import('ui/icons') as any
 icons['insertAIContent'] = '🤖'
 
-export function insertAIContentAfterSelection(quill: any) {
+function insertAIContentAfterSelection(quill: any) {
   const range = quill.getSelection()
   if (!range) return
 

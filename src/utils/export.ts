@@ -42,10 +42,10 @@ export default async function exportSlidesAsPDF(
       hiddenContainer.appendChild(clonedSlide)
 
       // Render the cloned slide to a canvas
-      const canvas = await html2canvas(clonedSlide, { scale: 1 })
-      const imgData = canvas.toDataURL('image/png')
+      const canvas = await html2canvas(clonedSlide, { scale: 2 }) // Reduce scale for smaller image size
+      const imgData = canvas.toDataURL('image/jpeg', 1) // Use JPEG format with 80% quality
       if (i > 0) pdf.addPage()
-      pdf.addImage(imgData, 'PNG', 0, 0, 1920, 1080)
+      pdf.addImage(imgData, 'JPEG', 0, 0, 1920, 1080)
 
       // Remove the cloned slide after rendering
       hiddenContainer.removeChild(clonedSlide)

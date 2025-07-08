@@ -138,6 +138,43 @@
       }
     }
   }
+
+  .ql-ai-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    margin: 12px 40px 12px 20px;
+    border-radius: 4px;
+    background: #f8f9fb;
+    border: 1px solid #e2e4ea;
+    font-style: italic;
+    color: #888;
+    position: relative;
+  }
+
+  .ql-ai-content::before {
+    content: '';
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #ccc;
+    border-top-color: #6c63ff;
+    animation: spin 1s linear infinite;
+  }
+
+  .ql-ai-content::after {
+    content: '✨ Generating content with AI...';
+    font-size: 0.95em;
+    line-height: 1.4;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
 }
 
 #toolbar {

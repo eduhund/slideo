@@ -13,6 +13,22 @@ const STORAGE_KEY = 'quill-editor-content'
 
 Quill.register('modules/markdownShortcuts', QuillMarkdown)
 
+const icons = Quill.import('ui/icons') as any
+icons['insertAIContent'] = '🤖'
+
+function insertAIContentAfterSelection(quill: any) {
+  const range = quill.getSelection()
+  if (!range) return
+
+  const index = range.index + range.length
+  const [block] = quill.getLine(index)
+  if (!block) return
+
+  quill.insertText(index, '\n', Quill.sources.API)
+
+  quill.insertEmbed(index + 1, 'ai-content', '1', Quill.sources.API)
+}
+
 export default function useQuillEditor() {
   const editorRef = useRef<HTMLDivElement | null>(null)
   const quillRef = useRef<Quill | null>(null)
@@ -44,7 +60,10 @@ export default function useQuillEditor() {
       const prev2 = prev1?.previousSibling || null
 
       const isEmpty = (el: ChildNode | null) => {
-        return el?.firstChild?.nodeName === 'BR' || !el?.textContent?.trim()
+        return (
+          el?.nodeName !== 'DIV' &&
+          (el?.firstChild?.nodeName === 'BR' || !el?.textContent?.trim())
+        )
       }
 
       if (
@@ -81,6 +100,9 @@ export default function useQuillEditor() {
                 )
               }
             },
+            insertAIContent: function () {
+              insertAIContentAfterSelection(quill)
+            },
           },
         },
         clipboard: {
@@ -99,6 +121,7 @@ export default function useQuillEditor() {
         'link',
         'image',
         'video',
+        'ai-content',
       ],
     })
 

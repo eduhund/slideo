@@ -8,7 +8,7 @@ export default async function exportSlidesAsPDF(
   const pdf = new jsPDF({
     orientation: 'landscape',
     unit: 'px',
-    format: [297 * 2, 210 * 2], // Match slide dimensions
+    format: [1920, 1080], // Match slide dimensions
   })
 
   const [themeName, themeType] = theme
@@ -21,8 +21,8 @@ export default async function exportSlidesAsPDF(
   hiddenContainer.style.position = 'absolute'
   hiddenContainer.style.top = '-9999px'
   hiddenContainer.style.left = '-9999px'
-  hiddenContainer.style.width = '594px' // Full slide width
-  hiddenContainer.style.height = '420px' // Full slide height
+  hiddenContainer.style.width = '1920px' // Full slide width
+  hiddenContainer.style.height = '1080px' // Full slide height
   hiddenContainer.style.overflow = 'hidden'
   document.body.appendChild(hiddenContainer)
 
@@ -42,10 +42,10 @@ export default async function exportSlidesAsPDF(
       hiddenContainer.appendChild(clonedSlide)
 
       // Render the cloned slide to a canvas
-      const canvas = await html2canvas(clonedSlide, { scale: 2 })
+      const canvas = await html2canvas(clonedSlide, { scale: 1 })
       const imgData = canvas.toDataURL('image/png')
       if (i > 0) pdf.addPage()
-      pdf.addImage(imgData, 'PNG', 0, 0, 297 * 2, 210 * 2)
+      pdf.addImage(imgData, 'PNG', 0, 0, 1920, 1080)
 
       // Remove the cloned slide after rendering
       hiddenContainer.removeChild(clonedSlide)

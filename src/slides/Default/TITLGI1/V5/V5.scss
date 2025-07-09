@@ -1,4 +1,4 @@
-.sobakapav .slide.title_v06 {
+.sobakapav .slide.titlgi1_v05 {
   .slideContainer {
     height: calc(100% - 120px);
     width: calc(100% - 120px);
@@ -27,7 +27,7 @@
   }
 
   .contentContainer {
-    margin: 20px 0 0 0;
+    margin: 287px 0 0 0;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -40,21 +40,35 @@
       line-height: 120%;
       font-weight: 500;
       margin-bottom: 10px;
-      max-width: 65%;
     }
   }
-
 
   ul {
-    margin: 0 0 0 -20px;
-    display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    li {
-      &::before {
-        display: none;
-      }
-    }
+   margin: 0 0 0 -20px;
+   display: flex;
+       flex-direction: column;
+       flex-wrap: wrap;
+   li {
+     &::before {
+       display: none;
+     }
+   }
   }
 
+  img {
+   position: absolute;
+   height: 66px;
+   width: 66px;
+   left: 0px;
+   top: 0px;
+  }
+
+ .background {
+   position: absolute;
+   left: -60px;
+   top: -60px;
+   width: 100%;
+   height: auto;
+   z-index: -10;
+ }
 }

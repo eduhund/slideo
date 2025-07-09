@@ -1,4 +1,4 @@
-.sobakapav .slide.title_v06 {
+.sobakapav .slide.titlgi1_v10 {
   .slideContainer {
     height: calc(100% - 120px);
     width: calc(100% - 120px);
@@ -10,42 +10,45 @@
     display: flex;
     flex-direction: column-reverse;
     flex-wrap: nowrap;
-    align-content: start;
+    align-content: end;
     justify-content: space-between;
   }
 
   h1 {
-    text-align: left;
+    text-align: right;
     max-width: 60%;
   }
 
   h2,
   h3,
   h4 {
-    text-align: left;
+    text-align: right;
     max-width: 60%;
   }
 
   .contentContainer {
-    margin: 20px 0 0 0;
+    margin: 287px 0 0 0;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    align-content: start;
-    justify-content: start;
+    align-items: end;
 
     p {
-      text-align: left;
+      text-align: right;
       font-size: 48px;
       line-height: 120%;
       font-weight: 500;
       margin-bottom: 10px;
-      max-width: 65%;
     }
   }
 
 
   ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: end;
+
     margin: 0 0 0 -20px;
     display: flex;
         flex-direction: column;
@@ -57,4 +60,20 @@
     }
   }
 
+  img {
+    position: absolute;
+    height: 66px;
+    width: 66px;
+    right: 0px;
+    top: 0px;
+  }
+
+  .background {
+    position: absolute;
+    left: -60px;
+    top: -60px;
+    width: 100%;
+    height: auto;
+    z-index: -10;
+  }
 }

@@ -12,20 +12,23 @@ export default function SlideVariants({ slide, onSelect, ...props }: any) {
   const allVariants = Object.values(slideTemplates)
 
   const matchVariants = allVariants.filter((variant) => {
+    const { title, image } = variant.meta as any
     if (slide.type === 'title') {
-      const { title } = variant.meta as any
       if (title.level !== 1) return false
       if (title.minLength && title.minLength > slide.title.length) return false
       if (title.maxLength && title.maxLength < slide.title.length) return false
     }
+    if (image && (slide.images?.length != image.count)) return false
     return true
   }).sort((v1, v2) => ((v2.meta?.priority || 0) - (v1.meta?.priority || 0)))
 
   if (matchVariants.length === 0) {
-    onSelect({
-      type: 'UPDATE_SLIDE',
-      payload: { selectedTemplate: 'default' },
-    })
+    if (slide.selectedTemplate !== 'default') {
+      onSelect({
+        type: 'UPDATE_SLIDE',
+        payload: { selectedTemplate: 'default' },
+      })
+    }
     return (
       <div className="slidesVariants" {...props}>
         <Default.component

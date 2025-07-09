@@ -9,10 +9,12 @@
 
   &-left {
     flex-grow: 1;
+    height: 100%;
   }
 
   &-right {
-    width: 40%;
+    width: 33%;
+    flex-grow: 0;
     background-color: #eff0f0;
   }
 }

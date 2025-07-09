@@ -1,9 +1,9 @@
 import Slide from '../../../../components/Slide/Slide'
 
-import './V9.scss'
+import './V7.scss'
 
 const meta = {
-  name: 'titlg_v09',
+  name: 'titlg_v07',
   priority: 304,
   title: {
     level: 1,
@@ -17,7 +17,7 @@ const meta = {
 
 export function Component({ content, isSelected, onClick }: any) {
   return (
-    <Slide
+     <Slide
           className={'slide titleSlide ' + meta.name}
           data-title={meta.name}
           isSelected={isSelected}
@@ -33,13 +33,13 @@ export function Component({ content, isSelected, onClick }: any) {
               ))}
             </ul>
           )}
-          <div className="contentContainer">
+                    <div className="contentContainer">
             <h1>{content.title}</h1>
             {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}
           </div>
-
         </div>
       </div>
+
     </Slide>
   )
 }

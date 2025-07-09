@@ -1,4 +1,4 @@
-.sobakapav .slide.titlg_v09 {
+.sobakapav .slide.titlg_v06 {
   .slideContainer {
     height: calc(100% - 120px);
     width: calc(100% - 120px);
@@ -10,19 +10,19 @@
     display: flex;
     flex-direction: column-reverse;
     flex-wrap: nowrap;
-    align-content: end;
+    align-content: start;
     justify-content: space-between;
   }
 
   h1 {
-    text-align: right;
+    text-align: left;
     max-width: 60%;
   }
 
   h2,
   h3,
   h4 {
-    text-align: right;
+    text-align: left;
     max-width: 60%;
   }
 
@@ -31,10 +31,11 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    align-items: end;
+    align-content: start;
+    justify-content: start;
 
     p {
-      text-align: right;
+      text-align: left;
       font-size: 48px;
       line-height: 120%;
       font-weight: 500;
@@ -42,29 +43,24 @@
     }
   }
 
+ ul {
+   margin: 0 0 0 -20px;
+   display: flex;
+       flex-direction: column;
+       flex-wrap: wrap;
+   li {
+     &::before {
+       display: none;
+     }
+   }
+ }
 
-  ul {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    align-items: end;
+ img {
+   position: absolute;
+   height: 66px;
+   width: 66px;
+   right: 0px;
+   top: 0px;
+ }
 
-    margin: 0 0 0 -20px;
-    display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    li {
-      &::before {
-        display: none;
-      }
-    }
-  }
-
-  img {
-    position: absolute;
-    height: 66px;
-    width: 66px;
-    left: 0px;
-    top: 0px;
-  }
 }

@@ -4,7 +4,7 @@ import './V8.scss'
 
 const meta = {
   name: 'titlgi1_v08',
-  priority: 304,
+  priority: 305,
   title: {
     level: 1,
     minLength: 1,

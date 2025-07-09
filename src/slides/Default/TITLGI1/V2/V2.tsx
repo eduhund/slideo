@@ -1,19 +1,21 @@
 import Slide from '../../../../components/Slide/Slide'
 
-import './V6.scss'
+import './V2.scss'
 
 const meta = {
-  name: 'title_v06',
-  priority: 204,
+  name: 'titlgi1_v02',
+  priority: 304,
   title: {
     level: 1,
     minLength: 1,
     maxLength: 100,
   },
   image: {
-    count: 0,
+    count: 2,
   },
 }
+
+const logoPosition = 1
 
 export function Component({ content, isSelected, onClick }: any) {
   return (
@@ -25,20 +27,22 @@ export function Component({ content, isSelected, onClick }: any) {
     >
       <div className="slideContainer">
         <div className="textContainer">
+          <h1>{content.title}</h1>
           <div className="contentContainer">
-            <h1>{content.title}</h1>
             {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}
           </div>
-          {content.paragraphsRaw?.length > 1 && (
-            <ul>
-              {content.paragraphsRaw.slice(1).map((item: string, index: number) => (
-                <li key={index} dangerouslySetInnerHTML={{ __html: item }}></li>
-              ))}
-            </ul>
-          )}
-
         </div>
+        {content.paragraphsRaw?.length > 1 && (
+          <ul>
+            {content.paragraphsRaw.slice(1).map((item: string, index: number) => index == logoPosition ? (
+              <li key={index} className="itemWithLogo"><img className="logo" src={content.images[0].src} /> <span dangerouslySetInnerHTML={{ __html: item }} /></li>
+            ) : (
+              <li key={index} dangerouslySetInnerHTML={{ __html: item }}></li>
+            ))}
+          </ul>
+        )}
       </div>
+      <img className="background" src={content.images[1].src} />
     </Slide>
   )
 }

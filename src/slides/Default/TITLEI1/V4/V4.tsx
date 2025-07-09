@@ -4,7 +4,7 @@ import './V4.scss'
 
 const meta = {
   name: 'titlei1_v04',
-  priority: 204,
+  priority: 205,
   title: {
     level: 1,
     minLength: 1,

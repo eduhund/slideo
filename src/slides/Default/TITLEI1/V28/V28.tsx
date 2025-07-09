@@ -1,11 +1,11 @@
 import Slide from '../../../../components/Slide/Slide'
 import HStack from '../../../../components/Slide/components/HStack/HStack'
 
-import './V9.scss'
+import './V28.scss'
 
 const meta = {
-  name: 'titlei1_v09',
-  priority: 205,
+  name: 'titlei1_v28',
+  priority: 204,
   title: {
     level: 1,
     minLength: 1,

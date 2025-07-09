@@ -1,11 +1,11 @@
 import Slide from '../../../../components/Slide/Slide'
 import HStack from '../../../../components/Slide/components/HStack/HStack'
 
-import './V9.scss'
+import './V31.scss'
 
 const meta = {
-  name: 'titlei1_v09',
-  priority: 205,
+  name: 'titlei1_v31',
+  priority: 204,
   title: {
     level: 1,
     minLength: 1,
@@ -29,10 +29,6 @@ export function Component({ content, isSelected, onClick }: any) {
         leftContent={(
           <>
             <div className="textContainer">
-              <div className="contentContainer">
-                <h1>{content.title}</h1>
-                {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}
-              </div>
               {content.paragraphsRaw?.length > 1 && (
                 <ul>
                   {content.paragraphsRaw.slice(1).map((item: string, index: number) => (
@@ -40,18 +36,23 @@ export function Component({ content, isSelected, onClick }: any) {
                   ))}
                 </ul>
               )}
+                        <div className="contentContainer">
+                <h1>{content.title}</h1>
+                {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}
+              </div>
+
             </div>
           </>
         )}
 
         rightContent={(
-          <>
+
             <img
               src={content.images[0]?.src}
               alt={content.title}
               className="slideImage1"
             />
-          </>
+
         )} />
     </Slide>
   )

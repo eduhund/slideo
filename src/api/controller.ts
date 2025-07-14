@@ -1,12 +1,32 @@
-export async function get(endpoint: string, options: Object) {
+export async function get(endpoint: string, query: Object) {
   try {
-    /*
-    const responce = await fetch("baseURI + endpoint", {
-      method: "GET"
+    const baseURI = 'https://slideo.eduhund.com/api/'
+    const queryString = new URLSearchParams(
+      query as Record<string, string>
+    ).toString()
+    const fullURI = baseURI + endpoint + '?' + queryString
+    const response = await fetch(fullURI, {
+      method: 'GET',
     })
-    */
-    return true
+    return await response.json()
   } catch {
-    return false
+    return null
+  }
+}
+
+export async function post(endpoint: string, data: Object) {
+  try {
+    const baseURI = 'https://slideo.eduhund.com/api/'
+    const fullURI = baseURI + endpoint
+    const response = await fetch(fullURI, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+    return await response.json()
+  } catch {
+    return null
   }
 }

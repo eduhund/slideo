@@ -30,7 +30,7 @@ export function Component({ content, isSelected, onClick }: any) {
         leftContent={(
            <>
              <div className="textContainer">
-               {<ListOfContent content={content} listType="ul" fromParagraph={1} />
+               <ListOfContent content={content} listType="ul" fromParagraph={1} />
                <div className="contentContainer">
                  <h1>{content.title}</h1>
                  {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}

@@ -27,7 +27,6 @@ export class AIContentBlot extends BlockEmbed {
     const selectedText = value?.selectedText || ''
 
     generateImage(selectedText, '')
-    /*
       .then((imageUrl) => {
         if (!imageUrl) throw new Error('No image in response')
 
@@ -40,7 +39,6 @@ export class AIContentBlot extends BlockEmbed {
         if (err.name !== 'AbortError') console.error('API Error:', err)
         if (node.parentNode) node.parentNode.removeChild(node)
       })
-        */
     return node
   }
 }

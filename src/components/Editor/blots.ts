@@ -14,7 +14,7 @@ export class AIContentBlot extends BlockEmbed {
     node.classList.add('loading')
 
     const cancelButton = document.createElement('button')
-    cancelButton.textContent = 'Отменить'
+    cancelButton.textContent = 'Cancel'
     cancelButton.className = 'ai-cancel-button'
     node.appendChild(cancelButton)
 

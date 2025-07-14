@@ -9,5 +9,5 @@ export default async function generateMermaid(
     promt,
   })
 
-  return data?.data?.mermaid || null
+  return data?.mermaid || null
 }

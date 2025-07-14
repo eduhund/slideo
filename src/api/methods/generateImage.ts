@@ -9,5 +9,5 @@ export default async function generateImage(
     promt,
   })
 
-  return data?.data?.image || null
+  return data?.imageUrl || null
 }

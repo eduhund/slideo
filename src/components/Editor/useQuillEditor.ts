@@ -22,13 +22,20 @@ function insertAIContentAfterSelection(quill: any) {
   const range = quill.getSelection()
   if (!range) return
 
+  const selectedText = quill.getText(range.index, range.length)
+
   const index = range.index + range.length
   const [block] = quill.getLine(index)
   if (!block) return
 
   quill.insertText(index, '\n', Quill.sources.API)
 
-  quill.insertEmbed(index + 1, 'ai-content', '1', Quill.sources.API)
+  quill.insertEmbed(
+    index + 1,
+    'ai-content',
+    { selectedText },
+    Quill.sources.API
+  )
 }
 
 export default function useQuillEditor() {

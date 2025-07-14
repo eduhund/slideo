@@ -1,4 +1,5 @@
 import Slide from '../../../../components/Slide/Slide'
+import ListOfContent from '../../../Fragments/lists/ListOfContent'
 
 import './V1.scss'
 
@@ -30,13 +31,7 @@ export function Component({ content, isSelected, onClick }: any) {
             {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}
           </div>
         </div>
-        {content.paragraphsRaw?.length > 1 && (
-          <ul>
-            {content.paragraphsRaw.slice(1).map((item: string, index: number) => (
-              <li key={index} dangerouslySetInnerHTML={{ __html: item }}></li>
-            ))}
-          </ul>
-        )}
+        <ListOfContent content={content} listType="ul" fromParagraph={1} />
       </div>
     </Slide>
   )

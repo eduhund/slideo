@@ -74,7 +74,7 @@ export class AIMermaidBlot extends BlockEmbed {
 
         const newNode = document.createElement('div')
         newNode.className = 'ql-mermaid-diagram'
-        newNode.innerHTML = mermaidCode
+        newNode.innerText = mermaidCode
         node.replaceWith(newNode)
       })
       .catch((err) => {

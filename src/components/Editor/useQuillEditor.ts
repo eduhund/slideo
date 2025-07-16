@@ -8,17 +8,34 @@ import { SlidesContext } from '../../providers'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.bubble.css'
 import 'quill/dist/quill.snow.css'
-import { AIContentBlot } from './blots'
+import { AIImageBlot, AIMermaidBlot } from './blots'
 
 const STORAGE_KEY = 'quill-editor-content'
 
 Quill.register('modules/markdownShortcuts', QuillMarkdown)
-Quill.register(AIContentBlot)
+Quill.register(AIImageBlot)
+Quill.register(AIMermaidBlot)
 
 const icons = Quill.import('ui/icons') as any
-icons['insertAIContent'] = '🤖'
+icons['insertAIImage'] = '🤖'
+icons['insertAIMermaid'] = '🧟‍♂️'
 
-function insertAIContentAfterSelection(quill: any) {
+function insertAIImage(quill: any) {
+  const range = quill.getSelection()
+  if (!range) return
+
+  const selectedText = quill.getText(range.index, range.length)
+
+  const index = range.index + range.length
+  const [block] = quill.getLine(index)
+  if (!block) return
+
+  quill.insertText(index, '\n', Quill.sources.API)
+
+  quill.insertEmbed(index + 1, 'ai-image', { selectedText }, Quill.sources.API)
+}
+
+function insertAIMermaid(quill: any) {
   const range = quill.getSelection()
   if (!range) return
 
@@ -32,7 +49,7 @@ function insertAIContentAfterSelection(quill: any) {
 
   quill.insertEmbed(
     index + 1,
-    'ai-content',
+    'ai-mermaid',
     { selectedText },
     Quill.sources.API
   )
@@ -109,8 +126,11 @@ export default function useQuillEditor() {
                 )
               }
             },
-            insertAIContent: function () {
-              insertAIContentAfterSelection(quill)
+            insertAIImage: function () {
+              insertAIImage(quill)
+            },
+            insertAIMermaid: function () {
+              insertAIMermaid(quill)
             },
           },
         },
@@ -130,7 +150,8 @@ export default function useQuillEditor() {
         'link',
         'image',
         'video',
-        'ai-content',
+        'ai-image',
+        'ai-mermaid',
       ],
     })
 

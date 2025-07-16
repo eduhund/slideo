@@ -4,8 +4,8 @@ import generateImage from '../../api/methods/generateImage'
 import generateMermaid from '../../api/methods/generateMermaid'
 const BlockEmbed = Quill.import('blots/block/embed') as any
 
-export class AIContentBlot extends BlockEmbed {
-  static blotName = 'ai-content'
+export class AIImageBlot extends BlockEmbed {
+  static blotName = 'ai-image'
   static tagName = 'div'
   static className = 'ql-ai-content'
   static allowedChildren = []
@@ -16,7 +16,7 @@ export class AIContentBlot extends BlockEmbed {
     node.classList.add('loading')
 
     const cancelButton = document.createElement('button')
-    cancelButton.textContent = 'Отменить'
+    cancelButton.textContent = 'Cancel'
     cancelButton.className = 'ai-cancel-button'
     node.appendChild(cancelButton)
 

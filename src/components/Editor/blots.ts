@@ -75,8 +75,8 @@ export class AIMermaidBlot extends BlockEmbed {
         newNode.className = 'ql-ai-content'
         newNode.setAttribute('data-mode', 'preview')
         newNode.setAttribute('data-code', code)
-        AIMermaidBlot.render(newNode, code)
         node.replaceWith(newNode)
+        AIMermaidBlot.render(newNode, code)
       })
       .catch((err) => {
         if (err.name !== 'AbortError') console.error('API Error:', err)
@@ -90,6 +90,7 @@ export class AIMermaidBlot extends BlockEmbed {
     node.innerHTML = ''
 
     const toggleBtn = document.createElement('button')
+    toggleBtn.className = 'mermaid-button'
     toggleBtn.innerText = mode === 'preview' ? 'Edit code' : 'Preview'
     toggleBtn.onclick = () => {
       node.setAttribute('data-mode', mode === 'preview' ? 'code' : 'preview')

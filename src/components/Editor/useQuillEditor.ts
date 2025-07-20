@@ -61,9 +61,7 @@ function insertAIMermaid(quill: any) {
 
   generateMermaid(selectedText, '')
     .then((code) => {
-      console.log('Mermaid code:', code)
       const processedCode = code.replace('```mermaid', '').replace('```', '')
-      console.log('Processed Mermaid code:', code)
       quill.deleteText(index + 1, 1, Quill.sources.API)
       quill.insertEmbed(
         index + 1,

@@ -1,7 +1,5 @@
 import Quill from 'quill'
 import mermaid from 'mermaid'
-import generateImage from '../../api/methods/generateImage'
-import generateMermaid from '../../api/methods/generateMermaid'
 const BlockEmbed = Quill.import('blots/block/embed') as any
 
 export class AIGenerateBlot extends BlockEmbed {
@@ -60,6 +58,7 @@ export class AIMermaidBlot extends BlockEmbed {
   }
 
   static render(node: HTMLElement, code: string) {
+    console.log('AIMermaidBlot.render', node, code)
     const mode = node.getAttribute('data-mode') || 'preview'
     node.innerHTML = ''
 
@@ -77,7 +76,9 @@ export class AIMermaidBlot extends BlockEmbed {
       textarea.value = code
       textarea.style.width = '100%'
       textarea.style.height = '150px'
-      textarea.oninput = () => {
+      textarea.oninput = (e) => {
+        e.preventDefault()
+        e.stopPropagation()
         node.setAttribute('data-code', textarea.value)
         AIMermaidBlot.render(node, textarea.value)
       }
@@ -86,6 +87,7 @@ export class AIMermaidBlot extends BlockEmbed {
       const diagramContainer = document.createElement('div')
       diagramContainer.className = 'mermaid'
       diagramContainer.innerHTML = code
+      console.log('AIMermaidBlot.render diagramContainer', diagramContainer)
       node.appendChild(diagramContainer)
 
       try {
@@ -97,8 +99,6 @@ export class AIMermaidBlot extends BlockEmbed {
   }
 
   static value(node: HTMLElement) {
-    return {
-      code: node.getAttribute('data-code') || '',
-    }
+    return node.getAttribute('data-code') || ''
   }
 }

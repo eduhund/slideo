@@ -46,40 +46,16 @@ export class AIImageBlot extends BlockEmbed {
 export class AIMermaidBlot extends BlockEmbed {
   static blotName = 'ai-mermaid'
   static tagName = 'div'
-  static className = 'ql-ai-content'
+  static className = 'ql-ai-mermaid'
   static allowedChildren = []
 
-  static create(value: any) {
+  static create(code: any) {
     const node = super.create() as HTMLElement
-    node.setAttribute('contenteditable', 'false')
-    node.classList.add('loading')
 
-    const cancelButton = document.createElement('button')
-    cancelButton.textContent = 'Cancel'
-    cancelButton.className = 'ai-cancel-button'
-    node.appendChild(cancelButton)
+    node.setAttribute('data-mode', 'preview')
+    node.setAttribute('data-code', code)
+    AIMermaidBlot.render(node, code)
 
-    const controller = new AbortController()
-    cancelButton.onclick = () => {
-      controller.abort()
-      if (node.parentNode) node.parentNode.removeChild(node)
-    }
-
-    const selectedText = value?.selectedText || ''
-
-    generateMermaid(selectedText, '')
-      .then((code) => {
-        const newNode = document.createElement('div')
-        newNode.className = 'ql-ai-content'
-        newNode.setAttribute('data-mode', 'preview')
-        newNode.setAttribute('data-code', code)
-        node.replaceWith(newNode)
-        AIMermaidBlot.render(newNode, code)
-      })
-      .catch((err) => {
-        if (err.name !== 'AbortError') console.error('API Error:', err)
-        if (node.parentNode) node.parentNode.removeChild(node)
-      })
     return node
   }
 

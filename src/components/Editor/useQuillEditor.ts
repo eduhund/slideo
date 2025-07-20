@@ -57,12 +57,22 @@ function insertAIMermaid(quill: any) {
 
   quill.insertText(index, '\n', Quill.sources.API)
 
-  quill.insertEmbed(
-    index + 1,
-    'ai-mermaid',
-    { selectedText },
-    Quill.sources.API
-  )
+  quill.insertEmbed(index + 1, 'ai-generate', Quill.sources.API)
+
+  generateMermaid(selectedText, '')
+    .then((code) => {
+      console.log('Mermaid code:', code)
+      const processedCode = code.replace('```mermaid', '').replace('```', '')
+      console.log('Processed Mermaid code:', code)
+      quill.deleteText(index + 1, 1, Quill.sources.API)
+      quill.insertEmbed(
+        index + 1,
+        'ai-mermaid',
+        processedCode,
+        Quill.sources.API
+      )
+    })
+    .catch((err) => {})
 }
 
 export default function useQuillEditor() {

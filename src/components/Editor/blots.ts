@@ -4,16 +4,15 @@ import generateImage from '../../api/methods/generateImage'
 import generateMermaid from '../../api/methods/generateMermaid'
 const BlockEmbed = Quill.import('blots/block/embed') as any
 
-export class AIImageBlot extends BlockEmbed {
-  static blotName = 'ai-image'
+export class AIGenerateBlot extends BlockEmbed {
+  static blotName = 'ai-generate'
   static tagName = 'div'
-  static className = 'ql-ai-content'
+  static className = 'ql-ai-generate'
   static allowedChildren = []
 
-  static create(value: any) {
-    const node = super.create(value)
+  static create() {
+    const node = super.create()
     node.setAttribute('contenteditable', false)
-    node.classList.add('loading')
 
     const cancelButton = document.createElement('button')
     cancelButton.textContent = 'Cancel'
@@ -26,21 +25,20 @@ export class AIImageBlot extends BlockEmbed {
       if (node.parentNode) node.parentNode.removeChild(node)
     }
 
-    const selectedText = value?.selectedText || ''
+    return node
+  }
+}
 
-    generateImage(selectedText, '')
-      .then((imageUrl) => {
-        if (!imageUrl) throw new Error('No image in response')
+export class AIImageBlot extends BlockEmbed {
+  static blotName = 'ai-image'
+  static tagName = 'img'
+  static className = 'ql-ai-image'
+  static allowedChildren = []
 
-        const newNode = document.createElement('img')
-        newNode.src = imageUrl
-        newNode.className = 'ql-ai-image'
-        node.replaceWith(newNode)
-      })
-      .catch((err) => {
-        if (err.name !== 'AbortError') console.error('API Error:', err)
-        if (node.parentNode) node.parentNode.removeChild(node)
-      })
+  static create(imageUrl: any) {
+    const node = super.create() as HTMLImageElement
+    node.src = imageUrl
+    node.setAttribute('contenteditable', 'false')
     return node
   }
 }

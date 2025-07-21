@@ -1,8 +1,9 @@
 import React, { createContext, useReducer } from 'react'
 import { parseTextToSlides } from '../../utils/textParser'
+import { Op } from 'quill'
 
 type SlidesContextType = {
-  content: string
+  content: Op[]
   slides: any[]
   selectedTemplates: any[]
   activeSlide: number | null
@@ -14,12 +15,12 @@ type slidesReducerAction = {
   payload: any
 }
 
-const STORAGE_KEY = 'quill-editor-content'
+const STORAGE_KEY = 'slideo-content'
 const SELECTED_TEMPLATES_KEY = 'selected-templates'
 const ACTIVE_SLIDE_KEY = 'active-slide'
 const ACTIVE_THEME_KEY = 'active-theme'
 
-const content = localStorage.getItem(STORAGE_KEY) || ''
+const content = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
 
 const slides = parseTextToSlides(content)
 const selectedTemplates = JSON.parse(
@@ -55,17 +56,10 @@ function slidesReducer(
 ) {
   switch (type) {
     case 'UPDATE_CONTENT':
-      const parsedSlides = parseTextToSlides(payload)
+      const { content, dom } = payload
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(content))
 
-      const selectedTemplates = state.selectedTemplates
-      const richedSlides = parsedSlides.map((slide: any, i: number) => {
-        const selectedTemplate = selectedTemplates[i] || null
-        return {
-          ...slide,
-          selectedTemplate,
-        }
-      })
-      return { ...state, content: payload, slides: richedSlides }
+      return { ...state, content }
     case 'CHANGE_ACTIVE_SLIDE':
       localStorage.setItem(ACTIVE_SLIDE_KEY, payload)
       return { ...state, activeSlide: payload }
@@ -98,6 +92,16 @@ function slidesReducer(
     case 'SET_THEME':
       localStorage.setItem(ACTIVE_THEME_KEY, payload)
       return { ...state, activeTheme: payload }
+    case 'SET_SLIDES':
+      const selectedTemplates = state.selectedTemplates
+      const richedSlides = payload.map((slide: any, i: number) => {
+        const selectedTemplate = selectedTemplates[i] || null
+        return {
+          ...slide,
+          selectedTemplate,
+        }
+      })
+      return { ...state, slides: richedSlides }
     default:
       return state
   }

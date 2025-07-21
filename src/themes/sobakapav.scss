@@ -1,4 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+NeueCyrillic&display=swap');
+@font-face {
+  font-family: 'Bebas Neue';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/bebasneuecyrillic.ttf");
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
@@ -26,7 +33,7 @@ $background-color-dark: #212121;
     h1 {
       font-size: 128px;
       line-height: 100%;
-      font-weight: 700;
+      font-weight: 500;
       text-transform: uppercase;
       margin: 0 0 10px 0;
     }
@@ -34,7 +41,7 @@ $background-color-dark: #212121;
     h2 {
       font-size: 96px;
       line-height: 100%;
-      font-weight: 700;
+      font-weight: 500;
       text-transform: uppercase;
       margin: 0.5em 0;
     }
@@ -42,7 +49,7 @@ $background-color-dark: #212121;
     h3 {
       font-size: 60px;
       line-height: 100%;
-      font-weight: 700;
+      font-weight: 500;
       text-transform: uppercase;
       margin: 0.5em 0;
     }
@@ -64,6 +71,7 @@ $background-color-dark: #212121;
       text-align: left;
       margin: 1em 0;
       padding-left: 2em;
+      padding-inline-start: 20px;
       color: $brand-color;
     }
 

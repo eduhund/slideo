@@ -1,10 +1,11 @@
 import Slide from '../../../../components/Slide/Slide'
+import ListOfContent from '../../../Fragments/lists/ListOfContent'
 
 import './V3.scss'
 
 const meta = {
   name: 'title_v03',
-  priority: 204,
+  priority: 904,
   title: {
     level: 1,
     minLength: 1,
@@ -25,13 +26,7 @@ export function Component({ content, isSelected, onClick }: any) {
     >
       <div className="slideContainer">
         <div className="textContainer">
-          {content.paragraphsRaw?.length > 1 && (
-            <ul>
-              {content.paragraphsRaw.slice(1).map((item: string, index: number) => (
-                <li key={index} dangerouslySetInnerHTML={{ __html: item }}></li>
-              ))}
-            </ul>
-          )}
+          <ListOfContent content={content} listType="ul" fromParagraph={1} />
           <div className="contentContainer">
             <h1>{content.title}</h1>
             {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}

@@ -1,18 +1,16 @@
 import Quill from 'quill'
-import generateImage from '../../api/methods/generateImage'
-import generateMermaid from '../../api/methods/generateMermaid'
+import mermaid from 'mermaid'
 const BlockEmbed = Quill.import('blots/block/embed') as any
 
-export class AIImageBlot extends BlockEmbed {
-  static blotName = 'ai-image'
+export class AIGenerateBlot extends BlockEmbed {
+  static blotName = 'ai-generate'
   static tagName = 'div'
-  static className = 'ql-ai-content'
+  static className = 'ql-ai-generate'
   static allowedChildren = []
 
-  static create(value: any) {
-    const node = super.create(value)
+  static create() {
+    const node = super.create()
     node.setAttribute('contenteditable', false)
-    node.classList.add('loading')
 
     const cancelButton = document.createElement('button')
     cancelButton.textContent = 'Cancel'
@@ -25,69 +23,136 @@ export class AIImageBlot extends BlockEmbed {
       if (node.parentNode) node.parentNode.removeChild(node)
     }
 
-    const selectedText = value?.selectedText || ''
-
-    generateImage(selectedText, '')
-      .then((imageUrl) => {
-        if (!imageUrl) throw new Error('No image in response')
-
-        const newNode = document.createElement('img')
-        newNode.src = imageUrl
-        newNode.className = 'ql-ai-image'
-        node.replaceWith(newNode)
-      })
-      .catch((err) => {
-        if (err.name !== 'AbortError') console.error('API Error:', err)
-        if (node.parentNode) node.parentNode.removeChild(node)
-      })
     return node
   }
 }
 
-export class AIMermaidBlot extends BlockEmbed {
-  static blotName = 'ai-mermaid'
+export class ImageBlot extends BlockEmbed {
+  static blotName = 'ImageBlot'
   static tagName = 'div'
-  static className = 'ql-ai-content'
+  static className = 'ImageBlot'
   static allowedChildren = []
 
-  static create(value: any) {
-    const node = super.create(value)
-    const mockMermaid =
-      '```mermaid\ngraph TB\n    A[Запустить MVP] -->|У команды продукта есть четко прописанное техническое задание| B[Интерфейс продукта]\n    B -->|глобальная доступность| C[Глобальная доступность]\n    B -->|инновации| D[Инновации]\n    B -->|доступность| E[Доступность]\n    B -->|безопасность| F[Безопасность]\n    A -->|Выбрать команду дизайнеров с подходящими компетенциями| G[Команда дизайнеров]\n    G -->|создание интерфейсов для мобильных приложений в сфере финансов и страхования| H[Опыт в создании интерфейсов для мобильных приложений в сфере финансов и страхования]\n```'
+  static create(src: string) {
+    const node = super.create(src)
+    node.classList.add('EmbedBlot')
+    node.setAttribute('contentEditable', 'false')
+    node.setAttribute('data-src', src)
+    node.classList.add('image-loading')
 
-    node.className = 'ql-mermaid-diagram'
-    node.innerText = mockMermaid
-    /*
-    node.setAttribute('contenteditable', false)
-    node.classList.add('loading')
+    const imageContainer = document.createElement('div')
+    imageContainer.className = 'EmbedBlot-imageContainer'
 
-    const cancelButton = document.createElement('button')
-    cancelButton.textContent = 'Cancel'
-    cancelButton.className = 'ai-cancel-button'
-    node.appendChild(cancelButton)
-
-    const controller = new AbortController()
-    cancelButton.onclick = () => {
-      controller.abort()
-      if (node.parentNode) node.parentNode.removeChild(node)
+    const image = new Image()
+    image.className = 'EmbedBlot-content'
+    if (src.startsWith('http')) {
+      const loadHandler = () => {
+        image.removeEventListener('load', loadHandler)
+        node.classList.remove('image-loading')
+        node.querySelector('.EmageBlot-preloaded_content')?.remove()
+      }
+      image.addEventListener('load', loadHandler, false)
     }
+    image.src = src
+    imageContainer.appendChild(image)
 
-    const selectedText = value?.selectedText || ''
+    const actionButtons = document.createElement('div')
+    actionButtons.className = 'EmbedBlot-actionButtons'
 
-    generateMermaid(selectedText, '')
-      .then((mermaidCode) => {
-        if (!mermaidCode) throw new Error('No mermaid code in response')
-          
-        const newNode = document.createElement('div')
-        newNode.className = 'ql-mermaid-diagram'
-        newNode.innerText = mermaidCode
-        node.replaceWith(newNode)
-      })
-      .catch((err) => {
-        if (err.name !== 'AbortError') console.error('API Error:', err)
-        if (node.parentNode) node.parentNode.removeChild(node)
-      })
-      */
+    const deleteButton = document.createElement('div')
+    deleteButton.className = 'EmbedBlot-actionButton __delete'
+    deleteButton.innerHTML = '🗑️'
+
+    deleteButton.addEventListener('click', () => {
+      node.dispatchEvent(
+        new CustomEvent('removeEmbedBlot', {
+          bubbles: true,
+          detail: {
+            node,
+          },
+        })
+      )
+    })
+
+    actionButtons.appendChild(deleteButton)
+    imageContainer.appendChild(actionButtons)
+    node.appendChild(imageContainer)
     return node
+  }
+
+  static value(domNode: any) {
+    return domNode.querySelector('img').getAttribute('src')
+  }
+}
+
+export class AIMermaidBlot extends BlockEmbed {
+  static blotName = 'MermaidBlot'
+  static tagName = 'div'
+  static className = 'MermaidBlot'
+  static allowedChildren = []
+
+  static create(code: any) {
+    const node = super.create() as HTMLElement
+    node.classList.add('EmbedBlot')
+    node.setAttribute('data-code', code)
+    AIMermaidBlot.render(node, code)
+
+    return node
+  }
+
+  static async render(node: HTMLElement, code: string) {
+    node.innerHTML = ''
+
+    const mermaidContainer = document.createElement('div')
+    mermaidContainer.className = 'EmbedBlot-mermaidContainer'
+    mermaidContainer.setAttribute('contentEditable', 'false')
+
+    const diagramContainer = document.createElement('div')
+    diagramContainer.className = 'mermaid'
+    diagramContainer.innerHTML = code
+    mermaidContainer.appendChild(diagramContainer)
+
+    const actionButtons = document.createElement('div')
+    actionButtons.className = 'EmbedBlot-actionButtons'
+
+    /*
+    const editButton = document.createElement('div')
+    editButton.className = 'EmbedBlot-actionButton'
+    editButton.contentEditable = 'false'
+    editButton.innerHTML = '✏️'
+    actionButtons.appendChild(editButton)
+    */
+
+    const deleteButton = document.createElement('div')
+    deleteButton.className = 'EmbedBlot-actionButton __delete'
+    deleteButton.contentEditable = 'false'
+    deleteButton.innerHTML = '🗑️'
+
+    deleteButton.addEventListener('click', () => {
+      node.dispatchEvent(
+        new CustomEvent('removeEmbedBlot', {
+          bubbles: true,
+          detail: {
+            node,
+          },
+        })
+      )
+    })
+    actionButtons.appendChild(deleteButton)
+    mermaidContainer.appendChild(actionButtons)
+
+    node.appendChild(mermaidContainer)
+
+    try {
+      await mermaid.run({ nodes: [diagramContainer] })
+      document.dispatchEvent(new CustomEvent('mermaidRendered'))
+    } catch (e) {
+      diagramContainer.innerHTML = `<pre style="color:red;">${String(e)}</pre>`
+    }
+    return node
+  }
+
+  static value(node: HTMLElement) {
+    return node.getAttribute('data-code') || ''
   }
 }

@@ -1,6 +1,8 @@
 import { useEditorWidth } from './hooks'
 import useQuillEditor from './useQuillEditor'
 
+import './Editor.scss'
+
 export default function Editor() {
   const editorRef = useQuillEditor()
   const { editorWidth, resize } = useEditorWidth()

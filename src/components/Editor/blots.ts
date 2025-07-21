@@ -115,11 +115,13 @@ export class AIMermaidBlot extends BlockEmbed {
     const actionButtons = document.createElement('div')
     actionButtons.className = 'EmbedBlot-actionButtons'
 
+    /*
     const editButton = document.createElement('div')
     editButton.className = 'EmbedBlot-actionButton'
     editButton.contentEditable = 'false'
     editButton.innerHTML = '✏️'
     actionButtons.appendChild(editButton)
+    */
 
     const deleteButton = document.createElement('div')
     deleteButton.className = 'EmbedBlot-actionButton __delete'

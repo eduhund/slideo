@@ -11,6 +11,7 @@ import 'quill/dist/quill.snow.css'
 import { AIGenerateBlot, AIMermaidBlot, ImageBlot } from './blots'
 import generateMermaid from '../../api/methods/generateMermaid'
 import generateImage from '../../api/methods/generateImage'
+import { parseTextToSlides } from '../../utils/textParser'
 
 Quill.register('modules/markdownShortcuts', QuillMarkdown)
 Quill.register(ImageBlot)
@@ -114,10 +115,10 @@ export default function useQuillEditor() {
       }
     })
 
-    // push parsed DOM to context
     if (quillRef.current) {
       const dom = quillRef.current.root.innerHTML
-      dispatch({ type: 'PARSE_SLIDES', payload: dom })
+      const newSlides = parseTextToSlides(dom)
+      dispatch({ type: 'SET_SLIDES', payload: newSlides })
     }
   }
 

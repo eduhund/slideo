@@ -12,8 +12,6 @@ import { AIGenerateBlot, AIMermaidBlot, ImageBlot } from './blots'
 import generateMermaid from '../../api/methods/generateMermaid'
 import generateImage from '../../api/methods/generateImage'
 
-const STORAGE_KEY = 'quill-editor-content'
-
 Quill.register('modules/markdownShortcuts', QuillMarkdown)
 Quill.register(ImageBlot)
 Quill.register(AIGenerateBlot)
@@ -78,10 +76,6 @@ export default function useQuillEditor() {
   const quillRef = useRef<Quill | null>(null)
 
   const { state, dispatch } = useContext(SlidesContext)
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, state.content)
-  }, [state.content])
 
   useEffect(() => {
     if (!editorRef.current) return
@@ -174,15 +168,12 @@ export default function useQuillEditor() {
       ],
     })
 
-    quill.on('text-change', () => {
-      const currentContent = quill.root.innerHTML
-      if (currentContent !== state.content) {
-        dispatch({ type: 'UPDATE_CONTENT', payload: currentContent })
-      }
-    })
+    quill.setContents(state.content, 'silent')
 
-    quill.root.innerHTML = state.content
-    quillRef.current = quill
+    quill.on('text-change', () => {
+      const currentContent = quill.getContents().ops
+      dispatch({ type: 'UPDATE_CONTENT', payload: currentContent })
+    })
 
     return () => {
       quillRef.current = null

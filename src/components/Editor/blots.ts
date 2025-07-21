@@ -37,6 +37,7 @@ export class ImageBlot extends BlockEmbed {
     const node = super.create(src)
     node.classList.add('EmbedBlot')
     node.setAttribute('contentEditable', 'false')
+    node.setAttribute('data-src', src)
     node.classList.add('image-loading')
 
     const imageContainer = document.createElement('div')
@@ -57,7 +58,7 @@ export class ImageBlot extends BlockEmbed {
 
     const deleteButton = document.createElement('div')
     deleteButton.className = 'EmbedBlot-deleteButton'
-    deleteButton.innerHTML = 'x'
+    deleteButton.innerHTML = 'X'
 
     deleteButton.addEventListener('click', () => {
       node.dispatchEvent(
@@ -75,7 +76,7 @@ export class ImageBlot extends BlockEmbed {
   }
 
   static value(domNode: any) {
-    return domNode.firstChild.getAttribute('src')
+    return domNode.querySelector('img').getAttribute('src')
   }
 }
 

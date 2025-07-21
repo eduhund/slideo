@@ -1,8 +1,9 @@
 import React, { createContext, useReducer } from 'react'
 import { parseTextToSlides } from '../../utils/textParser'
+import { Op } from 'quill'
 
 type SlidesContextType = {
-  content: string
+  content: Op[]
   slides: any[]
   selectedTemplates: any[]
   activeSlide: number | null
@@ -14,12 +15,12 @@ type slidesReducerAction = {
   payload: any
 }
 
-const STORAGE_KEY = 'quill-editor-content'
+const STORAGE_KEY = 'slideo-content'
 const SELECTED_TEMPLATES_KEY = 'selected-templates'
 const ACTIVE_SLIDE_KEY = 'active-slide'
 const ACTIVE_THEME_KEY = 'active-theme'
 
-const content = localStorage.getItem(STORAGE_KEY) || ''
+const content = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]')
 
 const slides = parseTextToSlides(content)
 const selectedTemplates = JSON.parse(
@@ -55,6 +56,8 @@ function slidesReducer(
 ) {
   switch (type) {
     case 'UPDATE_CONTENT':
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload))
+      /*
       const parsedSlides = parseTextToSlides(payload)
 
       const selectedTemplates = state.selectedTemplates
@@ -65,7 +68,8 @@ function slidesReducer(
           selectedTemplate,
         }
       })
-      return { ...state, content: payload, slides: richedSlides }
+        */
+      return { ...state, content: payload } //slides: richedSlides }
     case 'CHANGE_ACTIVE_SLIDE':
       localStorage.setItem(ACTIVE_SLIDE_KEY, payload)
       return { ...state, activeSlide: payload }

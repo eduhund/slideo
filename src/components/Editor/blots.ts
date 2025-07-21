@@ -94,6 +94,7 @@ export class AIMermaidBlot extends BlockEmbed {
   static create(code: any) {
     const node = super.create() as HTMLElement
     node.classList.add('EmbedBlot')
+    node.setAttribute('data-code', code)
     AIMermaidBlot.render(node, code)
 
     return node
@@ -104,6 +105,7 @@ export class AIMermaidBlot extends BlockEmbed {
 
     const mermaidContainer = document.createElement('div')
     mermaidContainer.className = 'EmbedBlot-mermaidContainer'
+    mermaidContainer.setAttribute('contentEditable', 'false')
 
     const diagramContainer = document.createElement('div')
     diagramContainer.className = 'mermaid'

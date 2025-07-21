@@ -38,7 +38,7 @@ function insertAIImage(quill: any) {
   generateImage(selectedText, '')
     .then((imageUrl) => {
       quill.deleteText(index + 1, 1, Quill.sources.API)
-      quill.insertEmbed(index + 1, 'imageBlot', imageUrl, Quill.sources.API)
+      quill.insertEmbed(index + 1, 'ImageBlot', imageUrl, Quill.sources.API)
     })
     .catch((err) => {})
 }
@@ -63,7 +63,7 @@ function insertAIMermaid(quill: any) {
       quill.deleteText(index + 1, 1, Quill.sources.API)
       quill.insertEmbed(
         index + 1,
-        'ai-mermaid',
+        'MermaidBlot',
         processedCode,
         Quill.sources.API
       )
@@ -169,8 +169,8 @@ export default function useQuillEditor() {
         'image',
         'video',
         'ai-generate',
-        'imageBlot',
-        'ai-mermaid',
+        'ImageBlot',
+        'MermaidBlot',
       ],
     })
 

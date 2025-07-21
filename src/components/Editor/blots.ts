@@ -28,9 +28,9 @@ export class AIGenerateBlot extends BlockEmbed {
 }
 
 export class ImageBlot extends BlockEmbed {
-  static blotName = 'imageBlot'
+  static blotName = 'ImageBlot'
   static tagName = 'div'
-  static className = 'imageBlot'
+  static className = 'ImageBlot'
   static allowedChildren = []
 
   static create(src: string) {
@@ -86,9 +86,9 @@ export class ImageBlot extends BlockEmbed {
 }
 
 export class AIMermaidBlot extends BlockEmbed {
-  static blotName = 'ai-mermaid'
+  static blotName = 'MermaidBlot'
   static tagName = 'div'
-  static className = 'ql-ai-mermaid'
+  static className = 'MermaidBlot'
   static allowedChildren = []
 
   static create(code: any) {

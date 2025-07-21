@@ -5,11 +5,23 @@ function isEmptyParagraph(element: Element | null): boolean {
 
 function extractSlides(doc: Document): any[] {
   const slides: any[] = []
-  let currentSlide: any = { paragraphs: [], paragraphsRaw: [], lists: [], images: [], raw: '' }
+  let currentSlide: any = {
+    paragraphs: [],
+    paragraphsRaw: [],
+    lists: [],
+    images: [],
+    raw: '',
+  }
 
   const addSlide = () => {
     slides.push({ ...currentSlide })
-    currentSlide = { paragraphs: [], paragraphsRaw: [], lists: [], images: [], raw: '' }
+    currentSlide = {
+      paragraphs: [],
+      paragraphsRaw: [],
+      lists: [],
+      images: [],
+      raw: '',
+    }
   }
 
   doc.body.childNodes.forEach((node) => {
@@ -44,10 +56,22 @@ function extractSlides(doc: Document): any[] {
           title: isHeader ? element.textContent || '' : '',
           raw: element.outerHTML,
         }
+      } else if (element.classList.contains('ImageBlot')) {
+        const img = element.querySelector('img')
+        if (img) {
+          currentSlide.images.push(img)
+          currentSlide.raw += element.outerHTML
+        }
       } else if (element.tagName === 'P') {
         if (element.firstChild?.nodeName === 'IMG') {
           currentSlide.images.push(element.firstChild)
           currentSlide.raw += element.outerHTML
+        } else if (element.querySelector('img')) {
+          const images = Array.from(element.querySelectorAll('img'))
+          images.forEach((img) => {
+            currentSlide.images.push(img)
+            currentSlide.raw += img
+          })
         } else {
           currentSlide.paragraphs.push(element.textContent || '')
           currentSlide.paragraphsRaw.push(element.innerHTML || '')
@@ -70,6 +94,7 @@ function extractSlides(doc: Document): any[] {
       }
     }
   })
+  console.log(slides)
 
   return slides
 }

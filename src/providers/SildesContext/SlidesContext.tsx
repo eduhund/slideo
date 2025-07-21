@@ -56,9 +56,9 @@ function slidesReducer(
 ) {
   switch (type) {
     case 'UPDATE_CONTENT':
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload))
-      /*
-      const parsedSlides = parseTextToSlides(payload)
+      const { content, dom } = payload
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(content))
+      const parsedSlides = parseTextToSlides(dom)
 
       const selectedTemplates = state.selectedTemplates
       const richedSlides = parsedSlides.map((slide: any, i: number) => {
@@ -68,8 +68,7 @@ function slidesReducer(
           selectedTemplate,
         }
       })
-        */
-      return { ...state, content: payload } //slides: richedSlides }
+      return { ...state, content, slides: richedSlides }
     case 'CHANGE_ACTIVE_SLIDE':
       localStorage.setItem(ACTIVE_SLIDE_KEY, payload)
       return { ...state, activeSlide: payload }

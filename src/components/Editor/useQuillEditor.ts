@@ -171,8 +171,9 @@ export default function useQuillEditor() {
     quill.setContents(state.content, 'silent')
 
     quill.on('text-change', () => {
-      const currentContent = quill.getContents().ops
-      dispatch({ type: 'UPDATE_CONTENT', payload: currentContent })
+      const content = quill.getContents().ops
+      const dom = quill.root.innerHTML
+      dispatch({ type: 'UPDATE_CONTENT', payload: { content, dom } })
     })
 
     const handleRemoveEmbedBlot = (removeEmbedBlotEvent: any) => {

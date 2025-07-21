@@ -41,24 +41,27 @@ export class ImageBlot extends BlockEmbed {
     node.classList.add('image-loading')
 
     const imageContainer = document.createElement('div')
-    imageContainer.className = 'imageBlot-imageContainer'
+    imageContainer.className = 'EmbedBlot-imageContainer'
 
     const image = new Image()
-    image.className = 'imageBlot-content'
+    image.className = 'EmbedBlot-content'
     if (src.startsWith('http')) {
       const loadHandler = () => {
         image.removeEventListener('load', loadHandler)
         node.classList.remove('image-loading')
-        node.querySelector('.imageBlot-preloaded_content')?.remove()
+        node.querySelector('.EmageBlot-preloaded_content')?.remove()
       }
       image.addEventListener('load', loadHandler, false)
     }
     image.src = src
     imageContainer.appendChild(image)
 
+    const actionButtons = document.createElement('div')
+    actionButtons.className = 'EmbedBlot-actionButtons'
+
     const deleteButton = document.createElement('div')
-    deleteButton.className = 'EmbedBlot-deleteButton'
-    deleteButton.innerHTML = 'X'
+    deleteButton.className = 'EmbedBlot-actionButton'
+    deleteButton.innerHTML = '✖️'
 
     deleteButton.addEventListener('click', () => {
       node.dispatchEvent(
@@ -70,7 +73,9 @@ export class ImageBlot extends BlockEmbed {
         })
       )
     })
-    imageContainer.appendChild(deleteButton)
+
+    actionButtons.appendChild(deleteButton)
+    imageContainer.appendChild(actionButtons)
     node.appendChild(imageContainer)
     return node
   }
@@ -88,51 +93,55 @@ export class AIMermaidBlot extends BlockEmbed {
 
   static create(code: any) {
     const node = super.create() as HTMLElement
-
-    node.setAttribute('data-mode', 'preview')
-    node.setAttribute('data-code', code)
+    node.classList.add('EmbedBlot')
     AIMermaidBlot.render(node, code)
 
     return node
   }
 
   static render(node: HTMLElement, code: string) {
-    const mode = node.getAttribute('data-mode') || 'preview'
     node.innerHTML = ''
 
-    const toggleBtn = document.createElement('button')
-    toggleBtn.className = 'mermaid-button'
-    toggleBtn.contentEditable = 'false'
-    toggleBtn.innerText = mode === 'preview' ? 'Edit code' : 'Preview'
-    toggleBtn.onclick = () => {
-      node.setAttribute('data-mode', mode === 'preview' ? 'code' : 'preview')
-      AIMermaidBlot.render(node, code)
-    }
-    node.appendChild(toggleBtn)
+    const mermaidContainer = document.createElement('div')
+    mermaidContainer.className = 'EmbedBlot-mermaidContainer'
 
-    if (mode === 'code') {
-      const textarea = document.createElement('textarea')
-      textarea.value = code
-      textarea.style.width = '100%'
-      textarea.style.height = '150px'
-      textarea.oninput = (e) => {
-        e.preventDefault()
-        e.stopPropagation()
-        node.setAttribute('data-code', textarea.value)
-        AIMermaidBlot.render(node, textarea.value)
-      }
-      node.appendChild(textarea)
-    } else {
-      const diagramContainer = document.createElement('div')
-      diagramContainer.className = 'mermaid'
-      diagramContainer.innerHTML = code
-      node.appendChild(diagramContainer)
+    const diagramContainer = document.createElement('div')
+    diagramContainer.className = 'mermaid'
+    diagramContainer.innerHTML = code
+    mermaidContainer.appendChild(diagramContainer)
 
-      try {
-        mermaid.run({ nodes: [diagramContainer] })
-      } catch (e) {
-        diagramContainer.innerHTML = `<pre style="color:red;">${String(e)}</pre>`
-      }
+    const actionButtons = document.createElement('div')
+    actionButtons.className = 'EmbedBlot-actionButtons'
+
+    const editButton = document.createElement('div')
+    editButton.className = 'EmbedBlot-actionButton'
+    editButton.contentEditable = 'false'
+    editButton.innerHTML = '✏️'
+    actionButtons.appendChild(editButton)
+
+    const deleteButton = document.createElement('div')
+    deleteButton.className = 'EmbedBlot-actionButton'
+    deleteButton.innerHTML = '✖️'
+
+    deleteButton.addEventListener('click', () => {
+      node.dispatchEvent(
+        new CustomEvent('removeEmbedBlot', {
+          bubbles: true,
+          detail: {
+            node,
+          },
+        })
+      )
+    })
+    actionButtons.appendChild(deleteButton)
+    mermaidContainer.appendChild(actionButtons)
+
+    node.appendChild(mermaidContainer)
+
+    try {
+      mermaid.run({ nodes: [diagramContainer] })
+    } catch (e) {
+      diagramContainer.innerHTML = `<pre style="color:red;">${String(e)}</pre>`
     }
     return node
   }

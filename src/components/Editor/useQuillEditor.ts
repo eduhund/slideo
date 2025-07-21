@@ -175,6 +175,17 @@ export default function useQuillEditor() {
       dispatch({ type: 'UPDATE_CONTENT', payload: currentContent })
     })
 
+    const handleRemoveEmbedBlot = (removeEmbedBlotEvent: any) => {
+      const blot = Quill.find(removeEmbedBlotEvent.detail.node) as any
+      const blotIndex = quill.getIndex(blot)
+      quill.deleteText(blotIndex, 1, Quill.sources.USER)
+    }
+
+    const quillContainer = editorRef.current
+    if (quillContainer) {
+      quillContainer.addEventListener('removeEmbedBlot', handleRemoveEmbedBlot)
+    }
+
     return () => {
       quillRef.current = null
     }

@@ -116,6 +116,12 @@ export default function useQuillEditor() {
   }, [state.content])
 
   useEffect(() => {
+    if (!quillRef.current) return
+    const dom = quillRef.current.root.innerHTML
+    dispatch({ type: 'PARSE_SLIDES', payload: dom })
+  }, [state.content])
+
+  useEffect(() => {
     if (!editorRef.current || quillRef.current) return
 
     const quill = new Quill(editorRef.current, {

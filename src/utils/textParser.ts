@@ -3,6 +3,12 @@ function isEmptyParagraph(element: Element | null): boolean {
   return element.firstChild?.nodeName === 'BR' || !element.textContent?.trim()
 }
 
+function svgToDataUrl(svgElement: SVGElement): string {
+  const svgString = new XMLSerializer().serializeToString(svgElement)
+  const encoded = encodeURIComponent(svgString)
+  return `data:image/svg+xml,${encoded}`
+}
+
 function extractSlides(doc: Document): any[] {
   const slides: any[] = []
   let currentSlide: any = {
@@ -61,6 +67,14 @@ function extractSlides(doc: Document): any[] {
         if (img) {
           currentSlide.images.push(img)
           currentSlide.raw += element.outerHTML
+        }
+      } else if (element.classList.contains('MermaidBlot')) {
+        const svg = element.querySelector('svg') || ''
+        if (svg) {
+          const img = document.createElement('img')
+          img.src = svgToDataUrl(svg)
+          currentSlide.images.push(img)
+          currentSlide.raw += img.outerHTML
         }
       } else if (element.tagName === 'P') {
         if (element.firstChild?.nodeName === 'IMG') {

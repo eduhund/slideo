@@ -60,8 +60,8 @@ export class ImageBlot extends BlockEmbed {
     actionButtons.className = 'EmbedBlot-actionButtons'
 
     const deleteButton = document.createElement('div')
-    deleteButton.className = 'EmbedBlot-actionButton'
-    deleteButton.innerHTML = '✖️'
+    deleteButton.className = 'EmbedBlot-actionButton __delete'
+    deleteButton.innerHTML = '🗑️'
 
     deleteButton.addEventListener('click', () => {
       node.dispatchEvent(
@@ -120,8 +120,9 @@ export class AIMermaidBlot extends BlockEmbed {
     actionButtons.appendChild(editButton)
 
     const deleteButton = document.createElement('div')
-    deleteButton.className = 'EmbedBlot-actionButton'
-    deleteButton.innerHTML = '✖️'
+    deleteButton.className = 'EmbedBlot-actionButton __delete'
+    deleteButton.contentEditable = 'false'
+    deleteButton.innerHTML = '🗑️'
 
     deleteButton.addEventListener('click', () => {
       node.dispatchEvent(

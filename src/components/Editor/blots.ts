@@ -27,17 +27,55 @@ export class AIGenerateBlot extends BlockEmbed {
   }
 }
 
-export class AIImageBlot extends BlockEmbed {
-  static blotName = 'ai-image'
-  static tagName = 'img'
-  static className = 'ql-ai-image'
+export class ImageBlot extends BlockEmbed {
+  static blotName = 'imageBlot'
+  static tagName = 'div'
+  static className = 'imageBlot'
   static allowedChildren = []
 
-  static create(imageUrl: any) {
-    const node = super.create() as HTMLImageElement
-    node.src = imageUrl
-    node.setAttribute('contenteditable', 'false')
+  static create(src: string) {
+    const node = super.create(src)
+    node.classList.add('EmbedBlot')
+    node.setAttribute('contentEditable', 'false')
+    node.classList.add('image-loading')
+
+    const imageContainer = document.createElement('div')
+    imageContainer.className = 'imageBlot-imageContainer'
+
+    const image = new Image()
+    image.className = 'imageBlot-content'
+    if (src.startsWith('http')) {
+      const loadHandler = () => {
+        image.removeEventListener('load', loadHandler)
+        node.classList.remove('image-loading')
+        node.querySelector('.imageBlot-preloaded_content')?.remove()
+      }
+      image.addEventListener('load', loadHandler, false)
+    }
+    image.src = src
+    imageContainer.appendChild(image)
+
+    const deleteButton = document.createElement('div')
+    deleteButton.className = 'EmbedBlot-deleteButton'
+    deleteButton.innerHTML = 'x'
+
+    deleteButton.addEventListener('click', () => {
+      node.dispatchEvent(
+        new CustomEvent('removeEmbedBlot', {
+          bubbles: true,
+          detail: {
+            node,
+          },
+        })
+      )
+    })
+    imageContainer.appendChild(deleteButton)
+    node.appendChild(imageContainer)
     return node
+  }
+
+  static value(domNode: any) {
+    return domNode.firstChild.getAttribute('src')
   }
 }
 
@@ -58,12 +96,12 @@ export class AIMermaidBlot extends BlockEmbed {
   }
 
   static render(node: HTMLElement, code: string) {
-    console.log('AIMermaidBlot.render', node, code)
     const mode = node.getAttribute('data-mode') || 'preview'
     node.innerHTML = ''
 
     const toggleBtn = document.createElement('button')
     toggleBtn.className = 'mermaid-button'
+    toggleBtn.contentEditable = 'false'
     toggleBtn.innerText = mode === 'preview' ? 'Edit code' : 'Preview'
     toggleBtn.onclick = () => {
       node.setAttribute('data-mode', mode === 'preview' ? 'code' : 'preview')
@@ -87,7 +125,6 @@ export class AIMermaidBlot extends BlockEmbed {
       const diagramContainer = document.createElement('div')
       diagramContainer.className = 'mermaid'
       diagramContainer.innerHTML = code
-      console.log('AIMermaidBlot.render diagramContainer', diagramContainer)
       node.appendChild(diagramContainer)
 
       try {
@@ -96,6 +133,7 @@ export class AIMermaidBlot extends BlockEmbed {
         diagramContainer.innerHTML = `<pre style="color:red;">${String(e)}</pre>`
       }
     }
+    return node
   }
 
   static value(node: HTMLElement) {

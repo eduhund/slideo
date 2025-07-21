@@ -8,15 +8,15 @@ import { SlidesContext } from '../../providers'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.bubble.css'
 import 'quill/dist/quill.snow.css'
-import { AIGenerateBlot, AIImageBlot, AIMermaidBlot } from './blots'
+import { AIGenerateBlot, AIMermaidBlot, ImageBlot } from './blots'
 import generateMermaid from '../../api/methods/generateMermaid'
 import generateImage from '../../api/methods/generateImage'
 
 const STORAGE_KEY = 'quill-editor-content'
 
 Quill.register('modules/markdownShortcuts', QuillMarkdown)
+Quill.register(ImageBlot)
 Quill.register(AIGenerateBlot)
-Quill.register(AIImageBlot)
 Quill.register(AIMermaidBlot)
 
 const icons = Quill.import('ui/icons') as any
@@ -40,7 +40,7 @@ function insertAIImage(quill: any) {
   generateImage(selectedText, '')
     .then((imageUrl) => {
       quill.deleteText(index + 1, 1, Quill.sources.API)
-      quill.insertEmbed(index + 1, 'ai-image', imageUrl, Quill.sources.API)
+      quill.insertEmbed(index + 1, 'imageBlot', imageUrl, Quill.sources.API)
     })
     .catch((err) => {})
 }
@@ -169,7 +169,7 @@ export default function useQuillEditor() {
         'image',
         'video',
         'ai-generate',
-        'ai-image',
+        'imageBlot',
         'ai-mermaid',
       ],
     })

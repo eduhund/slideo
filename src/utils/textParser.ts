@@ -108,7 +108,6 @@ function extractSlides(doc: Document): any[] {
       }
     }
   })
-  console.log(slides)
 
   return slides
 }

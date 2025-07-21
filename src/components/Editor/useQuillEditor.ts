@@ -127,6 +127,16 @@ export default function useQuillEditor() {
   }, [state.content])
 
   useEffect(() => {
+    const handleMermaidRender = () => {
+      runSlidePostprocess()
+    }
+    document.addEventListener('mermaidRendered', handleMermaidRender)
+    return () => {
+      document.removeEventListener('mermaidRendered', handleMermaidRender)
+    }
+  }, [])
+
+  useEffect(() => {
     if (!editorRef.current || quillRef.current) return
 
     const quill = new Quill(editorRef.current, {

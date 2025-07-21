@@ -100,7 +100,7 @@ export class AIMermaidBlot extends BlockEmbed {
     return node
   }
 
-  static render(node: HTMLElement, code: string) {
+  static async render(node: HTMLElement, code: string) {
     node.innerHTML = ''
 
     const mermaidContainer = document.createElement('div')
@@ -144,7 +144,8 @@ export class AIMermaidBlot extends BlockEmbed {
     node.appendChild(mermaidContainer)
 
     try {
-      mermaid.run({ nodes: [diagramContainer] })
+      await mermaid.run({ nodes: [diagramContainer] })
+      document.dispatchEvent(new CustomEvent('mermaidRendered'))
     } catch (e) {
       diagramContainer.innerHTML = `<pre style="color:red;">${String(e)}</pre>`
     }

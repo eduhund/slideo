@@ -77,16 +77,23 @@ export default function useQuillEditor() {
 
   const { state, dispatch } = useContext(SlidesContext)
 
-  useEffect(() => {
+  const runSlidePostprocess = () => {
     if (!editorRef.current) return
-
-    const root = editorRef.current.children[0]
+    const root = editorRef.current.children[0] as HTMLElement | undefined
     if (!root) return
+
     let slideId = 1
 
     root.querySelectorAll('[data-slide-id]').forEach((el) => {
       el.removeAttribute('data-slide-id')
     })
+
+    const isEmpty = (el: ChildNode | null) => {
+      return (
+        el?.nodeName !== 'DIV' &&
+        (el?.firstChild?.nodeName === 'BR' || !el?.textContent?.trim())
+      )
+    }
 
     root.childNodes.forEach((node, index) => {
       if (index === 0) {
@@ -97,13 +104,6 @@ export default function useQuillEditor() {
       const prev1 = node.previousSibling || null
       const prev2 = prev1?.previousSibling || null
 
-      const isEmpty = (el: ChildNode | null) => {
-        return (
-          el?.nodeName !== 'DIV' &&
-          (el?.firstChild?.nodeName === 'BR' || !el?.textContent?.trim())
-        )
-      }
-
       if (
         (node as Element).nodeName === 'H1' ||
         (node as Element).nodeName === 'H2' ||
@@ -113,12 +113,16 @@ export default function useQuillEditor() {
         slideId++
       }
     })
-  }, [state.content])
+
+    // push parsed DOM to context
+    if (quillRef.current) {
+      const dom = quillRef.current.root.innerHTML
+      dispatch({ type: 'PARSE_SLIDES', payload: dom })
+    }
+  }
 
   useEffect(() => {
-    if (!quillRef.current) return
-    const dom = quillRef.current.root.innerHTML
-    dispatch({ type: 'PARSE_SLIDES', payload: dom })
+    runSlidePostprocess()
   }, [state.content])
 
   useEffect(() => {
@@ -174,7 +178,13 @@ export default function useQuillEditor() {
       ],
     })
 
+    quillRef.current = quill
+
     quill.setContents(state.content, 'silent')
+
+    requestAnimationFrame(() => {
+      runSlidePostprocess()
+    })
 
     quill.on('text-change', () => {
       const content = quill.getContents().ops

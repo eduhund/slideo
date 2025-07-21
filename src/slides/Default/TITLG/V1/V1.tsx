@@ -1,4 +1,5 @@
 import Slide from '../../../../components/Slide/Slide'
+import ListOfContent from '../../../Fragments/lists/ListOfContent'
 
 import './V1.scss'
 

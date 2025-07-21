@@ -1,5 +1,6 @@
 import Slide from '../../../../components/Slide/Slide'
 import HStack from '../../../../components/Slide/components/HStack/HStack'
+import ListOfContent from '../../../Fragments/lists/ListOfContent'
 
 import './V26.scss'
 
@@ -29,14 +30,8 @@ export function Component({ content, isSelected, onClick }: any) {
         leftContent={(
           <>
             <div className="textContainer">
-              {content.paragraphsRaw?.length > 1 && (
-                <ul>
-                  {content.paragraphsRaw.slice(1).map((item: string, index: number) => (
-                    <li key={index} dangerouslySetInnerHTML={{ __html: item }}></li>
-                  ))}
-                </ul>
-              )}
-                        <div className="contentContainer">
+              <ListOfContent content={content} listType="ul" fromParagraph={1} />
+              <div className="contentContainer">
                 <h1>{content.title}</h1>
                 {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}
               </div>

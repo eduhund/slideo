@@ -1,4 +1,5 @@
 import Slide from '../../../../components/Slide/Slide'
+import ListOfContent from '../../../Fragments/lists/ListOfContent'
 
 import './V4.scss'
 
@@ -32,15 +33,7 @@ export function Component({ content, isSelected, onClick }: any) {
             {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}
           </div>
         </div>
-        {content.paragraphsRaw?.length > 1 && (
-          <ul>
-            {content.paragraphsRaw.slice(1).map((item: string, index: number) => index == logoPosition ? (
-              <li key={index} className="itemWithLogo"><img className="logo" src={content.images[0].src} /> <span dangerouslySetInnerHTML={{ __html: item }} /></li>
-            ) : (
-              <li key={index} dangerouslySetInnerHTML={{ __html: item }}></li>
-            ))}
-          </ul>
-        )}
+        <ListOfContent content={content} listType="ul" fromParagraph={1} logo={content.images[0].src} logoPosition={logoPosition} />
       </div>
       <img className="background" src={content.images[1].src} />
     </Slide>

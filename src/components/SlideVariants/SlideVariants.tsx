@@ -1,5 +1,46 @@
 import slideTemplates, { Default } from '../../slides'
 
+
+
+function match(slide, variant) {
+  const { title, image, paragraph } = variant.meta as any
+  if (slide.type === 'title') {
+    if (title.level !== 1) return false
+    if (title.minLength && title.minLength > slide.title.length) return false
+    if (title.maxLength && title.maxLength < slide.title.length) return false
+  }
+  if (paragraph) {
+    const paragraphs = [...slide.paragraphs];
+    slide.lists?.forEach(list => paragraphs.push(...list));
+    if (paragraph.min || paragraph.max) {
+      if (paragraph.min && paragraphs.length < paragraph.min) return false;
+      if (paragraph.max && paragraphs.length > paragraph.max) return false;
+    }
+    if (paragraph.count) {
+      for (var i = 0; i < paragraph.count.length && i < paragraphs.length; i++) {
+        if (paragraph.count[i].min && paragraph.count[i].min > paragraphs[i].length) return false;
+        if (paragraph.count[i].max && paragraph.count[i].max < paragraphs[i].length) return false;
+      }
+    }
+  }
+
+  if (image && (slide.images?.length != image.count)) return false
+
+  if (image?.filter && slide.images) {
+    for (var i = 0; i < image.filter.length && i < slide.images.length; i++) {
+      if (image.filter[i].height?.max && slide.images[i].attributes.height.value > image.filter[i].height.max) return false;
+      if (image.filter[i].height?.min && slide.images[i].attributes.height.value < image.filter[i].height.min) return false;
+      if (image.filter[i].width?.max && slide.images[i].attributes.width.value > image.filter[i].width.max) return false;
+      if (image.filter[i].width?.min && slide.images[i].attributes.width.value < image.filter[i].width.min) return false;
+
+      const aspectRatio = 1.0 * slide.images[i].attributes.width.value / slide.images[i].attributes.height.value;
+      if (image.filter[i].aspectRatio?.max && aspectRatio > image.filter[i].aspectRatio.max) return false;
+      if (image.filter[i].aspectRatio?.min && aspectRatio < image.filter[i].aspectRatio.min) return false;
+    }
+  }
+  return true
+}
+
 export default function SlideVariants({ slide, onSelect, ...props }: any) {
   if (!slide) {
     return (
@@ -11,16 +52,9 @@ export default function SlideVariants({ slide, onSelect, ...props }: any) {
 
   const allVariants = Object.values(slideTemplates)
 
-  const matchVariants = allVariants.filter((variant) => {
-    const { title, image } = variant.meta as any
-    if (slide.type === 'title') {
-      if (title.level !== 1) return false
-      if (title.minLength && title.minLength > slide.title.length) return false
-      if (title.maxLength && title.maxLength < slide.title.length) return false
-    }
-    if (image && (slide.images?.length != image.count)) return false
-    return true
-  }).sort((v1, v2) => ((v2.meta?.priority || 0) - (v1.meta?.priority || 0)))
+  const matchVariants = allVariants
+    .filter((variant) => match(slide, variant))
+    .sort((v1, v2) => ((v2.meta?.priority || 0) - (v1.meta?.priority || 0)))
 
   if (matchVariants.length === 0) {
     if (slide.selectedTemplate !== 'default') {

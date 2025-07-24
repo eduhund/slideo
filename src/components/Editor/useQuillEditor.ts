@@ -172,6 +172,19 @@ export default function useQuillEditor() {
                 )
               }
             },
+            slideImportant: function () {
+              const range = quill.getSelection()
+              if (range) {
+                const currentFormat = quill.getFormat(range)
+                const isHeader4 = currentFormat.header === 4
+                quill.formatLine(
+                  range.index,
+                  range.length,
+                  'header',
+                  isHeader4 ? false : 4
+                )
+              }
+            },
             insertAIImage: function () {
               insertAIImage(quill)
             },

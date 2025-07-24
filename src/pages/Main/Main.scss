@@ -139,7 +139,7 @@
     }
   }
 
-  .ql-ai-content {
+  .ql-ai-generate {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -151,30 +151,113 @@
     font-style: italic;
     color: #888;
     position: relative;
-  }
+    cursor: default;
 
-  .ql-ai-content::before {
-    content: '';
-    flex-shrink: 0;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    border: 2px solid #ccc;
-    border-top-color: #6c63ff;
-    animation: spin 1s linear infinite;
-  }
+    &::before {
+      content: '';
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      border-top-color: #6c63ff;
+      animation: spin 1s linear infinite;
+    }
 
-  .ql-ai-content::after {
-    content: '✨ Generating content with AI...';
-    font-size: 0.95em;
-    line-height: 1.4;
-  }
+    &::after {
+      content: '✨ Generating content with AI...';
+      font-size: 0.95em;
+      line-height: 1.4;
+    }
 
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .ai-cancel-button {
+      position: absolute;
+      top: 14px;
+      right: 16px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: #888;
+      font-size: 12px;
+      padding: 2px 4px;
+
+      &:hover {
+        color: #333;
+      }
     }
   }
+
+  .ql-ai-content {
+    &.loading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      margin: 12px 40px 12px 20px;
+      border-radius: 4px;
+      background: #f8f9fb;
+      border: 1px solid #e2e4ea;
+      font-style: italic;
+      color: #888;
+      position: relative;
+      cursor: default;
+
+      &::before {
+        content: '';
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid #ccc;
+        border-top-color: #6c63ff;
+        animation: spin 1s linear infinite;
+      }
+
+      &::after {
+        content: '✨ Generating content with AI...';
+        font-size: 0.95em;
+        line-height: 1.4;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .ai-cancel-button {
+        position: absolute;
+        top: 14px;
+        right: 16px;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        color: #888;
+        font-size: 12px;
+        padding: 2px 4px;
+
+        &:hover {
+          color: #333;
+        }
+      }
+    }
+  }
+}
+
+.mermaid {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin: 10px 0;
+  background: #f9f9f9;
+}
+.mermaid-button {
+  margin-bottom: 8px;
 }
 
 #toolbar {

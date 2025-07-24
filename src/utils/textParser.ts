@@ -3,13 +3,35 @@ function isEmptyParagraph(element: Element | null): boolean {
   return element.firstChild?.nodeName === 'BR' || !element.textContent?.trim()
 }
 
+function svgToDataUrl(svgElement: SVGElement): string {
+  const svgString = new XMLSerializer().serializeToString(svgElement)
+  const encoded = encodeURIComponent(svgString)
+  return `data:image/svg+xml,${encoded}`
+}
+
 function extractSlides(doc: Document): any[] {
   const slides: any[] = []
-  let currentSlide: any = { paragraphs: [], paragraphsRaw: [], lists: [], images: [], raw: '' }
+  let currentSlide: any = {
+    subheaders: [],
+    importantText: [],
+    paragraphs: [],
+    paragraphsRaw: [],
+    lists: [],
+    images: [],
+    raw: '',
+  }
 
   const addSlide = () => {
     slides.push({ ...currentSlide })
-    currentSlide = { paragraphs: [], paragraphsRaw: [], lists: [], images: [], raw: '' }
+    currentSlide = {
+      subheaders: [],
+      importantText: [],
+      paragraphs: [],
+      paragraphsRaw: [],
+      lists: [],
+      images: [],
+      raw: '',
+    }
   }
 
   doc.body.childNodes.forEach((node) => {
@@ -44,19 +66,48 @@ function extractSlides(doc: Document): any[] {
           title: isHeader ? element.textContent || '' : '',
           raw: element.outerHTML,
         }
+      } else if (element.tagName === 'H3') {
+        currentSlide.subheaders.push(element.textContent || '')
+        currentSlide.raw += element.outerHTML
+      } else if (element.tagName === 'H4') {
+        currentSlide.importantText.push(element.textContent || '')
+        currentSlide.raw += element.outerHTML
+      } else if (element.classList.contains('ImageBlot')) {
+        const img = element.querySelector('img')
+        if (img) {
+          currentSlide.images.push(img)
+          currentSlide.raw += element.outerHTML
+        }
+      } else if (element.classList.contains('MermaidBlot')) {
+        const svg = element.querySelector('svg') || ''
+        if (svg) {
+          const img = document.createElement('img')
+          img.src = svgToDataUrl(svg)
+          currentSlide.images.push(img)
+          currentSlide.raw += img.outerHTML
+        }
       } else if (element.tagName === 'P') {
         if (element.firstChild?.nodeName === 'IMG') {
           currentSlide.images.push(element.firstChild)
           currentSlide.raw += element.outerHTML
+        } else if (element.querySelector('img')) {
+          const images = Array.from(element.querySelectorAll('img'))
+          images.forEach((img) => {
+            currentSlide.images.push(img)
+            currentSlide.raw += img
+          })
         } else {
           currentSlide.paragraphs.push(element.textContent || '')
           currentSlide.paragraphsRaw.push(element.innerHTML || '')
           currentSlide.raw += element.outerHTML
         }
       } else if (element.tagName === 'UL' || element.tagName === 'OL') {
-        currentSlide.lists.push(
-          Array.from(element.childNodes).map((el) => el.textContent || '')
-        )
+        currentSlide.lists.push({
+          type: element.tagName.toLowerCase(),
+          items: Array.from(element.children).map((li) => ({
+            text: li.textContent || '',
+          })),
+        })
         currentSlide.raw += element.outerHTML
       } else if (element.firstChild?.nodeName === 'IMG') {
         currentSlide.images.push(element)

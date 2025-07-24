@@ -8,19 +8,25 @@ import { SlidesContext } from '../../providers'
 import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.bubble.css'
 import 'quill/dist/quill.snow.css'
-import { AIContentBlot } from './blots'
-
-const STORAGE_KEY = 'quill-editor-content'
+import { AIGenerateBlot, AIMermaidBlot, ImageBlot } from './blots'
+import generateMermaid from '../../api/methods/generateMermaid'
+import generateImage from '../../api/methods/generateImage'
+import { parseTextToSlides } from '../../utils/textParser'
 
 Quill.register('modules/markdownShortcuts', QuillMarkdown)
-Quill.register(AIContentBlot)
+Quill.register(ImageBlot)
+Quill.register(AIGenerateBlot)
+Quill.register(AIMermaidBlot)
 
 const icons = Quill.import('ui/icons') as any
-icons['insertAIContent'] = '🤖'
+icons['insertAIImage'] = '🤖'
+icons['insertAIMermaid'] = '🧟‍♂️'
 
-function insertAIContentAfterSelection(quill: any) {
+function insertAIImage(quill: any) {
   const range = quill.getSelection()
   if (!range) return
+
+  const selectedText = quill.getText(range.index, range.length)
 
   const index = range.index + range.length
   const [block] = quill.getLine(index)
@@ -28,7 +34,42 @@ function insertAIContentAfterSelection(quill: any) {
 
   quill.insertText(index, '\n', Quill.sources.API)
 
-  quill.insertEmbed(index + 1, 'ai-content', '1', Quill.sources.API)
+  quill.insertEmbed(index + 1, 'ai-generate', Quill.sources.API)
+
+  generateImage(selectedText, '')
+    .then((imageUrl) => {
+      quill.deleteText(index + 1, 1, Quill.sources.API)
+      quill.insertEmbed(index + 1, 'ImageBlot', imageUrl, Quill.sources.API)
+    })
+    .catch((err) => {})
+}
+
+function insertAIMermaid(quill: any) {
+  const range = quill.getSelection()
+  if (!range) return
+
+  const selectedText = quill.getText(range.index, range.length)
+
+  const index = range.index + range.length
+  const [block] = quill.getLine(index)
+  if (!block) return
+
+  quill.insertText(index, '\n', Quill.sources.API)
+
+  quill.insertEmbed(index + 1, 'ai-generate', Quill.sources.API)
+
+  generateMermaid(selectedText, '')
+    .then((code) => {
+      const processedCode = code.replace('```mermaid', '').replace('```', '')
+      quill.deleteText(index + 1, 1, Quill.sources.API)
+      quill.insertEmbed(
+        index + 1,
+        'MermaidBlot',
+        processedCode,
+        Quill.sources.API
+      )
+    })
+    .catch((err) => {})
 }
 
 export default function useQuillEditor() {
@@ -37,20 +78,23 @@ export default function useQuillEditor() {
 
   const { state, dispatch } = useContext(SlidesContext)
 
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, state.content)
-  }, [state.content])
-
-  useEffect(() => {
+  const runSlidePostprocess = () => {
     if (!editorRef.current) return
-
-    const root = editorRef.current.children[0]
+    const root = editorRef.current.children[0] as HTMLElement | undefined
     if (!root) return
+
     let slideId = 1
 
     root.querySelectorAll('[data-slide-id]').forEach((el) => {
       el.removeAttribute('data-slide-id')
     })
+
+    const isEmpty = (el: ChildNode | null) => {
+      return (
+        el?.nodeName !== 'DIV' &&
+        (el?.firstChild?.nodeName === 'BR' || !el?.textContent?.trim())
+      )
+    }
 
     root.childNodes.forEach((node, index) => {
       if (index === 0) {
@@ -61,13 +105,6 @@ export default function useQuillEditor() {
       const prev1 = node.previousSibling || null
       const prev2 = prev1?.previousSibling || null
 
-      const isEmpty = (el: ChildNode | null) => {
-        return (
-          el?.nodeName !== 'DIV' &&
-          (el?.firstChild?.nodeName === 'BR' || !el?.textContent?.trim())
-        )
-      }
-
       if (
         (node as Element).nodeName === 'H1' ||
         (node as Element).nodeName === 'H2' ||
@@ -77,7 +114,27 @@ export default function useQuillEditor() {
         slideId++
       }
     })
+
+    if (quillRef.current) {
+      const dom = quillRef.current.root.innerHTML
+      const newSlides = parseTextToSlides(dom)
+      dispatch({ type: 'SET_SLIDES', payload: newSlides })
+    }
+  }
+
+  useEffect(() => {
+    runSlidePostprocess()
   }, [state.content])
+
+  useEffect(() => {
+    const handleMermaidRender = () => {
+      runSlidePostprocess()
+    }
+    document.addEventListener('mermaidRendered', handleMermaidRender)
+    return () => {
+      document.removeEventListener('mermaidRendered', handleMermaidRender)
+    }
+  }, [])
 
   useEffect(() => {
     if (!editorRef.current || quillRef.current) return
@@ -102,8 +159,37 @@ export default function useQuillEditor() {
                 )
               }
             },
-            insertAIContent: function () {
-              insertAIContentAfterSelection(quill)
+            slideSubheader: function () {
+              const range = quill.getSelection()
+              if (range) {
+                const currentFormat = quill.getFormat(range)
+                const isHeader3 = currentFormat.header === 3
+                quill.formatLine(
+                  range.index,
+                  range.length,
+                  'header',
+                  isHeader3 ? false : 3
+                )
+              }
+            },
+            slideImportant: function () {
+              const range = quill.getSelection()
+              if (range) {
+                const currentFormat = quill.getFormat(range)
+                const isHeader4 = currentFormat.header === 4
+                quill.formatLine(
+                  range.index,
+                  range.length,
+                  'header',
+                  isHeader4 ? false : 4
+                )
+              }
+            },
+            insertAIImage: function () {
+              insertAIImage(quill)
+            },
+            insertAIMermaid: function () {
+              insertAIMermaid(quill)
             },
           },
         },
@@ -123,19 +209,36 @@ export default function useQuillEditor() {
         'link',
         'image',
         'video',
-        'ai-content',
+        'ai-generate',
+        'ImageBlot',
+        'MermaidBlot',
       ],
     })
 
-    quill.on('text-change', () => {
-      const currentContent = quill.root.innerHTML
-      if (currentContent !== state.content) {
-        dispatch({ type: 'UPDATE_CONTENT', payload: currentContent })
-      }
+    quillRef.current = quill
+
+    quill.setContents(state.content, 'silent')
+
+    requestAnimationFrame(() => {
+      runSlidePostprocess()
     })
 
-    quill.root.innerHTML = state.content
-    quillRef.current = quill
+    quill.on('text-change', () => {
+      const content = quill.getContents().ops
+      const dom = quill.root.innerHTML
+      dispatch({ type: 'UPDATE_CONTENT', payload: { content, dom } })
+    })
+
+    const handleRemoveEmbedBlot = (removeEmbedBlotEvent: any) => {
+      const blot = Quill.find(removeEmbedBlotEvent.detail.node) as any
+      const blotIndex = quill.getIndex(blot)
+      quill.deleteText(blotIndex, 1, Quill.sources.USER)
+    }
+
+    const quillContainer = editorRef.current
+    if (quillContainer) {
+      quillContainer.addEventListener('removeEmbedBlot', handleRemoveEmbedBlot)
+    }
 
     return () => {
       quillRef.current = null

@@ -1,6 +1,8 @@
 import { useEditorWidth } from './hooks'
 import useQuillEditor from './useQuillEditor'
 
+import './Editor.scss'
+
 export default function Editor() {
   const editorRef = useQuillEditor()
   const { editorWidth, resize } = useEditorWidth()
@@ -10,6 +12,10 @@ export default function Editor() {
       <div id="toolbar">
         <span className="ql-formats">
           <button className="ql-slideHeader">H</button>
+          <button className="ql-slideSubheader">sH</button>
+        </span>
+        <span className="ql-formats">
+          <button className="ql-slideImportant">‼️</button>
         </span>
         <span className="ql-formats">
           <button className="ql-bold" />
@@ -33,7 +39,8 @@ export default function Editor() {
           <button className="ql-clean" />
         </span>
         <span className="ql-formats">
-          <button className="ql-insertAIContent">🤖</button>
+          <button className="ql-insertAIImage">🤖</button>
+          <button className="ql-insertAIMermaid">🧜🏻‍♀️</button>
         </span>
       </div>
       <div className="editor" ref={editorRef} />

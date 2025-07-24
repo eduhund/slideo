@@ -1,6 +1,10 @@
 import slideTemplates, { Default } from '../../slides'
 
-
+function checkLength(p, check) {
+  if (check.max && p.length > check.max) return false;
+  if (check.min && p.length < check.min) return false;
+  return true;
+}
 
 function match(slide, variant) {
   const { title, image, paragraph } = variant.meta as any
@@ -18,9 +22,11 @@ function match(slide, variant) {
     }
     if (paragraph.count) {
       for (var i = 0; i < paragraph.count.length && i < paragraphs.length; i++) {
-        if (paragraph.count[i].min && paragraph.count[i].min > paragraphs[i].length) return false;
-        if (paragraph.count[i].max && paragraph.count[i].max < paragraphs[i].length) return false;
+        if (!checkLength(paragraphs[i], paragraph.count[i])) return false;
       }
+    }
+    if (paragraph.any) {
+      if (! paragraphs.find(p => checkLength(p, paragraph.any))) return false;
     }
   }
 

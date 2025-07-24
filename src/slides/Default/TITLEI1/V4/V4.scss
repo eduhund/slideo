@@ -40,20 +40,16 @@
       line-height: 120%;
       font-weight: 500;
       margin-bottom: 10px;
+      max-width: 65%;
     }
   }
 
-
-  ul {
-    margin: 0 0 0 -20px;
-    display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    li {
-      &::before {
-        display: none;
-      }
-    }
+  ul, ol {
+      margin: 0 0 0 -20px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      max-width: 65%;
   }
 
   img {

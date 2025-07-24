@@ -42,34 +42,11 @@
     }
   }
 
-
-  ul {
+  ul, ol {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    align-items: end;
-
     margin: 0 0 0 -20px;
-    display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    li {
-      &::before {
-        display: none;
-      }
-    }
+    max-width: 65%;
   }
-
-  .images {
-    position: absolute;
-    left: 800px;
-    top: 50%;
-    transform: translate(0, -50%);
-  }
-
-  .slideImage1 {
-    width: auto;
-    height: auto;
-  }
-
 }

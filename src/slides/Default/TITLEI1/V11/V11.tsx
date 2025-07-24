@@ -12,6 +12,14 @@ const meta = {
     minLength: 1,
     maxLength: 100,
   },
+  paragraph: {
+    min: 1,
+    max: 3,
+    count: [
+      {max: 100},
+      {min: 100, max: 300},
+    ]
+  },
   image: {
     count: 1,
   },

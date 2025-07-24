@@ -12,6 +12,7 @@ export default function Editor() {
       <div id="toolbar">
         <span className="ql-formats">
           <button className="ql-slideHeader">H</button>
+          <button className="ql-slideSubheader">sH</button>
         </span>
         <span className="ql-formats">
           <button className="ql-bold" />

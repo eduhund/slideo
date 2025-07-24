@@ -92,9 +92,12 @@ function extractSlides(doc: Document): any[] {
           currentSlide.raw += element.outerHTML
         }
       } else if (element.tagName === 'UL' || element.tagName === 'OL') {
-        currentSlide.lists.push(
-          Array.from(element.childNodes).map((el) => el.textContent || '')
-        )
+        currentSlide.lists.push({
+          type: element.tagName.toLowerCase(),
+          items: Array.from(element.children).map((li) => ({
+            text: li.textContent || '',
+          })),
+        })
         currentSlide.raw += element.outerHTML
       } else if (element.firstChild?.nodeName === 'IMG') {
         currentSlide.images.push(element)

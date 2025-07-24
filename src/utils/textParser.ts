@@ -12,6 +12,8 @@ function svgToDataUrl(svgElement: SVGElement): string {
 function extractSlides(doc: Document): any[] {
   const slides: any[] = []
   let currentSlide: any = {
+    subheaders: [],
+    importantText: [],
     paragraphs: [],
     paragraphsRaw: [],
     lists: [],
@@ -22,6 +24,8 @@ function extractSlides(doc: Document): any[] {
   const addSlide = () => {
     slides.push({ ...currentSlide })
     currentSlide = {
+      subheaders: [],
+      importantText: [],
       paragraphs: [],
       paragraphsRaw: [],
       lists: [],
@@ -62,6 +66,12 @@ function extractSlides(doc: Document): any[] {
           title: isHeader ? element.textContent || '' : '',
           raw: element.outerHTML,
         }
+      } else if (element.tagName === 'H3') {
+        currentSlide.subheaders.push(element.textContent || '')
+        currentSlide.raw += element.outerHTML
+      } else if (element.tagName === 'H4') {
+        currentSlide.importantText.push(element.textContent || '')
+        currentSlide.raw += element.outerHTML
       } else if (element.classList.contains('ImageBlot')) {
         const img = element.querySelector('img')
         if (img) {

@@ -14,8 +14,8 @@ function match(slide, variant) {
     if (title.maxLength && title.maxLength < slide.title.length) return false
   }
   if (paragraph) {
-    const paragraphs = [...slide.paragraphs];
-    slide.lists?.forEach(list => paragraphs.push(...list));
+    const paragraphs = [...slide.paragraphs.slice(slide.paragraphs.findLastIndex(p => p) + 1)];
+    slide.lists?.forEach(list => paragraphs.push(...list.items.map(li => li.text)));
     if (paragraph.min || paragraph.max) {
       if (paragraph.min && paragraphs.length < paragraph.min) return false;
       if (paragraph.max && paragraphs.length > paragraph.max) return false;

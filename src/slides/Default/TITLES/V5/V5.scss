@@ -43,6 +43,10 @@
     }
   }
 
+  .unwrapContent {
+      max-width: 65%;
+  }
+
   ul, ol {
     display: flex;
     flex-direction: column;

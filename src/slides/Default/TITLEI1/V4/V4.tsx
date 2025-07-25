@@ -54,7 +54,7 @@ export function Component({ content, isSelected, onClick }: any) {
             <h1>{content.title}</h1>
             {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}
           </div>
-          <UnwrapContent content={content} listType="ul" fromParagraph={1} />
+          <UnwrapContent content={content} fromParagraph={1} />
         </div>
       </div>
        <img

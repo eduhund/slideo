@@ -1,4 +1,5 @@
 import Slide from '../../../../components/Slide/Slide'
+import List from '../../../Fragments/lists/List'
 
 import './V2.css'
 
@@ -23,11 +24,8 @@ export function Component({ content, isSelected, onClick }: any) {
       onClick={onClick}
     >
       <h1>{content.title}</h1>
-      <ul>
-        {content.lists[0].map((item: string, index: number) => (
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+      <List content={content} />
+
     </Slide>
   )
 }

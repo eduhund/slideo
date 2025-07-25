@@ -1,6 +1,7 @@
 ._concept-0 {
   .container {
     width: 100%; /* Ensure the container takes the full width */
+    flex-grow: 1; /* Ensure it takes the full height */
     display: flex;
     align-items: flex-start;
     overflow: hidden;

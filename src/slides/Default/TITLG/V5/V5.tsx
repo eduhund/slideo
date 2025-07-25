@@ -45,7 +45,7 @@ export function Component({ content, isSelected, onClick }: any) {
       <div className="slideContainer">
         <img className="logo" src={content.images[0].src} />
         <div className="textContainer">
-          <UnwrapContent content={content} listType="ul" fromParagraph={1} />
+          <UnwrapContent content={content} fromParagraph={1} />
           <div className="contentContainer">
             <h1>{content.title}</h1>
             {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}

@@ -44,6 +44,10 @@
     }
   }
 
+  .unwrapContent {
+      max-width: 65%;
+  }
+
   ul, ol {
     margin: 0 0 0 -20px;
     display: flex;

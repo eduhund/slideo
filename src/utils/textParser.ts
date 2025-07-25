@@ -103,7 +103,7 @@ function extractSlides(doc: Document): any[] {
         }
       } else if (element.tagName === 'UL' || element.tagName === 'OL') {
         currentSlide.lists.push({
-          type: element.tagName.toLowerCase(),
+          type: element.firstChild?.attributes['data-list'].value === 'ordered' ? 'ol' : 'ul',
           items: Array.from(element.children).map((li) => ({
             text: li.textContent || '',
           })),

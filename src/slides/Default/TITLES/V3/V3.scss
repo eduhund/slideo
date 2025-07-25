@@ -39,7 +39,12 @@
       line-height: 120%;
       font-weight: 500;
       margin-bottom: 10px;
+      max-width: 65%;
     }
+  }
+
+  .unwrapContent {
+      max-width: 65%;
   }
 
   ul, ol {

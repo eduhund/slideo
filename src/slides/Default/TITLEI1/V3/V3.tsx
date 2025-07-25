@@ -50,7 +50,7 @@ export function Component({ content, isSelected, onClick }: any) {
     >
       <div className="slideContainer">
         <div className="textContainer">
-          <UnwrapContent content={content} listType="ul" fromParagraph={1} />
+          <UnwrapContent content={content} fromParagraph={1} />
           <div className="contentContainer">
             <h1>{content.title}</h1>
             {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}

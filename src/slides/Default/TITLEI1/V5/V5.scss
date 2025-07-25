@@ -43,13 +43,16 @@
     }
   }
 
+  .unwrapContent {
+    max-width: 65%;
+  }
 
   ul, ol {
-      margin: 0 0 0 -20px;
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      max-width: 65%;
+    margin: 0 0 0 -20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-width: 65%;
   }
 
   img {

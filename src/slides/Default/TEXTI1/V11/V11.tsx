@@ -1,10 +1,10 @@
 import Slide from '../../../../components/Slide/Slide'
 import UnwrapContent from '../../../Fragments/UnwrapContent'
 
-import './V1.scss'
+import './V11.scss'
 
 const meta = {
-  name: 'text_v01',
+  name: 'texti1_v11',
   priority: 404,
   title: {
     level: 1,
@@ -12,7 +12,7 @@ const meta = {
     maxLength: 100,
   },
   image: {
-    count: 0,
+    count: 1,
   },
   paragraph: {
     min: 1,
@@ -39,6 +39,11 @@ export function Component({ content, isSelected, onClick }: any) {
 
         </div>
       </div>
+      <img
+              src={content.images[0]?.src}
+              alt={content.title}
+              className="slideImage1"
+            />
     </Slide>
   )
 }

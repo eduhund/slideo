@@ -1,10 +1,10 @@
 import Slide from '../../../../components/Slide/Slide'
-import UnwrapContent from '../../../Fragments/UnwrapContent'
+import Unlist from '../../../Fragments/Unlist'
 
-import './V1.scss'
+import './V16.scss'
 
 const meta = {
-  name: 'text_v01',
+  name: 'texti1_v16',
   priority: 404,
   title: {
     level: 1,
@@ -12,12 +12,14 @@ const meta = {
     maxLength: 100,
   },
   image: {
-    count: 0,
+    count: 1,
   },
   paragraph: {
-    min: 1,
-    max: 4,
-    any: {min: 100},
+    min: 2,
+    max: 2,
+    any: [
+      {min: 100},
+    ]
   },
 }
 
@@ -31,14 +33,13 @@ export function Component({ content, isSelected, onClick }: any) {
     >
       <div className="slideContainer">
         <div className="textContainer">
-
+          <h1>{content.title}</h1>
           <div className="contentContainer">
-            <h1>{content.title}</h1>
-            <UnwrapContent content={content} fromParagraph={0} />
+            <Unlist content={content} fromParagraph={0} />
           </div>
-
         </div>
       </div>
+
     </Slide>
   )
 }

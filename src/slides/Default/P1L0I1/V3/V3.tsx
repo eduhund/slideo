@@ -1,5 +1,5 @@
 import Slide from '../../../../components/Slide/Slide'
-import UnwrapContent from '../../../Fragments/UnwrapContent'
+import List from '../../../Fragments/lists/List'
 
 import './V3.scss'
 
@@ -28,7 +28,7 @@ export function Component({ content, isSelected, onClick }: any) {
         <div className="textContainer">
           <h1>{content.title}</h1>
           {content.paragraphsRaw.map((p) => (<p dangerouslySetInnerHTML={{ __html: p }}/>))}
-          <UnwrapContent content={content} fromParagraph={1} />
+          <List content={content} />
 
           <div className="images">
             <img

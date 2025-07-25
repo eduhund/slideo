@@ -1,6 +1,7 @@
 export * from './P1L0I1'
 export * from './P0L0I1'
 // export * from './P0L0I2'
+export * from './TEXT'
 export * from './TITLES'
 export * from './TITLEI1'
 export * from './TITLG'

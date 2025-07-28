@@ -26,8 +26,9 @@
   h1 {
     text-align: start;
     max-width: 700px;
-    font-size: 44px;
+    font-size: 60px;
     line-height: 100%;
+    font-weight: 500;
   }
 
   h2,
@@ -49,15 +50,15 @@
 
   .images {
     position: absolute;
-    left: 800px;
-    top: 50%;
+    left: 960px;
+    top: calc(50% - 60px);
     transform: translate(0, -50%);
     width: 100%;
   }
 
   .slideImage1 {
     width: auto;
-    height: 520px;
+    height: 1040px;
   }
 
 }

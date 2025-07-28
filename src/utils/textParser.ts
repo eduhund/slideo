@@ -12,6 +12,8 @@ function svgToDataUrl(svgElement: SVGElement): string {
 function extractSlides(doc: Document): any[] {
   const slides: any[] = []
   let currentSlide: any = {
+    subheaders: [],
+    importantText: [],
     paragraphs: [],
     paragraphsRaw: [],
     lists: [],
@@ -22,6 +24,8 @@ function extractSlides(doc: Document): any[] {
   const addSlide = () => {
     slides.push({ ...currentSlide })
     currentSlide = {
+      subheaders: [],
+      importantText: [],
       paragraphs: [],
       paragraphsRaw: [],
       lists: [],
@@ -62,6 +66,12 @@ function extractSlides(doc: Document): any[] {
           title: isHeader ? element.textContent || '' : '',
           raw: element.outerHTML,
         }
+      } else if (element.tagName === 'H3') {
+        currentSlide.subheaders.push(element.textContent || '')
+        currentSlide.raw += element.outerHTML
+      } else if (element.tagName === 'H4') {
+        currentSlide.importantText.push(element.textContent || '')
+        currentSlide.raw += element.outerHTML
       } else if (element.classList.contains('ImageBlot')) {
         const img = element.querySelector('img')
         if (img) {
@@ -92,9 +102,12 @@ function extractSlides(doc: Document): any[] {
           currentSlide.raw += element.outerHTML
         }
       } else if (element.tagName === 'UL' || element.tagName === 'OL') {
-        currentSlide.lists.push(
-          Array.from(element.childNodes).map((el) => el.textContent || '')
-        )
+        currentSlide.lists.push({
+          type: element.firstChild?.attributes['data-list'].value === 'ordered' ? 'ol' : 'ul',
+          items: Array.from(element.children).map((li) => ({
+            text: li.textContent || '',
+          })),
+        })
         currentSlide.raw += element.outerHTML
       } else if (element.firstChild?.nodeName === 'IMG') {
         currentSlide.images.push(element)

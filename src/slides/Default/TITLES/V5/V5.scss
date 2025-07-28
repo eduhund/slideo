@@ -43,22 +43,15 @@
     }
   }
 
+  .unwrapContent {
+      max-width: 65%;
+  }
 
-  ul {
+  ul, ol {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    align-items: end;
-
     margin: 0 0 0 -20px;
-    display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    li {
-      &::before {
-        display: none;
-      }
-    }
+    max-width: 65%;
   }
-
 }

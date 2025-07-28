@@ -13,6 +13,31 @@ const meta = {
   },
   image: {
     count: 1,
+    filter: [
+      {
+        height: {
+          max: 240,
+        },
+        width: {
+          mах: 360,
+        },
+        aspectRatio: {
+          max: 1.5,
+          min: 0.66,
+        },
+      },
+    ]
+  },
+  paragraph: {
+    min: 0,
+    max: 5,
+    count: [
+      {min: 0, max: 120},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+    ]
   },
 }
 
@@ -37,27 +62,7 @@ export function Component({ content, isSelected, onClick }: any) {
             )}
           </div>
         </div>
-        {content.paragraphsRaw?.length > 1 && (
-          <ul>
-            {content.paragraphsRaw
-              .slice(1)
-              .map((item: string, index: number) =>
-                index == logoPosition ? (
-                  <li key={index} className="itemWithLogo">
-                    {content.images[0] && (
-                      <img className="logo" src={content.images[0].src} />
-                    )}{' '}
-                    <span dangerouslySetInnerHTML={{ __html: item }} />
-                  </li>
-                ) : (
-                  <li
-                    key={index}
-                    dangerouslySetInnerHTML={{ __html: item }}
-                  ></li>
-                )
-              )}
-          </ul>
-        )}
+        <ListOfContent content={content} listType="ul" fromParagraph={1} logo={content.images[0].src} logoPosition={logoPosition} />
       </div>
     </Slide>
   )

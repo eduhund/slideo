@@ -1,4 +1,5 @@
 import Slide from '../../../../components/Slide/Slide'
+import List from '../../../Fragments/lists/List'
 
 import './V1.scss'
 
@@ -28,13 +29,8 @@ export function Component({ content, isSelected, onClick }: any) {
           <h1>{content.title}</h1>
           <div className="contentContainer">
             {content.paragraphsRaw.map((p) => (<p dangerouslySetInnerHTML={{ __html: p }}/>))}
-            {content.lists[0] && (
-              <ol>
-                {content.lists[0].map((item: string, index: number) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ol>
-            )}
+            <List content={content} />
+
           </div>
           <div className="images">
             <img

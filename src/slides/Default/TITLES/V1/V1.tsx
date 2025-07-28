@@ -14,6 +14,17 @@ const meta = {
   image: {
     count: 0,
   },
+  paragraph: {
+    min: 0,
+    max: 5,
+    count: [
+      {min: 0, max: 120},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+    ]
+  },
 }
 
 export function Component({ content, isSelected, onClick }: any) {

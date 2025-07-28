@@ -40,27 +40,27 @@
       line-height: 120%;
       font-weight: 500;
       margin-bottom: 10px;
+      max-width: 65%;
     }
   }
 
- ul {
+  .unwrapContent {
+    max-width: 65%;
+  }
+
+  ul, ol {
    margin: 0 0 0 -20px;
    display: flex;
-       flex-direction: column;
-       flex-wrap: wrap;
-   li {
-     &::before {
-       display: none;
-     }
-   }
- }
+   flex-direction: column;
+   flex-wrap: wrap;
+   max-width: 65%;
+  }
 
- img {
+  img {
    position: absolute;
    height: 66px;
    width: 66px;
    left: 0px;
    top: 0px;
- }
-
+  }
 }

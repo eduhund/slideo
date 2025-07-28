@@ -159,6 +159,32 @@ export default function useQuillEditor() {
                 )
               }
             },
+            slideSubheader: function () {
+              const range = quill.getSelection()
+              if (range) {
+                const currentFormat = quill.getFormat(range)
+                const isHeader3 = currentFormat.header === 3
+                quill.formatLine(
+                  range.index,
+                  range.length,
+                  'header',
+                  isHeader3 ? false : 3
+                )
+              }
+            },
+            slideImportant: function () {
+              const range = quill.getSelection()
+              if (range) {
+                const currentFormat = quill.getFormat(range)
+                const isHeader4 = currentFormat.header === 4
+                quill.formatLine(
+                  range.index,
+                  range.length,
+                  'header',
+                  isHeader4 ? false : 4
+                )
+              }
+            },
             insertAIImage: function () {
               insertAIImage(quill)
             },

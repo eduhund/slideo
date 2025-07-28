@@ -41,28 +41,22 @@
     }
   }
 
-
-  ul {
+  ul, ol {
     margin: 0 0 0 -20px;
     display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-    li {
-      &::before {
-        display: none;
-      }
-    }
+    flex-direction: column;
+    flex-wrap: wrap;
   }
 
   .hstack-right {
 
   }
 
- img {
+  img {
    position: absolute;
    right: 0px;
    bottom: 0px;
    height: auto;
    max-width: 580px;
- }
+  }
 }

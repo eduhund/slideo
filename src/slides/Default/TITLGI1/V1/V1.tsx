@@ -13,6 +13,42 @@ const meta = {
   },
   image: {
     count: 2,
+    filter: [
+      {
+        height: {
+          max: 240,
+        },
+        width: {
+          mах: 360,
+        },
+        aspectRatio: {
+          max: 1.5,
+          min: 0.66,
+        },
+      },
+      {
+        height: {
+          min: 450,
+        },
+        width: {
+          min: 250,
+        },
+        aspectRatio: {
+          min: 1,
+        },
+      },
+    ]
+  },
+  paragraph: {
+    min: 0,
+    max: 5,
+    count: [
+      {min: 0, max: 120},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+    ]
   },
 }
 

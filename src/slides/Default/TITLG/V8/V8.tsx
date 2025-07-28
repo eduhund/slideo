@@ -1,5 +1,5 @@
 import Slide from '../../../../components/Slide/Slide'
-import ListOfContent from '../../../Fragments/lists/ListOfContent'
+import UnwrapContent from '../../../Fragments/UnwrapContent'
 
 import './V8.scss'
 
@@ -13,6 +13,24 @@ const meta = {
   },
   image: {
     count: 1,
+    filter: [
+      {
+        height: {
+          max: 240,
+        }
+      },
+    ]
+  },
+  paragraph: {
+    min: 0,
+    max: 5,
+    count: [
+      {min: 0, max: 160},
+      {min: 0, max: 160},
+      {min: 0, max: 160},
+      {min: 0, max: 160},
+      {min: 0, max: 160},
+    ]
   },
 }
 
@@ -27,7 +45,7 @@ export function Component({ content, isSelected, onClick }: any) {
       <div className="slideContainer">
         <div className="textContainer">
           <img className="logo" src={content.images[0].src} />
-          <ListOfContent content={content} listType="ul" fromParagraph={1} />
+          <UnwrapContent content={content} fromParagraph={1} />
           <div className="contentContainer">
             <h1>{content.title}</h1>
             {content.paragraphsRaw && (<p dangerouslySetInnerHTML={{ __html: content.paragraphsRaw[0] }}/>)}

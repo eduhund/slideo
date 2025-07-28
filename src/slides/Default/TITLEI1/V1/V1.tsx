@@ -13,6 +13,30 @@ const meta = {
   },
   image: {
     count: 1,
+    filter: [
+      {
+        height: {
+          min: 450,
+        },
+        width: {
+          min: 250,
+        },
+        aspectRatio: {
+          min: 1,
+        },
+      },
+    ]
+  },
+  paragraph: {
+    min: 0,
+    max: 5,
+    count: [
+      {min: 0, max: 120},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+      {min: 0, max: 80},
+    ]
   },
 }
 
